@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith - Home Page</title>
+
+
+    <!-- Since each page should ideally display a different title on the browser’s tab, I will use the “block title”
+    tag to display the current page’s title (source: https://docs.djangoproject.com/en/4.1/ref/templates/language/ ) -->
+    <title>{% block title %}Keith - Home Page{% endblock %}</title>
 </head>
 <body>
-    
+
+
+    <!-- I will use the “block body” tag so that I can insert HTML code from other pages inside the <body> tags of the
+    layout file (source: https://docs.djangoproject.com/en/4.1/ref/templates/language/#template-inheritance .) -->
+    <div>
+        {% block body %}
+        {% endblock %}
+    </div>
+
 </body>
 </html>
