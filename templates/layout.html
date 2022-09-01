@@ -72,6 +72,24 @@
         {% endblock %}
     </div>
 
+    <!-- Bootstrap footer (source: https://getbootstrap.com/docs/5.2/examples/footers/ )
+
+    I will add JS code to update the year in the copyright notice every year automatically (source:
+    https://kerstinmartin.com/blog/copyright-notice .)-->
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legal</a></li>
+        </ul>
+        <p class="text-center text-muted">© <script>document.write(new Date().getFullYear())</script>
+            Eduardo Salinas
+        </p>
+      </footer>
+    </div>
+
     <!-- My JS code -->
     <script src="{% static 'js/script.js' %}"></script>
 
