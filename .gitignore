@@ -12,6 +12,7 @@ node_modules/
 __pycache__/
 *.py[cod]
 *$py.class
+keith_project/__pycache__/
 
 # Editor
 .vscode
@@ -69,3 +70,5 @@ network/migrations/0004_like.py
 # media folder, and its images
 media/
 /.idea/keith_project.iml
+
+
