@@ -20,6 +20,10 @@
     <!-- Since each page should ideally display a different title on the browser’s tab, I will use the “block title”
     tag to display the current page’s title (source: https://docs.djangoproject.com/en/4.1/ref/templates/language/ ) -->
     <title>{% block title %}Keith - Home Page{% endblock %}</title>
+
+    <!-- I will call the CSS file using the “static” Django tag (source:
+    https://www.digitalocean.com/community/tutorials/working-with-django-templates-static-files .) -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" />
 </head>
 <body>
 
