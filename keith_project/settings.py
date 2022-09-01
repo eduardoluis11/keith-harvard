@@ -29,8 +29,12 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+""" Here, I will install the app that contains the code for the web app. I need that to, among other things, 
+to be able to use "makemigrations" to create the database, as well as the urls.py file.
+"""
 
 INSTALLED_APPS = [
+    'keith_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,10 +55,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'keith_project.urls'
 
+
+""" In order to detect the folder with the templates on the root directory, I need to put “BASE_DIR” and “templates” in 
+the settings.py file (source: https://youtu.be/pRNhdI9PVmg .)
+"""
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
