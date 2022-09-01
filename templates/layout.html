@@ -1,6 +1,17 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- I will fix the “static” folder so that Django detects it, and so that I can use the CSS and the JS from that
+    folder. First, I will add a call to the script.js file folder in the layout file. This should be done right before
+    closing the <body> tag. I should call the script using the “static” keyword.
+
+    To load the static files, I need to put “load static” at the beginning of the layout page (source:
+    https://docs.djangoproject.com/en/4.1/howto/static-files/ ).
+    -->
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,5 +31,7 @@
         {% endblock %}
     </div>
 
+    <!-- My JS code -->
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
