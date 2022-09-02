@@ -4,3 +4,12 @@ body {
     background-color: black;
 }
 */
+
+/* This should keep the footer on the bottom of the page (source: 
+https://moderncss.dev/keep-the-footer-at-the-bottom-flexbox-vs-grid/)
+*/
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
