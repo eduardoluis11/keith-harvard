@@ -16,7 +16,7 @@ All of the text and content will go here.
     screenshot of the game.
     -->
     <div class="row">   <!-- Bootstrap row -->
-        <div class="col">   <!-- Left column of the 1x2 grid -->
+        <div class="col-md">   <!-- Left column of the 1x2 grid -->
             <p>
                 This is Keith, a web game about the relationship between two anthropomorphic foxes: Fang, and his
                 adoptive son, Keith. You'll play as Fang, and you'll have to fight robots.
@@ -38,10 +38,13 @@ All of the text and content will go here.
                 please use landscape mode.
             </p>
         </div>
-        <div class="col"> <!-- Right column of the 1x2 grid -->
+        <div class="col-md"> <!-- Right column of the 1x2 grid -->
 
-            <!-- Screenshot of the game -->
-            <img src="{% static 'img/placeholder-screenshot.png' %}" alt="Keith's Screenshot" height="250px">
+            <!-- Screenshot of the game.
+
+            I added the dimension of the image in "rem" so that the image is responsive, and to prevent horizontal
+            overflow on phone screens. -->
+            <img src="{% static 'img/placeholder-screenshot.png' %}" alt="Keith's Screenshot" height="200 rem">
         </div>
 
 
