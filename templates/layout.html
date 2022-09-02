@@ -39,38 +39,40 @@
 > -->
 <body>
 
-    <!-- Bootstrap navbar (source: https://getbootstrap.com/docs/5.2/components/navbar/ ) -->
-    <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"><b>Keith</b></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Legal</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>  <!-- End of navbar -->
+    <!-- Bootstrap navbar (source: https://getbootstrap.com/docs/5.2/components/navbar/ ).
+
+    I added "mb" to add a margin at the bottom of the navbar. -->
+    <nav class="navbar navbar-expand-lg bg-light mb-5">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><b>Keith</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Legal</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>  <!-- End of navbar -->
 
     <!-- I will use the “block body” tag so that I can insert HTML code from other pages inside the <body> tags of the
     layout file (source: https://docs.djangoproject.com/en/4.1/ref/templates/language/#template-inheritance .) -->
