@@ -88,6 +88,10 @@ DATABASES = {
     }
 }
 
+""" This will let me store users using AbstractUser by using makemigrations (source: 
+https://docs.djangoproject.com/en/4.1/topics/auth/customizing/ ).
+"""
+AUTH_USER_MODEL = "keith_app.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
