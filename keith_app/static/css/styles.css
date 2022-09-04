@@ -47,3 +47,10 @@ https://github.com/Godsont/Cookie-Consent-Banner/blob/master/style.css .) */
   border-radius: 8px;
   cursor: pointer;
 }   /* End of Cookie Banner's Styles */
+
+/* This will make the inputs to be below their respective labels in Django Forms (source: user10238703's reply on
+https://stackoverflow.com/questions/51893239/how-to-place-a-the-label-description-of-a-django-char-field-above-the-textbox)
+*/
+label {
+    width: 100%;
+}
