@@ -15,4 +15,4 @@ setTimeout(() => {
   if (!localStorage.getItem("cookieBannerDisplayed")) {
     cookieContainer.classList.add("active");
   }
-}, 2000);
+}, 2000);   /* End of Cookie Banner JS code */

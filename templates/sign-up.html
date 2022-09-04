@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+<!-- This will let the user create an account -->
+{% block body %}
+
+    <h1>Sign Up</h1>
+    <br>
+    <br>
+
+    <div>
+        <p>
+            Create an account so that you can start playing Keith.
+        </p>
+    </div>
+
+    <!-- This will print an error message if the user chooses an existing username -->
+    {% if message %}
+        <div style="color: red">{{ message }}</div>
+        <br>
+    {% endif %}
+
+    <!-- Sign Up form.
+
+    Turns out that I can have a password input in a form by using Django forms. All I need to use is an extra attribute
+    called “widget=forms.PasswordInput” (source: https://django.cowhite.com/blog/django-forms-and-model-forms/ ).
+
+	So, I will create both the sign up form and the login form using Django Forms. I won’t manually create an HTML form.
+	The Sign Up and Login pages will be almost empty. I will call the form from a forms.py file (which I have to
+	create.)
+
+
+    The 'url' tag will call a view from views.py (source:
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/ .) In this case, it will execute the form code in
+    the sign up view, and will later redirect the user to the home page as a logged user.
+
+    For security purposes, I need to add the CSRF token (source:
+    https://docs.djangoproject.com/en/4.1/howto/csrf/ .)
+    -->
+    <div>
+        <form action="{% url 'sign_up' %}" method="post">
+            {% csrf_token %}
+
+
+            <!-- Submit button -->
+            <input class="btn btn-primary" type="submit" value="Sign Up">
+        </form>
+    </div>
+    <br>
+
+    <p>
+        If you already have an account, <a href="#">you can log in here.</a>
+    </p>
+
+{% endblock %}

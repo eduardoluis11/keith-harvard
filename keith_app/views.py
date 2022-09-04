@@ -44,3 +44,10 @@ from django.urls import reverse
 def index(request):
     return render(request, 'index.html')
 
+
+""" Sign up view.
+
+This will render the sign up page, and create an account if the user submits the sign up form.
+"""
+def sign_up(request):
+    return render(request, 'sign-up.html')
