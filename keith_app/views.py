@@ -36,6 +36,8 @@ https://docs.djangoproject.com/en/4.1/ref/urlresolvers/ ).
 """
 from django.urls import reverse
 
+# This imports all forms from forms.py
+from .forms import SignUpForm
 
 # Create your views here.
 
@@ -48,6 +50,14 @@ def index(request):
 """ Sign up view.
 
 This will render the sign up page, and create an account if the user submits the sign up form.
+
+I will import the forms from forms.py.
 """
 def sign_up(request):
-    return render(request, 'sign-up.html')
+
+    # Sign Up form
+    form = SignUpForm
+
+    return render(request, 'sign-up.html', {
+        "form": form,
+    })
