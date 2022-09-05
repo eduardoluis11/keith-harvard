@@ -11,6 +11,9 @@ All of the text and content will go here.
 -->
 {% block body %}
 
+    <!--  I’m ready to start creating the JS code for the game. Remember: that will only be displayed IF THE USER IS
+    LOGGED IN. That is, the <canvas> will only show up for logged users.
+    -->
     {% if user.is_authenticated %}    <!-- This will render if the user is logged in -->
 
     <div>
@@ -18,6 +21,8 @@ All of the text and content will go here.
             Hello, {{user.username}}!
         </p>
     </div>
+
+
 
     {% else %}  <!-- This will render if the user's not logged -->
 
