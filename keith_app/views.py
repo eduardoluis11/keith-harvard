@@ -155,3 +155,20 @@ def login_user(request):
         return render(request, 'login.html', {
             "form": form,
         })
+
+
+""" Log Out View.
+
+The “logout” function will log the user out.
+
+I will add the decorator that checks that user should be logged in to prevent the user from accessing this function
+if they're not logged in.
+"""
+@login_required
+def logout_user(request):
+
+    # This logs the user out
+    logout(request)
+
+    # This redirects the user to the home page
+    return HttpResponseRedirect(reverse("index"))
