@@ -67,6 +67,10 @@ check if the username is duplicated. If the username doesn’t exist, I will let
 display an error message saying that that username has been taken by someone else  (source: 
 https://www.w3schools.com/python/python_try_except.asp ).
 
+BUGFIX: I need to add the variable with the form inside every instance of "return", or otherwise, the form
+won't render if I get an error. For instance, I had an error in which, if I typed a different password and 
+confirmation password, the sign up form wouldn't be rendered again.
+
 """
 def sign_up(request):
 
@@ -85,7 +89,8 @@ def sign_up(request):
         # This checks that the password and confirmation password are the same
         if password != confirmation_password:
             return render(request, "sign-up.html", {
-                "message": "The password and confirmation password do not match."
+                "message": "The password and confirmation password do not match.",
+                "form": form
             })
 
         # This will create a user if the username hasn't been taken by someone else
