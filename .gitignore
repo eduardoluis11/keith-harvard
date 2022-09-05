@@ -72,3 +72,4 @@ media/
 /.idea/keith_project.iml
 
 
+keith_project/__pycache__/settings.cpython-310.pyc
