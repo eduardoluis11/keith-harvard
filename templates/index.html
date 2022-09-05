@@ -11,11 +11,23 @@ All of the text and content will go here.
 -->
 {% block body %}
 
-    <!--  I’m ready to start creating the JS code for the game. Remember: that will only be displayed IF THE USER IS
+    <!--  This will render the game and anything that should only be rendered if the user's logged in.
+        
+        I’m ready to start creating the JS code for the game. Remember: that will only be displayed IF THE USER IS
     LOGGED IN. That is, the <canvas> will only show up for logged users.
+
+        I will put <canvas> tags in the home page to render the game. This will only be rendered if the user’s logged in. 
     -->
     {% if user.is_authenticated %}    <!-- This will render if the user is logged in -->
 
+    <!-- This will render the game -->
+    <canvas>
+
+    </canvas>   <!-- End of the canvas -->
+
+
+
+    <!-- DEBUG msg. This will display the logged user's username. I might put this somewhere else, or delete it entirely. -->
     <div>
         <p>
             Hello, {{user.username}}!
