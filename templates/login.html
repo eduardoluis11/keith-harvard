@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+<!-- This will let the user log in to their account -->
+{% block body %}
+
+    <h1>Log In</h1>
+    <br>
+    <br>
+
+    <div>
+        <p>
+            Log in to play Keith.
+        </p>
+    </div>
+
+    <!-- This will print an error message if the user chooses an existing username -->
+    {% if message %}
+        <div style="color: red">{{ message }}</div>
+        <br>
+    {% endif %}
+
+    <!-- Log In form.
+    -->
+    <div>
+        <form action="{% url 'login_user' %}" method="post">
+            {% csrf_token %}
+
+            <!-- Django Form -->
+            {{form.as_p}}
+
+            <!-- Submit button -->
+            <input class="btn btn-primary" type="submit" value="Log In">
+        </form>
+    </div>
+    <br>
+
+    <p>
+        Don't have an account? <a href="{% url 'sign_up' %}">you can register here.</a>
+    </p>
+
+{% endblock %}

@@ -37,7 +37,7 @@ https://docs.djangoproject.com/en/4.1/ref/urlresolvers/ ).
 from django.urls import reverse
 
 # This imports all forms from forms.py
-from .forms import SignUpForm
+from .forms import SignUpForm, LoginForm
 
 # This imports the models (source: https://docs.djangoproject.com/en/4.1/topics/db/models/ )
 from .models import User
@@ -106,5 +106,41 @@ def sign_up(request):
         return HttpResponseRedirect(reverse("index"))
 
     return render(request, 'sign-up.html', {
+        "form": form,
+    })
+
+
+""" Log In View.
+"""
+def login_user(request):
+    # Sign Up form
+    form = LoginForm
+
+    # This will detect if the user submitted the Sign Up form
+    # if request.method == "POST":
+    #
+    #     # This gets the data from each of the form's fields:
+    #     username = request.POST["username"]
+    #     password = request.POST["password"]
+    #
+    #
+    #     # This will create a user if the username hasn't been taken by someone else
+    #     try:
+    #         new_user = User.objects.create_user(username, email, password)
+    #         new_user.save()
+    #
+    #     # This will print an error if the user types a username that was taken by someone else
+    #     except IntegrityError:
+    #         return render(request, "sign-up.html", {
+    #             "message": "Error: This username was taken by someone else."
+    #         })
+    #
+    #     # This will log in the newly created user
+    #     login(request, new_user)
+    #
+    #     # This will redirect the logged user to the home page
+    #     return HttpResponseRedirect(reverse("index"))
+
+    return render(request, 'login.html', {
         "form": form,
     })

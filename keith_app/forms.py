@@ -22,6 +22,17 @@ For the email, I will use EmailField to check that the user types a proper email
 class SignUpForm(forms.Form):
     username = forms.CharField(max_length=100)
     email = forms.EmailField(required=False, max_length=254)
-    password = forms.CharField(max_length=50, widget=forms.PasswordInput)   # Password
+    password = forms.CharField(max_length=2000, widget=forms.PasswordInput)   # Password
     confirmation_password = forms.CharField(max_length=50, widget=forms.PasswordInput)
+
+
+""" Login Form.
+
+The fields that I will need will be simply the username and password.
+
+I will censor the password.
+"""
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=2000, widget=forms.PasswordInput)   # Password
 
