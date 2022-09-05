@@ -45,8 +45,16 @@
 
     I will hide the “sign up” and “login” links from the navbar if the user is logged in. Then, I will show a link to
     the “logout_user()” view in the navbar if they’re logged in.
+
+    I will make it so that, if the user’s logged in, I will remove the padding between the navbar and the rest of the 
+    page. I can do that using the “is_authenticated” decorator, and adding or deleting the Bootstrap class that adds 
+    the padding depending on whether the user’s logged in.
     -->
-    <nav class="navbar navbar-expand-lg bg-light mb-5">
+    {% if user.is_authenticated %}
+      <nav class="navbar navbar-expand-lg bg-light">  <!-- No padding below navbar -->
+    {% else %}
+      <nav class="navbar navbar-expand-lg bg-light mb-5"> <!-- Padding below navbar -->
+    {% endif %}
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}"><b>Keith</b></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

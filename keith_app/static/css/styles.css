@@ -65,4 +65,7 @@ which is not what I want. I will fix this before continuaing with the game.
 canvas {
   width: 100%;
   object-fit: contain;
+
+  /* DEBUG code*/
+  background-color: black;
 }
