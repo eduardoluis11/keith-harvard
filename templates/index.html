@@ -11,42 +11,52 @@ All of the text and content will go here.
 -->
 {% block body %}
 
-    <!-- I’ll use a Bootstrap grid to divide the screen into 2 halves: one for the text, and another for a screenshot
-    of the game. For that, I’ll create 1 row and 2 columns. I could use one of my wireframes as a placeholder for the
-    screenshot of the game.
-    -->
-    <div class="row">   <!-- Bootstrap row -->
-        <div class="col-md">   <!-- Left column of the 1x2 grid -->
-            <p>
-                This is Keith, a web game about the relationship between two anthropomorphic foxes: Fang, and his
-                adoptive son, Keith. You'll play as Fang, and you'll have to fight robots.
-            </p>
-            <p>
-                This is Eduardo Salinas' submission for CS50's Web Programming with Python and JavaScript's final
-                project.
-            </p>
-            <br>
-            <p> <!-- Sign up link -->
-                You need to <a href="#">sign up</a> to play.
-            </p>
-            <p> <!-- Log in link -->
-                Already have an account? <a href="#">Log in</a> to play!
-            </p>
-            <br>
-            <p>
-                Note: the game won't look good on portrait mode. If you plan in playing the game on mobile devices,
-                please use landscape mode.
-            </p>
-        </div>
-        <div class="col-md"> <!-- Right column of the 1x2 grid -->
+    {% if user.is_authenticated %}    <!-- This will render if the user is logged in -->
 
-            <!-- Screenshot of the game.
-
-            I added the dimension of the image in "rem" so that the image is responsive, and to prevent horizontal
-            overflow on phone screens. -->
-            <img src="{% static 'img/placeholder-screenshot.png' %}" alt="Keith's Screenshot" height="200 rem">
-        </div>
-
-
+    <div>
+        <p>
+            Hello, {{user.username}}!
+        </p>
     </div>
+
+    {% else %}  <!-- This will render if the user's not logged -->
+
+        <!-- I’ll use a Bootstrap grid to divide the screen into 2 halves: one for the text, and another for a
+        screenshot of the game. For that, I’ll create 1 row and 2 columns. I could use one of my wireframes as a
+        placeholder for the screenshot of the game.
+        -->
+        <div class="row">   <!-- Bootstrap row -->
+            <div class="col-md">   <!-- Left column of the 1x2 grid -->
+                <p>
+                    This is Keith, a web game about the relationship between two anthropomorphic foxes: Fang, and his
+                    adoptive son, Keith. You'll play as Fang, and you'll have to fight robots.
+                </p>
+                <p>
+                    This is Eduardo Salinas' submission for CS50's Web Programming with Python and JavaScript's final
+                    project.
+                </p>
+                <br>
+                <p> <!-- Sign up link -->
+                    You need to <a href="#">sign up</a> to play.
+                </p>
+                <p> <!-- Log in link -->
+                    Already have an account? <a href="#">Log in</a> to play!
+                </p>
+                <br>
+                <p>
+                    Note: the game won't look good on portrait mode. If you plan in playing the game on mobile devices,
+                    please use landscape mode.
+                </p>
+            </div>
+            <div class="col-md"> <!-- Right column of the 1x2 grid -->
+
+                <!-- Screenshot of the game.
+
+                I added the dimension of the image in "rem" so that the image is responsive, and to prevent horizontal
+                overflow on phone screens. -->
+                <img src="{% static 'img/placeholder-screenshot.png' %}" alt="Keith's Screenshot" height="200 rem">
+            </div>
+        </div>
+
+    {% endif %}
 {% endblock %}
