@@ -39,6 +39,9 @@ from django.urls import reverse
 # This imports all forms from forms.py
 from .forms import SignUpForm
 
+# This imports the models (source: https://docs.djangoproject.com/en/4.1/topics/db/models/ )
+from .models import User
+
 # Create your views here.
 
 """ Home Page view
@@ -52,11 +55,55 @@ def index(request):
 This will render the sign up page, and create an account if the user submits the sign up form.
 
 I will import the forms from forms.py.
+
+Now, I will add the code to the sign up() view so that I can insert a user into the User model. I need to get the 
+data from the sign up page’s form.
+
+I will get the data from the form’s fields using request.method and request.POST (source: 
+https://docs.djangoproject.com/en/4.1/ref/request-response/ .)
+
+If the user submits the 4 fields, and if the password and the confirmation password match, I will use a “Try Except” to 
+check if the username is duplicated. If the username doesn’t exist, I will let the user login. Otherwise, I will 
+display an error message saying that that username has been taken by someone else  (source: 
+https://www.w3schools.com/python/python_try_except.asp ).
+
 """
 def sign_up(request):
 
     # Sign Up form
     form = SignUpForm
+
+    # This will detect if the user submitted the Sign Up form
+    if request.method == "POST":
+
+        # This gets the data from each of the form's fields:
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        confirmation_password = request.POST["confirmation_password"]
+
+        # This checks that the password and confirmation password are the same
+        if password != confirmation_password:
+            return render(request, "sign-up.html", {
+                "message": "The password and confirmation password do not match."
+            })
+
+        # This will create a user if the username hasn't been taken by someone else
+        try:
+            new_user = User.objects.create_user(username, email, password)
+            new_user.save()
+
+        # This will print an error if the user types a username that was taken by someone else
+        except IntegrityError:
+            return render(request, "sign-up.html", {
+                "message": "Error: This username was taken by someone else."
+            })
+
+        # This will log in the newly created user
+        login(request, new_user)
+
+        # This will redirect the logged user to the home page
+        return HttpResponseRedirect(reverse("index"))
 
     return render(request, 'sign-up.html', {
         "form": form,
