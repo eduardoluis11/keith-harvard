@@ -54,3 +54,15 @@ https://stackoverflow.com/questions/51893239/how-to-place-a-the-label-descriptio
 label {
     width: 100%;
 }
+
+/* This will change the dimensions of the canvas, and make it responsive. 
+
+BUG: The combination of “width: 100%” with “object fit: contain” prevent any horizontal overflows, and looks good on vertical 
+mode in all devices (source: nicklundy’s reply on https://stackoverflow.com/questions/34772957/how-to-make-canvas-responsive). 
+However, if I put a phone in horizontal mode, the canvas is too high. Users will have to scroll down to see the rest of the canvas, 
+which is not what I want. I will fix this before continuaing with the game.
+*/
+canvas {
+  width: 100%;
+  object-fit: contain;
+}

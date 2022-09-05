@@ -17,5 +17,5 @@ const gameCanvas = document.querySelector('canvas')
 const c = gameCanvas.getContext('2d')
 
 // Dimensions of the canvas (should I make them responsive?)
-gameCanvas.width = 1024
-gameCanvas.height = 576
+// gameCanvas.width = 1024
+// gameCanvas.height = 576
