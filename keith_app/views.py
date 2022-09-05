@@ -96,7 +96,8 @@ def sign_up(request):
         # This will print an error if the user types a username that was taken by someone else
         except IntegrityError:
             return render(request, "sign-up.html", {
-                "message": "Error: This username was taken by someone else."
+                "message": "Error: This username was taken by someone else.",
+                "form": form
             })
 
         # This will log in the newly created user
@@ -105,42 +106,47 @@ def sign_up(request):
         # This will redirect the logged user to the home page
         return HttpResponseRedirect(reverse("index"))
 
-    return render(request, 'sign-up.html', {
-        "form": form,
-    })
+    # This will render the sign-up page if the user enters from a link
+    else:
+        return render(request, 'sign-up.html', {
+            "form": form,
+        })
 
 
 """ Log In View.
+
+I will use the “authenticate” function to check if a username and its respective password exist inside the database 
+(source: https://docs.djangoproject.com/en/dev/topics/auth/default/ ). 
 """
 def login_user(request):
+
     # Sign Up form
     form = LoginForm
 
-    # This will detect if the user submitted the Sign Up form
-    # if request.method == "POST":
-    #
-    #     # This gets the data from each of the form's fields:
-    #     username = request.POST["username"]
-    #     password = request.POST["password"]
-    #
-    #
-    #     # This will create a user if the username hasn't been taken by someone else
-    #     try:
-    #         new_user = User.objects.create_user(username, email, password)
-    #         new_user.save()
-    #
-    #     # This will print an error if the user types a username that was taken by someone else
-    #     except IntegrityError:
-    #         return render(request, "sign-up.html", {
-    #             "message": "Error: This username was taken by someone else."
-    #         })
-    #
-    #     # This will log in the newly created user
-    #     login(request, new_user)
-    #
-    #     # This will redirect the logged user to the home page
-    #     return HttpResponseRedirect(reverse("index"))
+    # This will detect if the user submitted the Log In form
+    if request.method == "POST":
 
-    return render(request, 'login.html', {
-        "form": form,
-    })
+        # This gets the data from each of the form's fields:
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        # This will check if the username and password exist in the database
+        check_user = authenticate(request, username=username, password=password)
+
+        # If the user exists, they will be logged in
+        if check_user is not None:
+            login(request, check_user)
+            return HttpResponseRedirect(reverse("index"))
+
+        # If the user types a wrong username or password, I will display an error message
+        else:
+            return render(request, "login.html", {
+                "message": "You typed an incorrect username and/or password.",
+                "form": form
+            })
+
+    # This will render the login page if the user enters from a link
+    else:
+        return render(request, 'login.html', {
+            "form": form,
+        })
