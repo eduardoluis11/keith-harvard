@@ -7,8 +7,13 @@ body {
 
 /* This should keep the footer on the bottom of the page (source: 
 https://moderncss.dev/keep-the-footer-at-the-bottom-flexbox-vs-grid/)
+
+Since Phaser’s first official tutorial recommends me to put the margin of the body as 0, I will 
+put it that way on my CSS (source: 
+https://phaser.io/tutorials/making-your-first-phaser-3-game/phaser3-tutorial-src.zip .)
 */
 body {
+    margin: 0;
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -61,11 +66,18 @@ BUG: The combination of “width: 100%” with “object fit: contain” prevent
 mode in all devices (source: nicklundy’s reply on https://stackoverflow.com/questions/34772957/how-to-make-canvas-responsive). 
 However, if I put a phone in horizontal mode, the canvas is too high. Users will have to scroll down to see the rest of the canvas, 
 which is not what I want. I will fix this before continuaing with the game.
+
+Due to another bug, I will no loger use "width: 100%" nor "object fit contain". I will try to resize the canvas depending
+on the screen/viewport height and width to make the canvas responsive.
 */
-canvas {
-  width: 100%;
-  object-fit: contain;
+/* canvas { */
+
+  /* width: 1024;
+  height: 576px; */
+
+  /* width: 100%;
+  object-fit: contain; */
 
   /* DEBUG code*/
-  background-color: black;
-}
+  /* background-color: black; */
+/* } */

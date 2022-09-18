@@ -16,14 +16,28 @@ All of the text and content will go here.
         I’m ready to start creating the JS code for the game. Remember: that will only be displayed IF THE USER IS
     LOGGED IN. That is, the <canvas> will only show up for logged users.
 
-        I will put <canvas> tags in the home page to render the game. This will only be rendered if the user’s logged in. 
+        I will put <canvas> tags in the home page to render the game. This will only be rendered if the user’s logged in.
+            
+    The canvas is being rendered BELOW the “Hello, USERNAME” line. That is because I didn’t need to add a <canvas> tag. 
+    By calling Phaser, the <canvas> tag is automatically created. So, I will delete the canvas tag. Also, I will call 
+    the <script> with index.js right above the “Hello, USERNAME” text, so that the canvas is right below the navbar. 
+    The reason why the Phaser canvas is being rendered below the “Hello, USERNAME” text is because I’m putting 
+    the index.js script below that line of text. 
+
+    create a div with an ID right where I want to render the game’s <canvas>, and then add that ID name as a parameter 
+    in Phaser's "config" (source: bFunc’s reply on 
+    https://stackoverflow.com/questions/20526933/html-moving-phaser-into-container-div )
     -->
     {% if user.is_authenticated %}    <!-- This will render if the user is logged in -->
 
-    <!-- This will render the game -->
-    <canvas>
+    <!-- This will render the <canvas> and the game -->
+    <div id="keith-game"></div>
 
-    </canvas>   <!-- End of the canvas -->
+    <!-- <script src="{% static 'js/index.js' %}"></script>  -->
+
+    <!-- <canvas>
+    </canvas>    -->
+    <!-- End of the canvas -->
 
 
 
