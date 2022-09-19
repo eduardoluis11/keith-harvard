@@ -60,10 +60,10 @@ So, for the time being and for testing my code, I will add a “CSRF exempt” d
 more insecure for the time being, at least I’ll be able to render the sprites into the Canvas to make sure that they work properly.
 
 From my “mail” homework assignment, I will look for the “CSRF exempt” decorator and its corresponding library (source: 
-https://cdn.cs50.net/web/2020/spring/projects/3/mail.zip .) 
+https://cdn.cs50.net/web/2020/spring/projects/3/mail.zip .) I NO LONGER NEED IT.
 
 """
-@csrf_exempt
+
 def index(request):
     return render(request, 'index.html')
 
