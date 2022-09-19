@@ -42,10 +42,28 @@ from .forms import SignUpForm, LoginForm
 # This imports the models (source: https://docs.djangoproject.com/en/4.1/topics/db/models/ )
 from .models import User
 
+# This will let me use the "CSRF exempt" decorator
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
-""" Home Page view
+""" Home Page view.
+
+This is where I'll render the game.
+
+I’m having a bug in which the sprites are never rendered into the canvas. Instead, I get a square with a diagonal line (as 
+if indicated that I can’t use that image). Also, I get a ton of XHR errors, saying “same origin” and “404: not found”. I 
+think the “same origin” bug was the same that a appeared to me whenever I tried to call an API in an insecure way (without 
+cookies). 
+
+So, for the time being and for testing my code, I will add a “CSRF exempt” decorator. Even though that will make my web app 
+more insecure for the time being, at least I’ll be able to render the sprites into the Canvas to make sure that they work properly.
+
+From my “mail” homework assignment, I will look for the “CSRF exempt” decorator and its corresponding library (source: 
+https://cdn.cs50.net/web/2020/spring/projects/3/mail.zip .) 
+
 """
+@csrf_exempt
 def index(request):
     return render(request, 'index.html')
 

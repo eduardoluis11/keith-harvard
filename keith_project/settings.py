@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+# I need this to use "os" to use a PATH to get the assets for Phaser
+import os
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -128,6 +132,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+""" Apparently, this will fix the problem: most likely, Phaser isn’t detecting the 
+PATH of my sprites, and that’s why they aren’t being rendered. So, I will add this 
+to settings.py (source: Bryam Ulloa’s reply from 
+https://stackoverflow.com/questions/50960043/phaser-2-not-loading-images-to-game-with-django ). 
+"""
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
