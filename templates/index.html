@@ -27,13 +27,18 @@ All of the text and content will go here.
     create a div with an ID right where I want to render the game’s <canvas>, and then add that ID name as a parameter 
     in Phaser's "config" (source: bFunc’s reply on 
     https://stackoverflow.com/questions/20526933/html-moving-phaser-into-container-div )
+
+    I changed my mind and I want to call the JS script only if the user is logged in. I'm doing this to prevent a bug that 
+    renders the canvas even if the user is not logged in.
+
     -->
     {% if user.is_authenticated %}    <!-- This will render if the user is logged in -->
 
     <!-- This will render the <canvas> and the game -->
     <div id="keith-game"></div>
 
-    <!-- <script src="{% static 'js/index.js' %}"></script>  -->
+    <!-- Script with the main Phaser code -->
+    <script src="{% static 'js/index.js' %}"></script> 
 
     <!-- <canvas>
     </canvas>    -->

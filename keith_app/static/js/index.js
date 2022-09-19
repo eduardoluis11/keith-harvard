@@ -56,14 +56,21 @@ Second, I will insert all of the sprites (or at least, some of the sprites for t
 function (source: https://phaser.io/tutorials/making-your-first-phaser-3-game/part2 .) I will insert the backgrounds as 
 images (with the “image” tag,) and the characters as spritesheets (with the “spritesheet” tag.)
 
+To fit an entire canvas in any screen size on any screen size, to make the canvas responsive in a basic way, I will use 
+“mode: Phaser.Scale.FIT” inside of the “config” variable (source: 
+https://github.com/photonstorm/phaser3-examples/blob/master/public/src/scalemanager/fit.js .)
+
 */
 
 // Settings for the Phaser game (includes physics, dimensions of the canvas, etc)
 var config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  parent: 'keith-game',
+  scale: {
+    mode: Phaser.Scale.FIT, // This makes the game responsive
+    parent: 'keith-game', // Thiss renders the game above the footer
+    width: 800,
+    height: 600
+  },
   scene: {
     preload: preload,
     create: create,
@@ -84,8 +91,8 @@ function preload ()
   this.load.image('ground-level-1', 'assets/level-1/ground.jpg')
 
   // Fang's idle spritesheet
-  this.load.spritesheet('fang-idle', 'assets/fang/fang-idle.png', { frameWidth: 32, frameHeight: 48 }
-  )
+  // this.load.spritesheet('fang-idle', 'assets/fang/fang-idle.png', { frameWidth: 32, frameHeight: 48 }
+  // )
 }
 
 function create ()
