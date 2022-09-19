@@ -81,16 +81,19 @@ var config = {
 // This executes the settings in "config" on the actual game
 var game = new Phaser.Game(config)
 
-// Here, I will insert the sprites
+/* Here, I will insert the sprites 
+
+I had to upload all the images into a folder called "media", and had to take from there the images.
+*/
 function preload () {
   // Background of action level 1 without the ground
   this.load.image('bg-level-1', 'media/assets/level-1/forest-background.jpg')
 
   // Ground of action level 1
-  this.load.image('ground-level-1', 'assets/level-1/ground.jpg')
+  this.load.image('ground-level-1', 'media/assets/level-1/ground.jpg')
 
   // Fang's idle spritesheet
-  this.load.spritesheet('fang-idle', 'assets/fang/fang-idle.png', { frameWidth: 32, frameHeight: 48 })
+  this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', { frameWidth: 32, frameHeight: 48 })
 }
 
 /* This renders the sprites and other things that were inserted in the preload() function.
@@ -99,9 +102,8 @@ I will add "this.image" to render the images that aren't spritesheets (i.e: the 
 
 */
 function create () {
-  this.add.image(0, 0, 'bg-level-1').setOrigin(0, 0)
-  this.add.image(0, 0, 'ground-level-1').setOrigin(0, 0)
-  this.add.image(0, 0, 'fang-idle').setOrigin(0, 0)
+  this.add.image(400, 300, 'bg-level-1')
+  this.add.image(400, 500, 'ground-level-1')
 }
 
 function update ()
