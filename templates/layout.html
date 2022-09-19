@@ -31,8 +31,23 @@
 
 
     <!-- I will call the CSS file using the “static” Django tag (source:
-    https://www.digitalocean.com/community/tutorials/working-with-django-templates-static-files .) -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" />
+    https://www.digitalocean.com/community/tutorials/working-with-django-templates-static-files .) 
+  
+    The cause of my bug was the CSS from my CSS file (styles.css). If I remove that CSS file, the game is perfectly responsive 
+    (if I refresh the page after changing the screen size. For instance, if I change to a small screen, I need to refresh the 
+    page so that the canvas fits the screen of the mobile phone.)
+
+	  So, to make my canvas responsive, I will make 2 main CSS files: one for logged users, and one for users who haven’t logged 
+    to their accounts. I will access one or the other depending on whether the user is logged to their account. I will do that 
+    using the Django decorator that checks if the user is logged in.
+    
+    -->
+    {% if user.is_authenticated %}
+      <link rel="stylesheet" href="{% static 'css/styles-logged-user.css' %}" type="text/css" />
+    {% else %}
+      <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" /> 
+    {% endif %}
+
 </head>
 <!-- <body 
   style="
