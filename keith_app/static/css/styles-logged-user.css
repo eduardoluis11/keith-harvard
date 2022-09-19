@@ -1,0 +1,57 @@
+/* These styles are only rendered if the user is logged in */
+
+/* This should keep the footer on the bottom of the page (source: 
+https://moderncss.dev/keep-the-footer-at-the-bottom-flexbox-vs-grid/)
+
+Since Phaser’s first official tutorial recommends me to put the margin of the body as 0, I will 
+put it that way on my CSS (source: 
+https://phaser.io/tutorials/making-your-first-phaser-3-game/phaser3-tutorial-src.zip .)
+*/
+/* body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+} */
+
+/* CSS for the cookie consent banner that I'll add to my web app (source:
+https://github.com/Godsont/Cookie-Consent-Banner/blob/master/style.css .) */
+.cookie-container {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: #2f3640;
+  color: #f5f6fa;
+  padding: 0 32px;
+  box-shadow: 0 -2px 16px rgba(47, 54, 64, 0.39);
+
+  transition: 400ms;
+}
+
+.cookie-container.active {
+  bottom: 0;
+}
+
+.cookie-container a {
+  color: #f5f6fa;
+}
+
+.cookie-btn {
+  background: #e84118;
+  border: 0;
+  color: #f5f6fa;
+  padding: 12px 48px;
+  font-size: 18px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}   /* End of Cookie Banner's Styles */
+
+/* This will make the inputs to be below their respective labels in Django Forms (source: user10238703's reply on
+https://stackoverflow.com/questions/51893239/how-to-place-a-the-label-description-of-a-django-char-field-above-the-textbox)
+*/
+label {
+    width: 100%;
+}
+
