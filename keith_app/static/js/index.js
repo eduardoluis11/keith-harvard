@@ -187,6 +187,9 @@ https://labs.phaser.io/edit.html?src=src/game%20objects/sprites/sprite%20alpha.j
 
 Fang's running animation has 8 sprites. Therefore, I will have to loop the sprites from the 0th sprite to the 7th sprite
 to get the running animation.
+
+If I increase the "frameRate" property from "anims", I'll make the animation to look faster.So, I increased the frameRate property
+from the running animation so that it looks faster.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -232,7 +235,7 @@ function create () {
   this.anims.create({
     key: 'running',
     frames: this.anims.generateFrameNumbers('fang-running', { start: 0, end: 7 }),
-    frameRate: 10,
+    frameRate: 14,
     repeat: -1
   })
 
