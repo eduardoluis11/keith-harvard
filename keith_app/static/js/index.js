@@ -260,14 +260,30 @@ for the player's sprite.
 
 If the player is touching a platform, and presses the up arrow, they'll be able to jump. You CAN'T jump
 if you're touching the lower bound of the screen.
+
+The only running sprites that I have for the player are facing to the right. However, with the function "flipX", 
+I can make a horizontal flip so that, when I run to the left, the sprites are flipepd so that Fang is facing to the
+left (source: https://www.codecademy.com/courses/learn-phaser/lessons/learn-phaser-cameras-and-effects/exercises/review-credits .)
 */
 function update () {
+
+  // This executes if the player touches the left arrow
   if (cursors.left.isDown) {
+
+    // This flips the sprite horizontally so that the player faces to the left
+    player.flipX = true;
+
+    // This makes the player's sprite to move to the left
     player.setVelocityX(-160)
 
+    // This plays the animation of the player running
     player.anims.play('running', true)
   }
+  // This executes if the player touches the right arrow
   else if (cursors.right.isDown) {
+    // This flips the sprite horizontally so that the sprite faces back to its original direction 
+    player.flipX = false;
+
     player.setVelocityX(160)
 
     player.anims.play('running', true)
@@ -278,6 +294,7 @@ function update () {
     player.anims.play('idle', true)
   }
 
+  // This executes if the player touches the up arrow
   if (cursors.up.isDown && player.body.touching.down) {
     player.setVelocityY(-330)
   }
