@@ -129,6 +129,10 @@ function preload () {
   this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', 
     { frameWidth: 36, frameHeight: 51 })
 
+  // Fang's running spritesheet
+  this.load.spritesheet('fang-running', 'media/assets/fang/fang-running.png', 
+  { frameWidth: 50, frameHeight: 49 })
+
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
 
@@ -180,6 +184,9 @@ Photoshop or a rectangle with low opacity, so that I could use it as a mask.
 
 To change the transparency of a sprite in Phaser, I need to add a number between 0 and 1 to its "alpha" attribute (source: 
 https://labs.phaser.io/edit.html?src=src/game%20objects/sprites/sprite%20alpha.js&v=3.55.2 ).
+
+Fang's running animation has 8 sprites. Therefore, I will have to loop the sprites from the 0th sprite to the 7th sprite
+to get the running animation.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -207,16 +214,24 @@ function create () {
   aerialPlatforms.create(200, 350, 'aerial-platform-1')
   aerialPlatforms.create(900, 350, 'aerial-platform-1')
 
-  // This adds the player's spritesheet with dynamic physics
+  // This adds the player's idle spritesheet with dynamic physics
   player = this.physics.add.sprite(100, 0, 'fang-idle').setScale(2)
 
   // This prevents the player from going out of bounds
   player.setCollideWorldBounds(true)
 
-  // This gets the player from the spritesheet, and adds animation to it (walk to right)
+  // This gets the player's idle sprites from the spritesheet, and adds animation to it (walk to right)
   this.anims.create({
-    key: 'right',
+    key: 'idle',
     frames: this.anims.generateFrameNumbers('fang-idle', { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1
+  })
+
+  // This gets the player's running sprites from the spritesheet, and adds animation to it (walk to right)
+  this.anims.create({
+    key: 'running',
+    frames: this.anims.generateFrameNumbers('fang-running', { start: 0, end: 7 }),
     frameRate: 10,
     repeat: -1
   })
@@ -250,17 +265,17 @@ function update () {
   if (cursors.left.isDown) {
     player.setVelocityX(-160)
 
-    player.anims.play('right', true)
+    player.anims.play('running', true)
   }
   else if (cursors.right.isDown) {
     player.setVelocityX(160)
 
-    player.anims.play('right', true)
+    player.anims.play('running', true)
   }
   else {
     player.setVelocityX(0)
 
-    player.anims.play('right', true)
+    player.anims.play('idle', true)
   }
 
   if (cursors.up.isDown && player.body.touching.down) {
