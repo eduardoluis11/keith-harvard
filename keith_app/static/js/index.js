@@ -119,7 +119,8 @@ function preload () {
   this.load.image('ground-level-1', 'media/assets/level-1/ground.jpg')
 
   // Fang's idle spritesheet
-  this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', { frameWidth: 32, frameHeight: 48 })
+  this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', 
+    { frameWidth: 200, frameHeight: 200 })
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
@@ -135,14 +136,19 @@ I will also render the aerial platforms in here. I’m only going to have 3 plat
 action levels: the level’s ground, and 2 aerial platforms. 
 
 Since neither the aerial platforms nor the levels' grounds will move when the player or enemy touches them, the will 
-have "static" physics. That is, the won't move if a character falls on top of them.
+have "static" physics. That is, the won't move if a character falls on top of them. This is done with the "staticGroup"
+snippet (source: https://phaser.io/tutorials/making-your-first-phaser-3-game/part4).
 
 I don't need to use "this.image.add" for the platforms, since I will render them as an object with physics. So, I can
-render them using ".create". Also, I think the ".refreshBody()" property adds all the collision detection to 
-the platform sprites.
+render them using ".create". I don't need to add the ".refreshBody()" property, since that's only to add the
+collision detection if I had stretched the sprite using "setScale".
 
 To have an easier time calculating where to put the sprites, I will use setOrigin(0,0), so Phaser puts the beginning 
 of the sprite at the top left corner of the screen as (0, 0).
+
+The “setCollideWorldBounds(true);” snippet will prevent the player from going out of bounds. That is, they won’t be 
+able to go past the right and left edged of the levels (source: 
+  https://phaser.io/tutorials/making-your-first-phaser-3-game/part5 ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -152,11 +158,25 @@ function create () {
   platforms = this.physics.add.staticGroup()
 
   // I will render the ground from action level 1 as a platform with collision detection
-  platforms.create(0, 492, 'ground-level-1').setOrigin(0, 0).refreshBody()
+  platforms.create(0, 492, 'ground-level-1').setOrigin(0, 0)
 
   // This renders the aerial platforms for the 1st action level
-  platforms.create(200, 300, 'aerial-platform-1')
-  platforms.create(680, 300, 'aerial-platform-1')
+  platforms.create(200, 350, 'aerial-platform-1')
+  platforms.create(900, 350, 'aerial-platform-1')
+
+  // This adds the player's spritesheet with dynamic physics
+  player = this.physics.add.sprite(100, 450, 'fang-idle')
+
+  // This prevents the player from going out of bounds
+  player.setCollideWorldBounds(true)
+
+  // This gets the player from the spritesheet, and adds animation to it (walk to right)
+  this.anims.create({
+    key: 'right',
+    frames: this.anims.generateFrameNumbers('fang-idle', { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1
+  })
 
   // this.add.image(400, 500, 'ground-level-1')
 }
