@@ -108,6 +108,10 @@ var aerialPlatforms
 // This will store the ground for each level
 var groundPlatforms
 
+// These variables will hold the HP points for the main character
+var healthPoints = 100
+var healthPointsText
+
 /* Here, I will insert the sprites 
 
 I had to upload all the images into a folder called "media", and had to take from there the images.
@@ -165,6 +169,11 @@ I could use setScale() to make Fang bigger without editing his spritesheet in Ph
 I will re-use an aerial platform to use it as the ground for the 1st action level. I will use "setScale" to make the platform long 
 enough to cover the entire width of the screen. I will also have to apply the property "refreshBody" to it since I want it to have 
 collision detection after stretching the original platform sprite.
+
+I will set the text for the HP and the EXP using “this.add.text” (source: 
+https://phaser.io/tutorials/making-your-first-phaser-3-game/part9 .) I will later see how to modify a shape’s opacity level in 
+Phaser so that I can put a mask behind the UI so that the UI becomes easier to read. Alternatively, I coul create a PNG image in 
+Photoshop or a rectangle with low opacity, so that I could use it as a mask.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -208,6 +217,9 @@ function create () {
 
   // This will register the arrow keys to let me move the player with the arrows
   cursors = this.input.keyboard.createCursorKeys()
+
+  // This creates the HP text that will be displayed in the UI
+  healthPointsText = this.add.text(16, 16, 'HP: 100', { fontSize: '32px', fill: '#FFFFFF' })
 
   // this.add.image(400, 500, 'ground-level-1')
 }
