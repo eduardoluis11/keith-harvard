@@ -100,13 +100,13 @@ var config = {
 var game = new Phaser.Game(config)
 
 // Upon further consideration, I will store all platforms and grounds in a single variable
-var platforms;
+// var platforms
 
-// // This will store the floating platforms from each level
-// var aerialPlatforms;
+// This will store the floating platforms from each level
+var aerialPlatforms
 
-// // This will store the ground for each level
-// var groundPlatforms;
+// This will store the ground for each level
+var groundPlatforms
 
 /* Here, I will insert the sprites 
 
@@ -123,7 +123,7 @@ function preload () {
 
   // Fang's idle spritesheet
   this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', 
-    { frameWidth: 200, frameHeight: 130 })
+    { frameWidth: 36, frameHeight: 51 })
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
@@ -159,20 +159,26 @@ add "this.physics.add.collider(player_sprite, platform_sprite);".
 To assign the keyboard arrow keys to the game so that the player can move Fang, I’ll use the snippet 
 “cursors = this.input.keyboard.createCursorKeys();” (source: 
 https://phaser.io/tutorials/making-your-first-phaser-3-game/part7 ).
+
+I could use setScale() to make Fang bigger without editing his spritesheet in Photoshop. I’ll use something like “.setScale(NUMBER)”.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
   this.add.image(0, 0, 'bg-level-1').setOrigin(0, 0)
 
   // This makes it so that the platforms don't move when a character jumps on top of them
-  platforms = this.physics.add.staticGroup()
+  aerialPlatforms = this.physics.add.staticGroup()
+
+  // This creates the physics for the ground platform
+  groundPlatforms = this.physics.add.staticGroup()
 
   // I will render the ground from action level 1 as a platform with collision detection
-  platforms.create(0, 492, 'ground-level-1').setOrigin(0, 0)
+  // groundPlatforms.create(0, 492, 'ground-level-1').setOrigin(0, 0)
+
 
   // This renders the aerial platforms for the 1st action level
-  platforms.create(200, 350, 'aerial-platform-1').refreshBody()
-  platforms.create(900, 350, 'aerial-platform-1')
+  // aerialPlatforms.create(200, 350, 'aerial-platform-1')
+  // aerialPlatforms.create(900, 350, 'aerial-platform-1')
 
   // This adds the player's spritesheet with dynamic physics
   player = this.physics.add.sprite(100, 0, 'fang-idle').setScale(2)
@@ -188,8 +194,11 @@ function create () {
     repeat: -1
   })
 
-  // This adds collision between the player and the platforms, to prevent me from falling through them
-  this.physics.add.collider(player, platforms)
+  // This adds collision between the player and the aerial platforms, to prevent me from falling through them
+  // this.physics.add.collider(player, aerialPlatforms)
+
+  // This adds collision between the player and the ground to prevent me from falling through them
+  // this.physics.add.collider(player, groundPlatforms)
 
   // This will register the arrow keys to let me move the player with the arrows
   cursors = this.input.keyboard.createCursorKeys()
