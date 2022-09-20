@@ -67,14 +67,17 @@ https://github.com/photonstorm/phaser3-examples/blob/master/public/src/scalemana
 I will add "arcade", since that's a pre-made collision detection system included in Phaser (source: 
 https://phaser.io/tutorials/making-your-first-phaser-3-game/part3 .) This also lets me add gravity, so that the player
 can fall after jumping.
+
+Upon further consideration, I will leave the canvas with 1024x576 px as its dimensions, since that gives me a 16:9 ratio,
+ and looks better that way (source: https://youtu.be/vyqbNFMDRGQ ).
 */
 var config = {
   type: Phaser.AUTO,
   scale: {
     mode: Phaser.Scale.FIT, // This makes the game responsive
     parent: 'keith-game', // Thiss renders the game above the footer
-    width: 800,
-    height: 600
+    width: 1024,
+    height: 576
   },
   physics: { // This will add gravity and some basic collision detection
     default: 'arcade',
@@ -146,10 +149,11 @@ function create () {
   platforms = this.physics.add.staticGroup()
 
   // I will render the ground from action level 1 as a platform with collision detection
-  platforms.create(400, 500, 'ground-level-1').refreshBody()
+  platforms.create(400, 560, 'ground-level-1').refreshBody()
 
   // This renders the aerial platforms for the 1st action level
-  platforms.create(400, 500, 'aerial-platform-1')
+  platforms.create(200, 300, 'aerial-platform-1')
+  platforms.create(680, 300, 'aerial-platform-1')
 
   // this.add.image(400, 500, 'ground-level-1')
 }
