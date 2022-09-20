@@ -112,6 +112,10 @@ var groundPlatforms
 var healthPoints = 100
 var healthPointsText
 
+// These variables will hold the EXP points for the main character
+var experiencePoints = 0
+var experiencePointsText
+
 /* Here, I will insert the sprites 
 
 I had to upload all the images into a folder called "media", and had to take from there the images.
@@ -250,6 +254,9 @@ function create () {
 
   // This creates the HP text that will be displayed in the UI
   healthPointsText = this.add.text(16, 16, 'HP: 100', { fontSize: '32px', fill: '#FFFFFF' })
+
+  // This creates the EXP text that will be displayed in the HUD
+  healthPointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
   // this.add.image(400, 500, 'ground-level-1')
 }
