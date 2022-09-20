@@ -140,16 +140,19 @@ have "static" physics. That is, the won't move if a character falls on top of th
 I don't need to use "this.image.add" for the platforms, since I will render them as an object with physics. So, I can
 render them using ".create". Also, I think the ".refreshBody()" property adds all the collision detection to 
 the platform sprites.
+
+To have an easier time calculating where to put the sprites, I will use setOrigin(0,0), so Phaser puts the beginning 
+of the sprite at the top left corner of the screen as (0, 0).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
-  this.add.image(400, 300, 'bg-level-1')
+  this.add.image(0, 0, 'bg-level-1').setOrigin(0, 0)
 
   // This makes it so that the platforms don't move when a character jumps on top of them
   platforms = this.physics.add.staticGroup()
 
   // I will render the ground from action level 1 as a platform with collision detection
-  platforms.create(400, 560, 'ground-level-1').refreshBody()
+  platforms.create(0, 492, 'ground-level-1').setOrigin(0, 0).refreshBody()
 
   // This renders the aerial platforms for the 1st action level
   platforms.create(200, 300, 'aerial-platform-1')
