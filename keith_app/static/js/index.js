@@ -62,7 +62,12 @@ https://github.com/photonstorm/phaser3-examples/blob/master/public/src/scalemana
 
 */
 
-// Settings for the Phaser game (includes physics, dimensions of the canvas, etc)
+/* Settings for the Phaser game (includes physics, dimensions of the canvas, etc.) 
+
+I will add "arcade", since that's a pre-made collision detection system included in Phaser (source: 
+https://phaser.io/tutorials/making-your-first-phaser-3-game/part3 .) This also lets me add gravity, so that the player
+can fall after jumping.
+*/
 var config = {
   type: Phaser.AUTO,
   scale: {
@@ -70,6 +75,13 @@ var config = {
     parent: 'keith-game', // Thiss renders the game above the footer
     width: 800,
     height: 600
+  },
+  physics: { // This will add gravity and some basic collision detection
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 300 },
+      debug: false
+    }
   },
   scene: {
     preload: preload,
@@ -81,9 +93,20 @@ var config = {
 // This executes the settings in "config" on the actual game
 var game = new Phaser.Game(config)
 
+// Upon further consideration, I will store all platforms and grounds in a single variable
+var platforms;
+
+// // This will store the floating platforms from each level
+// var aerialPlatforms;
+
+// // This will store the ground for each level
+// var groundPlatforms;
+
 /* Here, I will insert the sprites 
 
 I had to upload all the images into a folder called "media", and had to take from there the images.
+
+I will also upload the aerial platform sprites in here.
 */
 function preload () {
   // Background of action level 1 without the ground
@@ -94,16 +117,41 @@ function preload () {
 
   // Fang's idle spritesheet
   this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', { frameWidth: 32, frameHeight: 48 })
+
+  // Aerial platforms sprites
+  this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
 }
+
+
 
 /* This renders the sprites and other things that were inserted in the preload() function.
 
 I will add "this.image" to render the images that aren't spritesheets (i.e: the backgrounds.)
 
+I will also render the aerial platforms in here. I’m only going to have 3 platforms in pretty much all 
+action levels: the level’s ground, and 2 aerial platforms. 
+
+Since neither the aerial platforms nor the levels' grounds will move when the player or enemy touches them, the will 
+have "static" physics. That is, the won't move if a character falls on top of them.
+
+I don't need to use "this.image.add" for the platforms, since I will render them as an object with physics. So, I can
+render them using ".create". Also, I think the ".refreshBody()" property adds all the collision detection to 
+the platform sprites.
 */
 function create () {
+  // This renders a preloaded image (the 1st action level's background)
   this.add.image(400, 300, 'bg-level-1')
-  this.add.image(400, 500, 'ground-level-1')
+
+  // This makes it so that the platforms don't move when a character jumps on top of them
+  platforms = this.physics.add.staticGroup()
+
+  // I will render the ground from action level 1 as a platform with collision detection
+  platforms.create(400, 500, 'ground-level-1').refreshBody()
+
+  // This renders the aerial platforms for the 1st action level
+  platforms.create(400, 500, 'aerial-platform-1')
+
+  // this.add.image(400, 500, 'ground-level-1')
 }
 
 function update ()
