@@ -161,6 +161,10 @@ To assign the keyboard arrow keys to the game so that the player can move Fang, 
 https://phaser.io/tutorials/making-your-first-phaser-3-game/part7 ).
 
 I could use setScale() to make Fang bigger without editing his spritesheet in Photoshop. I’ll use something like “.setScale(NUMBER)”.
+
+I will re-use an aerial platform to use it as the ground for the 1st action level. I will use "setScale" to make the platform long 
+enough to cover the entire width of the screen. I will also have to apply the property "refreshBody" to it since I want it to have 
+collision detection after stretching the original platform sprite.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -170,11 +174,13 @@ function create () {
   aerialPlatforms = this.physics.add.staticGroup()
 
   // This creates the physics for the ground platform
-  groundPlatforms = this.physics.add.staticGroup()
+  // groundPlatforms = this.physics.add.staticGroup()
 
   // I will render the ground from action level 1 as a platform with collision detection
   // groundPlatforms.create(0, 492, 'ground-level-1').setOrigin(0, 0)
 
+  // This renders an aerial platform as the ground for the 1st action level
+  aerialPlatforms.create(300, 691, 'aerial-platform-1').setScale(8).refreshBody()
 
   // This renders the aerial platforms for the 1st action level
   aerialPlatforms.create(200, 350, 'aerial-platform-1')
@@ -213,6 +219,8 @@ the spritesheet, depending on the name of the key that I assigned to that animat
 argument plays the animation. Since I have an idle animation, I will NEVER eliminate the "true" argument
 for the player's sprite.
 
+If the player is touching a platform, and presses the up arrow, they'll be able to jump. You CAN'T jump
+if you're touching the lower bound of the screen.
 */
 function update () {
   if (cursors.left.isDown) {
