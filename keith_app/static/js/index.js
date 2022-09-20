@@ -123,7 +123,7 @@ function preload () {
 
   // Fang's idle spritesheet
   this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', 
-    { frameWidth: 200, frameHeight: 200 })
+    { frameWidth: 200, frameHeight: 130 })
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
@@ -171,11 +171,11 @@ function create () {
   platforms.create(0, 492, 'ground-level-1').setOrigin(0, 0)
 
   // This renders the aerial platforms for the 1st action level
-  platforms.create(200, 350, 'aerial-platform-1')
+  platforms.create(200, 350, 'aerial-platform-1').refreshBody()
   platforms.create(900, 350, 'aerial-platform-1')
 
   // This adds the player's spritesheet with dynamic physics
-  player = this.physics.add.sprite(100, 450, 'fang-idle')
+  player = this.physics.add.sprite(100, 0, 'fang-idle').setScale(2)
 
   // This prevents the player from going out of bounds
   player.setCollideWorldBounds(true)
