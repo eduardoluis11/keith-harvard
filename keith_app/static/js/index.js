@@ -177,8 +177,8 @@ function create () {
 
 
   // This renders the aerial platforms for the 1st action level
-  // aerialPlatforms.create(200, 350, 'aerial-platform-1')
-  // aerialPlatforms.create(900, 350, 'aerial-platform-1')
+  aerialPlatforms.create(200, 350, 'aerial-platform-1')
+  aerialPlatforms.create(900, 350, 'aerial-platform-1')
 
   // This adds the player's spritesheet with dynamic physics
   player = this.physics.add.sprite(100, 0, 'fang-idle').setScale(2)
@@ -195,7 +195,7 @@ function create () {
   })
 
   // This adds collision between the player and the aerial platforms, to prevent me from falling through them
-  // this.physics.add.collider(player, aerialPlatforms)
+  this.physics.add.collider(player, aerialPlatforms)
 
   // This adds collision between the player and the ground to prevent me from falling through them
   // this.physics.add.collider(player, groundPlatforms)
