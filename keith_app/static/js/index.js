@@ -69,7 +69,10 @@ https://phaser.io/tutorials/making-your-first-phaser-3-game/part3 .) This also l
 can fall after jumping.
 
 Upon further consideration, I will leave the canvas with 1024x576 px as its dimensions, since that gives me a 16:9 ratio,
- and looks better that way (source: https://youtu.be/vyqbNFMDRGQ ).
+and looks better that way (source: https://youtu.be/vyqbNFMDRGQ ).
+
+To give gravity to the player, so they falls faster and faster the more time that they spend in the air, I will add 
+“gravity: { y: NUMBER }” (source: https://phaser.io/tutorials/making-your-first-phaser-3-game/part6 ).
 */
 var config = {
   type: Phaser.AUTO,
@@ -148,7 +151,14 @@ of the sprite at the top left corner of the screen as (0, 0).
 
 The “setCollideWorldBounds(true);” snippet will prevent the player from going out of bounds. That is, they won’t be 
 able to go past the right and left edged of the levels (source: 
-  https://phaser.io/tutorials/making-your-first-phaser-3-game/part5 ).
+https://phaser.io/tutorials/making-your-first-phaser-3-game/part5 ).
+
+To detect collision between the player and the platforms, and prevent me from falling through the platforms, I need to 
+add "this.physics.add.collider(player_sprite, platform_sprite);".
+
+To assign the keyboard arrow keys to the game so that the player can move Fang, I’ll use the snippet 
+“cursors = this.input.keyboard.createCursorKeys();” (source: 
+https://phaser.io/tutorials/making-your-first-phaser-3-game/part7 ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -178,11 +188,43 @@ function create () {
     repeat: -1
   })
 
+  // This adds collision between the player and the platforms, to prevent me from falling through them
+  this.physics.add.collider(player, platforms)
+
+  // This will register the arrow keys to let me move the player with the arrows
+  cursors = this.input.keyboard.createCursorKeys()
+
   // this.add.image(400, 500, 'ground-level-1')
 }
 
-function update ()
-{
+/* This will constantly refresh the game so that I can see the sprite animations.
+
+The "if (cursors)" functions will let me move the player and play Fang's different animations from
+the spritesheet, depending on the name of the key that I assigned to that animation. The "true" boolean
+argument plays the animation. Since I have an idle animation, I will NEVER eliminate the "true" argument
+for the player's sprite.
+
+*/
+function update () {
+  if (cursors.left.isDown) {
+    player.setVelocityX(-160)
+
+    player.anims.play('right', true)
+  }
+  else if (cursors.right.isDown) {
+    player.setVelocityX(160)
+
+    player.anims.play('right', true)
+  }
+  else {
+    player.setVelocityX(0)
+
+    player.anims.play('right', true)
+  }
+
+  if (cursors.up.isDown && player.body.touching.down) {
+    player.setVelocityY(-330)
+  }
 }
 
 
