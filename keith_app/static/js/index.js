@@ -274,7 +274,7 @@ function update () {
     player.flipX = true;
 
     // This makes the player's sprite to move to the left
-    player.setVelocityX(-160)
+    player.setVelocityX(-250)
 
     // This plays the animation of the player running
     player.anims.play('running', true)
@@ -284,7 +284,7 @@ function update () {
     // This flips the sprite horizontally so that the sprite faces back to its original direction 
     player.flipX = false;
 
-    player.setVelocityX(160)
+    player.setVelocityX(250)
 
     player.anims.play('running', true)
   }
