@@ -131,6 +131,9 @@ function preload () {
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
+
+  // Fang's HUD mask (it will make it easier to read the HP and EXP)
+  this.load.image('fang-hud', 'media/assets/UI/fang-hud.png')
 }
 
 
@@ -174,10 +177,19 @@ I will set the text for the HP and the EXP using “this.add.text” (source:
 https://phaser.io/tutorials/making-your-first-phaser-3-game/part9 .) I will later see how to modify a shape’s opacity level in 
 Phaser so that I can put a mask behind the UI so that the UI becomes easier to read. Alternatively, I coul create a PNG image in 
 Photoshop or a rectangle with low opacity, so that I could use it as a mask.
+
+To change the transparency of a sprite in Phaser, I need to add a number between 0 and 1 to its "alpha" attribute (source: 
+https://labs.phaser.io/edit.html?src=src/game%20objects/sprites/sprite%20alpha.js&v=3.55.2 ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
   this.add.image(0, 0, 'bg-level-1').setOrigin(0, 0)
+
+  // This renders a mask for Fang's HUD
+  var fangHUD = this.add.image(0, 0, 'fang-hud').setOrigin(0, 0)
+
+  // This adds transparency to the HUD's mask
+  fangHUD.alpha = 0.7
 
   // This makes it so that the platforms don't move when a character jumps on top of them
   aerialPlatforms = this.physics.add.staticGroup()
