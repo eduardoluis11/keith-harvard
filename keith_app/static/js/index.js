@@ -135,15 +135,38 @@ function preload () {
 
   // Fang's running spritesheet
   this.load.spritesheet('fang-running', 'media/assets/fang/fang-running.png', 
-  { frameWidth: 50, frameHeight: 49 })
+    { frameWidth: 50, frameHeight: 49 })
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
 
   // Fang's HUD mask (it will make it easier to read the HP and EXP)
   this.load.image('fang-hud', 'media/assets/UI/fang-hud.png')
+
+  // Enemy sprites
+  // Ball and chain robot (melee enemy)
+  this.load.image('melee-enemy', 'media/assets/enemies/melee-enemy.png')
 }
 
+/* This detects the collision between the ball and chain enemies (melee enemies) 
+and the player.
+
+Here, the enemy will hurt the player if they touch them. 
+
+If the player loses all of their HP (Health Points), they will die, and they will get a Game Over.
+*/
+function touchMeleeEnemy (player, meleeEnemy)
+{
+  // This will play is the player is killed
+  this.physics.pause() // This pauses the game 
+
+  player.setTint(0xff0000) // This makes the player turn red permanently
+
+  player.anims.play('idle') // This plays the player's idle animation
+
+  // This variable stores if the player got a Game Over
+  gameOver = true // End of player death code
+}
 
 
 /* This renders the sprites and other things that were inserted in the preload() function.
@@ -194,6 +217,10 @@ to get the running animation.
 
 If I increase the "frameRate" property from "anims", I'll make the animation to look faster.So, I increased the frameRate property
 from the running animation so that it looks faster.
+
+To add the enemies, I will give them dynamic physics, and give them collision detection between them and the player and the 
+platforms, and I will also assign them a function so that they can hurt the player (source: 
+https://phaser.io/tutorials/making-your-first-phaser-3-game/part10 ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -258,6 +285,19 @@ function create () {
   // This creates the EXP text that will be displayed in the HUD
   healthPointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
+  // This creates the enemies, and adds them collision detection
+  meleeEnemies = this.physics.add.group() // Melee enemy
+  this.physics.add.collider(meleeEnemies, aerialPlatforms)
+
+  // This renders the melee enemies
+  meleeEnemies.create(800, 150, 'melee-enemy')
+
+  // This will call a function whenever the enemy touches the player
+  this.physics.add.collider(player, meleeEnemies, touchMeleeEnemy, null, this)
+
+  // This prevents the melee enemy from going out of bounds
+  // meleeEnemies.setCollideWorldBounds(true)
+
   // this.add.image(400, 500, 'ground-level-1')
 }
 
@@ -276,10 +316,8 @@ I can make a horizontal flip so that, when I run to the left, the sprites are fl
 left (source: https://www.codecademy.com/courses/learn-phaser/lessons/learn-phaser-cameras-and-effects/exercises/review-credits .)
 */
 function update () {
-
   // This executes if the player touches the left arrow
   if (cursors.left.isDown) {
-
     // This flips the sprite horizontally so that the player faces to the left
     player.flipX = true;
 
