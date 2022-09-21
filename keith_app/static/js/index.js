@@ -145,7 +145,7 @@ function preload () {
 
   // Enemy sprites
   // Ball and chain robot (melee enemy)
-  this.load.image('melee-enemy', 'media/assets/enemies/melee-enemy.png')
+  this.load.image('melee-enemy', 'media/assets/enemies/melee-enemy.png', { frameWidth: 36, frameHeight: 51 })
 }
 
 /* This detects the collision between the ball and chain enemies (melee enemies) 
@@ -221,6 +221,13 @@ from the running animation so that it looks faster.
 To add the enemies, I will give them dynamic physics, and give them collision detection between them and the player and the 
 platforms, and I will also assign them a function so that they can hurt the player (source: 
 https://phaser.io/tutorials/making-your-first-phaser-3-game/part10 ).
+
+I will add the enemy as a sprite, not a an image nor a group, so that I can assign them animations in a relatively easy way
+(source: (source: https://www.codecademy.com/courses/learn-phaser/lessons/learn-phaser-animations-and-tweens/exercises/review .)
+
+I see now the problem I had with the setWorldColliders for the enemy sprites: I never actually created an instance of an enemy. 
+I just created a method or class of sorts (a cookie cutter) for creating a group of enemies, but I never created an instance of 
+a single enemy. So, without that instance, the setWorldColliders attribute will give me a bug.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -258,7 +265,7 @@ function create () {
   this.anims.create({
     key: 'idle',
     frames: this.anims.generateFrameNumbers('fang-idle', { start: 0, end: 3 }),
-    frameRate: 10,
+    frameRate: 7,
     repeat: -1
   })
 
@@ -285,18 +292,34 @@ function create () {
   // This creates the EXP text that will be displayed in the HUD
   healthPointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
-  // This creates the enemies, and adds them collision detection
+  // This creates a constructor for creating enemies, and adds them collision detection
   meleeEnemies = this.physics.add.group() // Melee enemy
   this.physics.add.collider(meleeEnemies, aerialPlatforms)
 
-  // This renders the melee enemies
-  meleeEnemies.create(800, 150, 'melee-enemy')
+  // // This renders the melee enemies
+  // meleeEnemies.create(800, 150, 'melee-enemy')
 
   // This will call a function whenever the enemy touches the player
   this.physics.add.collider(player, meleeEnemies, touchMeleeEnemy, null, this)
+  
+  // This create an instance of an enemy (the melee weapon one)
+  var meleeEnemy = meleeEnemies.create(800, 16, 'melee-enemy')
 
   // This prevents the melee enemy from going out of bounds
+  meleeEnemy.setCollideWorldBounds(true)
+
+
+  // This prevents the melee enemy from going out of bounds (BUGGY)
   // meleeEnemies.setCollideWorldBounds(true)
+
+  // This plays the running animation for the melee enemy
+  // this.anims.create({
+  //   key: 'melee-enemy-running',
+  //   frames: this.anims.generateFrameNumbers('melee-enemy', { start: 0, end: 7 }),
+  //   frameRate: 14,
+  //   repeat: -1
+  // })
+
 
   // this.add.image(400, 500, 'ground-level-1')
 }
@@ -314,6 +337,8 @@ if you're touching the lower bound of the screen.
 The only running sprites that I have for the player are facing to the right. However, with the function "flipX", 
 I can make a horizontal flip so that, when I run to the left, the sprites are flipepd so that Fang is facing to the
 left (source: https://www.codecademy.com/courses/learn-phaser/lessons/learn-phaser-cameras-and-effects/exercises/review-credits .)
+
+I will also execute the enemy animations in here.
 */
 function update () {
   // This executes if the player touches the left arrow
@@ -346,6 +371,10 @@ function update () {
   if (cursors.up.isDown && player.body.touching.down) {
     player.setVelocityY(-330)
   }
+
+  // // This executes the enemy animations
+  // // Melee weapon enemy
+  // meleeEnemies.anims.play('melee-enemy-running', true)
 }
 
 
