@@ -294,7 +294,7 @@ function create () {
 
   // This creates a constructor for creating enemies, and adds them collision detection
   meleeEnemies = this.physics.add.group() // Melee enemy
-  this.physics.add.collider(meleeEnemies, aerialPlatforms)
+  this.physics.add.collider(meleeEnemies, aerialPlatforms) // Collision detection between player and enemy
 
   // // This renders the melee enemies
   // meleeEnemies.create(800, 150, 'melee-enemy')
@@ -303,7 +303,10 @@ function create () {
   this.physics.add.collider(player, meleeEnemies, touchMeleeEnemy, null, this)
   
   // This create an instance of an enemy (the melee weapon one)
-  var meleeEnemy = meleeEnemies.create(800, 16, 'melee-enemy')
+  var meleeEnemy = meleeEnemies.create(800, 16, 'melee-enemy').setScale(3)
+
+  // This horizontally flips the melee enemy sprite
+  meleeEnemy.flipX = true
 
   // This prevents the melee enemy from going out of bounds
   meleeEnemy.setCollideWorldBounds(true)
@@ -344,7 +347,7 @@ function update () {
   // This executes if the player touches the left arrow
   if (cursors.left.isDown) {
     // This flips the sprite horizontally so that the player faces to the left
-    player.flipX = true;
+    player.flipX = true
 
     // This makes the player's sprite to move to the left
     player.setVelocityX(-250)
@@ -355,7 +358,7 @@ function update () {
   // This executes if the player touches the right arrow
   else if (cursors.right.isDown) {
     // This flips the sprite horizontally so that the sprite faces back to its original direction 
-    player.flipX = false;
+    player.flipX = false
 
     player.setVelocityX(250)
 
