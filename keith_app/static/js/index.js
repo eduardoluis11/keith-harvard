@@ -302,14 +302,25 @@ function create () {
   // This will call a function whenever the enemy touches the player
   this.physics.add.collider(player, meleeEnemies, touchMeleeEnemy, null, this)
   
-  // This create an instance of an enemy (the melee weapon one)
-  var meleeEnemy = meleeEnemies.create(800, 16, 'melee-enemy').setScale(3)
+  // This creates an instance of an enemy (the melee weapon one)
+  var meleeEnemy1 = meleeEnemies.create(800, 16, 'melee-enemy').setScale(3)
+
+  // These lines will create 3 more instances of the melee weapon enemy
+  var meleeEnemy2 = meleeEnemies.create(600, 16, 'melee-enemy').setScale(3)
+  var meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
+  var meleeEnemy4 = meleeEnemies.create(200, 16, 'melee-enemy').setScale(3)
 
   // This horizontally flips the melee enemy sprite
-  meleeEnemy.flipX = true
+  meleeEnemy1.flipX = true
+  meleeEnemy2.flipX = true
+  meleeEnemy3.flipX = true
+  meleeEnemy4.flipX = true
 
   // This prevents the melee enemy from going out of bounds
-  meleeEnemy.setCollideWorldBounds(true)
+  meleeEnemy1.setCollideWorldBounds(true)
+  meleeEnemy2.setCollideWorldBounds(true)
+  meleeEnemy3.setCollideWorldBounds(true)
+  meleeEnemy4.setCollideWorldBounds(true)
 
 
   // This prevents the melee enemy from going out of bounds (BUGGY)
