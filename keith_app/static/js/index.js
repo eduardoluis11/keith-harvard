@@ -123,6 +123,60 @@ Since the player will be initially vulnerable to attacks, it will start as "Fals
 */
 var playerImmunity = false
 
+/* This adds a countdown. I will use it for giving invincibility frames to the player */
+var immunityCountdown
+
+/* Invincibility frames boolean  function. This will make the player invincible for half a second.
+
+This is what I’ll do to set the countdown to give invincibility frames to the player: first, I will go to the create() function,
+and create the countdown function using “.time.addEvent”. I will give it “500” milliseconds so that it gives me half a second 
+for the countdown. 
+
+Next, I will create a global function (before the preload() function) which will only do one thing: to set the “immunity” variable 
+back to “false” so that the player is vulnerable to attacks once again.
+
+Finally, I will call the function that sets the immunity back to false un the update() function. However, within that function, I 
+will call the countdown function. This way, the function should wait half a second before being executed. That is, I will have to 
+wait for half a second until the immunity variable gets back to “false”. 
+
+How to use Phaser 3's timer (source: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/timer/#introduction ).
+
+I could use simple JS as a countdown (source: jo_va's reply from
+https://stackoverflow.com/questions/54630495/phaser-how-to-use-a-simple-timer-from-0-to-3 ).
+*/
+function removeImmunity () {
+
+  // While the timer is being executed and is below half a second this will execute
+  // if (timer.getElapsed() < 500) {
+
+  // If half a second has passed since I touched an enemy, this will execute
+  setTimeout(() => {
+    // DEBUG msg.
+    console.log('The removeImmunity() function has been called.')
+
+    // This removes the player immunity, nad makes him vulnerable again
+    playerImmunity = false
+  }, 500)
+
+
+  // DEBUG msg: this shows me the current value of the timer
+  // console.log('The curent value for the timer is: ' + timer.hasDispatched)
+  // console.log('The curent value for the timer is: ' + timer.getElapsed())
+
+
+  // console.log('The curent value for the timer is: ' + timer.getRemaining())
+
+  // console.log('The curent value for the timer is: ' + timer.getProgress())
+
+  // console.log('The curent value for the timer is: ' + timer)
+
+
+
+  // }
+
+} 
+
+
 /* Here, I will insert the sprites 
 
 I had to upload all the images into a folder called "media", and had to take from there the images.
@@ -170,6 +224,7 @@ that will be executed when the “immune” variable is set to “True”.
 After that second has passed, the player won’t be neither invincible nor red any longer. That is, I will set the “immune” variable 
 to “False”, which will make the character vulnerable to damage once again.
 
+How to make a countdown or timed event in Phaser 3 (source: https://phaser.io/examples/v3/view/time/time-scale ).
 */
 function touchMeleeEnemy (player, meleeEnemy) {
   // This will check if the player was vulnerable to attacks when touching an enemy
@@ -185,14 +240,25 @@ function touchMeleeEnemy (player, meleeEnemy) {
     // DEBUG msg: This checks how much HP I have left
     console.log('HP remaining: ' + healthPoints)
 
+    // This will make the player vulnerable again after half a second
+    removeImmunity() 
+
     // // This is a counter which will make the player vulnerable again after half a second (BUGGY, since it's from Phaser 2)
+    // immunityCountdown = this.time.addEvent({ delay: 5000, 
+    //   function () {
+    //     playerImmunity = false
+    //   }, this
+    // })
+
     // game.time.events.add(500, function () {
     //   playerImmunity = false
     // }, this)
     
-  } else { // This will execute if the player is immune
-    playerImmunity = false
-  }
+  } 
+
+  // else { // This will execute if the player is immune
+  //   playerImmunity = false
+  // }
 
   
 
@@ -270,6 +336,8 @@ I will add the enemy as a sprite, not a an image nor a group, so that I can assi
 I see now the problem I had with the setWorldColliders for the enemy sprites: I never actually created an instance of an enemy. 
 I just created a method or class of sorts (a cookie cutter) for creating a group of enemies, but I never created an instance of 
 a single enemy. So, without that instance, the setWorldColliders attribute will give me a bug.
+
+I will create the half a second countdown to remove the player's invincibility frames here.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -364,6 +432,8 @@ function create () {
   meleeEnemy3.setCollideWorldBounds(true)
   meleeEnemy4.setCollideWorldBounds(true)
 
+  // This creates the invincibility frame countdown for half a second
+  // immunityCountdown = this.time.addEvent({ delay: 500 })
 
   // This prevents the melee enemy from going out of bounds (BUGGY)
   // meleeEnemies.setCollideWorldBounds(true)
@@ -395,6 +465,9 @@ I can make a horizontal flip so that, when I run to the left, the sprites are fl
 left (source: https://www.codecademy.com/courses/learn-phaser/lessons/learn-phaser-cameras-and-effects/exercises/review-credits .)
 
 I will also execute the enemy animations in here.
+
+I will call the invincibility frame boolean function in here, but with the half a second delay from the countdown function that
+I created in the create() function.
 */
 function update () {
   // This executes if the player touches the left arrow
@@ -427,6 +500,12 @@ function update () {
   if (cursors.up.isDown && player.body.touching.down) {
     player.setVelocityY(-330)
   }
+
+  // // This calls the immunity boolean function after a half a second delay if the player gets hurt
+  // if (playerImmunity === true) {
+  //   removeImmunity() 
+  // }
+
 
   // // This executes the enemy animations
   // // Melee weapon enemy
