@@ -1,3 +1,4 @@
+/* eslint-disable padded-blocks */
 /* eslint-disable no-undef */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-var */
@@ -116,6 +117,12 @@ var healthPointsText
 var experiencePoints = 0
 var experiencePointsText
 
+/* This is a boolean that will make the player invincible for a second right after being hit. 
+
+Since the player will be initially vulnerable to attacks, it will start as "False".
+*/
+var playerImmunity = false
+
 /* Here, I will insert the sprites 
 
 I had to upload all the images into a folder called "media", and had to take from there the images.
@@ -154,18 +161,53 @@ and the player.
 Here, the enemy will hurt the player if they touch them. 
 
 If the player loses all of their HP (Health Points), they will die, and they will get a Game Over.
-*/
-function touchMeleeEnemy (player, meleeEnemy)
-{
-  // This will play is the player is killed
-  this.physics.pause() // This pauses the game 
 
-  player.setTint(0xff0000) // This makes the player turn red permanently
+How to make an enemy hurt the player (source: https://thoughts.amphibian.com/2015/11/enemy-collisions-in-my-phaser-platformer.html ). 
+First, I will declare an empty boolean variable called “immune”. I will create it since I want the player to be invincible for a 
+second after getting hurt (I will add them invincibility-frames). Then, during that second or so, I want them to be red. Well, 
+that will be executed when the “immune” variable is set to “True”.
+
+After that second has passed, the player won’t be neither invincible nor red any longer. That is, I will set the “immune” variable 
+to “False”, which will make the character vulnerable to damage once again.
+
+*/
+function touchMeleeEnemy (player, meleeEnemy) {
+  // This will check if the player was vulnerable to attacks when touching an enemy
+  if (playerImmunity === false) {
+    
+    playerImmunity = true // This will make the player immune for half a second
+
+    player.setTint(0xff0000) // This will turn the player red
+
+    // This will subtract some HP from the player
+    healthPoints = healthPoints - 10
+
+    // DEBUG msg: This checks how much HP I have left
+    console.log('HP remaining: ' + healthPoints)
+
+    // // This is a counter which will make the player vulnerable again after half a second (BUGGY, since it's from Phaser 2)
+    // game.time.events.add(500, function () {
+    //   playerImmunity = false
+    // }, this)
+    
+  } else { // This will execute if the player is immune
+    playerImmunity = false
+  }
+
+  
+
+  // This will play is the player is killed
+  if (healthPoints === 0) {
+    this.physics.pause() // This pauses the game 
+
+    player.setTint(0xff0000) // This makes the player turn red permanently
+
+    // This variable stores if the player got a Game Over
+    gameOver = true // End of player death code
+  }
+
 
   player.anims.play('idle') // This plays the player's idle animation
-
-  // This variable stores if the player got a Game Over
-  gameOver = true // End of player death code
 }
 
 
