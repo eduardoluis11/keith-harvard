@@ -143,6 +143,11 @@ How to use Phaser 3's timer (source: https://rexrainbow.github.io/phaser3-rex-no
 
 I could use simple JS as a countdown (source: jo_va's reply from
 https://stackoverflow.com/questions/54630495/phaser-how-to-use-a-simple-timer-from-0-to-3 ).
+
+The "clearTint" function will remove the red tint that I give the player after they get hurt: (source: 
+https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Components.Tint.html .)
+
+This should only be called while the player's HP is above 0 (if they are still alive).
 */
 function removeImmunity () {
 
@@ -156,6 +161,10 @@ function removeImmunity () {
 
     // This removes the player immunity, and makes him vulnerable again
     playerImmunity = false
+
+    // This removes the player's red tint, and gets their colors back to normal
+    player.clearTint()
+
   }, 1000)
 
 
@@ -192,6 +201,8 @@ After that second has passed, the player won’t be neither invincible nor red a
 to “False”, which will make the character vulnerable to damage once again.
 
 How to make a countdown or timed event in Phaser 3 (source: https://phaser.io/examples/v3/view/time/time-scale ).
+
+I will only call the removeImmunity() function if the player is still alive.
 */
 function touchMeleeEnemy (player, meleeEnemy) {
   // This will check if the player was vulnerable to attacks when touching an enemy
@@ -210,8 +221,10 @@ function touchMeleeEnemy (player, meleeEnemy) {
     // DEBUG msg: This checks how much HP I have left
     console.log('HP remaining: ' + healthPoints)
 
-    // This will make the player vulnerable again after half a second
-    removeImmunity() 
+    // This will make the player vulnerable again after a second if they are still alive
+    if (healthPoints > 0) {
+      removeImmunity() 
+    }
 
     // // This is a counter which will make the player vulnerable again after half a second (BUGGY, since it's from Phaser 2)
     // immunityCountdown = this.time.addEvent({ delay: 5000, 
