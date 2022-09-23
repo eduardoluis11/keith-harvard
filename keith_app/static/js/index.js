@@ -130,7 +130,7 @@ var immunityCountdown
 
 This is what I’ll do to set the countdown to give invincibility frames to the player: first, I will go to the create() function,
 and create the countdown function using “.time.addEvent”. I will give it “500” milliseconds so that it gives me half a second 
-for the countdown. 
+for the countdown. Upon further consideration, I'd rather give the player 1 second of invincibility.
 
 Next, I will create a global function (before the preload() function) which will only do one thing: to set the “immunity” variable 
 back to “false” so that the player is vulnerable to attacks once again.
@@ -149,14 +149,14 @@ function removeImmunity () {
   // While the timer is being executed and is below half a second this will execute
   // if (timer.getElapsed() < 500) {
 
-  // If half a second has passed since I touched an enemy, this will execute
+  // If a second has passed since I touched an enemy, this will execute
   setTimeout(() => {
     // DEBUG msg.
     console.log('The removeImmunity() function has been called.')
 
-    // This removes the player immunity, nad makes him vulnerable again
+    // This removes the player immunity, and makes him vulnerable again
     playerImmunity = false
-  }, 500)
+  }, 1000)
 
 
   // DEBUG msg: this shows me the current value of the timer
