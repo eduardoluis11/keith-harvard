@@ -176,39 +176,6 @@ function removeImmunity () {
 
 } 
 
-
-/* Here, I will insert the sprites 
-
-I had to upload all the images into a folder called "media", and had to take from there the images.
-
-I will also upload the aerial platform sprites in here.
-*/
-function preload () {
-  // Background of action level 1 without the ground
-  this.load.image('bg-level-1', 'media/assets/level-1/forest-background.jpg')
-
-  // Ground of action level 1
-  this.load.image('ground-level-1', 'media/assets/level-1/ground.jpg')
-
-  // Fang's idle spritesheet
-  this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', 
-    { frameWidth: 36, frameHeight: 51 })
-
-  // Fang's running spritesheet
-  this.load.spritesheet('fang-running', 'media/assets/fang/fang-running.png', 
-    { frameWidth: 50, frameHeight: 49 })
-
-  // Aerial platforms sprites
-  this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
-
-  // Fang's HUD mask (it will make it easier to read the HP and EXP)
-  this.load.image('fang-hud', 'media/assets/UI/fang-hud.png')
-
-  // Enemy sprites
-  // Ball and chain robot (melee enemy)
-  this.load.image('melee-enemy', 'media/assets/enemies/melee-enemy.png', { frameWidth: 36, frameHeight: 51 })
-}
-
 /* This detects the collision between the ball and chain enemies (melee enemies) 
 and the player.
 
@@ -236,6 +203,9 @@ function touchMeleeEnemy (player, meleeEnemy) {
 
     // This will subtract some HP from the player
     healthPoints = healthPoints - 10
+
+    // This updates the HUD to show the player's remaining HP
+    healthPointsText.setText('HP: ' + healthPoints)
 
     // DEBUG msg: This checks how much HP I have left
     console.log('HP remaining: ' + healthPoints)
@@ -275,6 +245,45 @@ function touchMeleeEnemy (player, meleeEnemy) {
 
   player.anims.play('idle') // This plays the player's idle animation
 }
+
+
+
+
+/* =========================================================================================================================== */
+
+/* Here, I will insert the sprites 
+
+I had to upload all the images into a folder called "media", and had to take from there the images.
+
+I will also upload the aerial platform sprites in here.
+*/
+function preload () {
+  // Background of action level 1 without the ground
+  this.load.image('bg-level-1', 'media/assets/level-1/forest-background.jpg')
+
+  // Ground of action level 1
+  this.load.image('ground-level-1', 'media/assets/level-1/ground.jpg')
+
+  // Fang's idle spritesheet
+  this.load.spritesheet('fang-idle', 'media/assets/fang/fang-idle.png', 
+    { frameWidth: 36, frameHeight: 51 })
+
+  // Fang's running spritesheet
+  this.load.spritesheet('fang-running', 'media/assets/fang/fang-running.png', 
+    { frameWidth: 50, frameHeight: 49 })
+
+  // Aerial platforms sprites
+  this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
+
+  // Fang's HUD mask (it will make it easier to read the HP and EXP)
+  this.load.image('fang-hud', 'media/assets/UI/fang-hud.png')
+
+  // Enemy sprites
+  // Ball and chain robot (melee enemy)
+  this.load.image('melee-enemy', 'media/assets/enemies/melee-enemy.png', { frameWidth: 36, frameHeight: 51 })
+}
+
+
 
 
 /* This renders the sprites and other things that were inserted in the preload() function.
@@ -400,7 +409,7 @@ function create () {
   healthPointsText = this.add.text(16, 16, 'HP: 100', { fontSize: '32px', fill: '#FFFFFF' })
 
   // This creates the EXP text that will be displayed in the HUD
-  healthPointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
+  experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
   // This creates a constructor for creating enemies, and adds them collision detection
   meleeEnemies = this.physics.add.group() // Melee enemy
@@ -489,8 +498,7 @@ function update () {
     player.setVelocityX(250)
 
     player.anims.play('running', true)
-  }
-  else {
+  } else {
     player.setVelocityX(0)
 
     player.anims.play('idle', true)
