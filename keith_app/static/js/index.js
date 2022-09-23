@@ -360,6 +360,9 @@ I just created a method or class of sorts (a cookie cutter) for creating a group
 a single enemy. So, without that instance, the setWorldColliders attribute will give me a bug.
 
 I will create the half a second countdown to remove the player's invincibility frames here.
+
+How to use an overlap instead of a collider to make 2 sprites touch each other without one pushing the other: (source: 
+https://labs.phaser.io/edit.html?src=src/physics/arcade/sprite%20overlap%20group.js&v=3.55.2 ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -431,8 +434,8 @@ function create () {
   // // This renders the melee enemies
   // meleeEnemies.create(800, 150, 'melee-enemy')
 
-  // This will call a function whenever the enemy touches the player
-  this.physics.add.collider(player, meleeEnemies, touchMeleeEnemy, null, this)
+  // This will call a function whenever the player touches an enemy. This won't push the enemy.
+  this.physics.add.overlap(player, meleeEnemies, touchMeleeEnemy, null, this)
   
   // This creates an instance of an enemy (the melee weapon one)
   var meleeEnemy1 = meleeEnemies.create(800, 16, 'melee-enemy').setScale(3)
