@@ -126,8 +126,11 @@ var playerImmunity = false
 /* This adds a countdown. I will use it for giving invincibility frames to the player */
 var immunityCountdown
 
-/* Thsi will store the create() event listener to detect the space bar being pressed */
-var spaceBar;
+/* This will store the create() event listener to detect the space bar being pressed */
+var spaceBar
+
+// This will help me play the entire attacking animation for the player
+var isPlayerAttacking = false
 
 /* Invincibility frames boolean  function. This will make the player invincible for half a second.
 
@@ -446,7 +449,8 @@ function create () {
   this.anims.create({
     key: 'fang-attacking',
     frames: this.anims.generateFrameNumbers('fang-attacking', { start: 0, end: 3 }),
-    frameRate: 14
+    frameRate: 14, 
+    repeat: 0
   })
 
   // This adds collision between the player and the aerial platforms, to prevent me from falling through them
@@ -537,27 +541,39 @@ I will call the invincibility frame boolean function in here, but with the half 
 I created in the create() function.
 
 If the user presses space bar, they will attack with their sword (the ataccking animation for the player will player.)
+
+Using a boolean for determining which animation should play: (source: 
+https://www.mkelly.me/blog/phaser-finite-state-machine/ ).
 */
 function update () {
-  // This executes if the player touches the left arrow
-  if (cursors.left.isDown) {
-    // This flips the sprite horizontally so that the player faces to the left
-    player.flipX = true
+  // This will let the player move only if they aren't attacking
+  if (isPlayerAttacking === false) {
+    // This executes if the player touches the left arrow
+    if (cursors.left.isDown) {
+      // This flips the sprite horizontally so that the player faces to the left
+      player.flipX = true
 
-    // This makes the player's sprite to move to the left
-    player.setVelocityX(-250)
+      // This makes the player's sprite to move to the left
+      player.setVelocityX(-250)
 
-    // This plays the animation of the player running
-    player.anims.play('running', true)
-  } else if (cursors.right.isDown) { // This executes if the player touches the right arrow
-    // This flips the sprite horizontally so that the sprite faces back to its original direction 
-    player.flipX = false
+      // This plays the animation of the player running
+      player.anims.play('running', true)
+    } else if (cursors.right.isDown) { // This executes if the player touches the right arrow
+      // This flips the sprite horizontally so that the sprite faces back to its original direction 
+      player.flipX = false
 
-    player.setVelocityX(250)
+      player.setVelocityX(250)
 
-    player.anims.play('running', true)
-  } 
-  else if (spaceBar.isDown) { // This executes if the player presses the space bar
+      player.anims.play('running', true)
+    } else {
+      player.setVelocityX(0)
+
+      player.anims.play('idle', true)
+    }
+  }
+
+
+  if (spaceBar.isDown) { // This executes if the player presses the space bar
 
     // DEBUG msg
     console.log('The space bar has been pressed.')
@@ -568,12 +584,15 @@ function update () {
     // This prevents the player from moving while they attack
     player.setVelocityX(0)
 
-  } 
-  else {
-    player.setVelocityX(0)
+    // This will stop all other animations
+    isPlayerAttacking = true
 
-    player.anims.play('idle', true)
-  }
+    // This will let other animations play once the attacking animation ends
+    player.once('animationcomplete', () => {
+      isPlayerAttacking = false
+    })
+
+  } 
 
   // This executes if the player touches the up arrow
   if (cursors.up.isDown && player.body.touching.down) {
