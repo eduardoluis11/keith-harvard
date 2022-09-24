@@ -280,6 +280,9 @@ function each time I hit the space bar.
 I had to upload all the images into a folder called "media", and had to take from there the images.
 
 I will also upload the aerial platform sprites in here.
+
+My height can only be up to 54 px high if I want to prevent Fang from falling through the aerial platforms while attacking. 
+I may ned to readjust my sprites. 
 */
 function preload () {
   // Background of action level 1 without the ground
@@ -296,7 +299,7 @@ function preload () {
   this.load.spritesheet('fang-running', 'media/assets/fang/fang-running.png', 
     { frameWidth: 50, frameHeight: 49 })
 
-  // Fang's ataccking spritesheet
+  // Fang's attacking spritesheet
   this.load.spritesheet('fang-attacking', 'media/assets/fang/fang-attacking.png', 
     { frameWidth: 96, frameHeight: 51 })
 
@@ -477,7 +480,7 @@ function create () {
   // These lines will create 3 more instances of the melee weapon enemy
   var meleeEnemy2 = meleeEnemies.create(600, 16, 'melee-enemy').setScale(3)
   var meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
-  var meleeEnemy4 = meleeEnemies.create(200, 16, 'melee-enemy').setScale(3)
+  var meleeEnemy4 = meleeEnemies.create(300, 16, 'melee-enemy').setScale(3)
 
   // This horizontally flips the melee enemy sprite
   meleeEnemy1.flipX = true
