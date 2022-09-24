@@ -126,6 +126,9 @@ var playerImmunity = false
 /* This adds a countdown. I will use it for giving invincibility frames to the player */
 var immunityCountdown
 
+/* Thsi will store the create() event listener to detect the space bar being pressed */
+var spaceBar;
+
 /* Invincibility frames boolean  function. This will make the player invincible for half a second.
 
 This is what I’ll do to set the countdown to give invincibility frames to the player: first, I will go to the create() function,
@@ -260,6 +263,14 @@ function touchMeleeEnemy (player, meleeEnemy) {
 }
 
 
+/* This will play Fang's attack animation.
+
+I will create a function exclusively for playing the attack animation. Then, I will call that function from the create() 
+function each time I hit the space bar. 
+*/ 
+// function playerAttack() {
+//   player.anims.play('fang-attacking', true)
+// }
 
 
 /* =========================================================================================================================== */
@@ -284,6 +295,10 @@ function preload () {
   // Fang's running spritesheet
   this.load.spritesheet('fang-running', 'media/assets/fang/fang-running.png', 
     { frameWidth: 50, frameHeight: 49 })
+
+  // Fang's ataccking spritesheet
+  this.load.spritesheet('fang-attacking', 'media/assets/fang/fang-attacking.png', 
+    { frameWidth: 96, frameHeight: 85 })
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
@@ -363,6 +378,18 @@ I will create the half a second countdown to remove the player's invincibility f
 
 How to use an overlap instead of a collider to make 2 sprites touch each other without one pushing the other: (source: 
 https://labs.phaser.io/edit.html?src=src/physics/arcade/sprite%20overlap%20group.js&v=3.55.2 ).
+
+The attacking animation won't have the "repeat" property, since I want the animation to only be played once. I don't
+want to loop that animation.
+
+How to detect when a user presses the space bar in Phaser (source: 
+https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.KeyboardPlugin.html ).
+
+How to use an "if" to detect a specific key being pressed in update() in Phaser (source: James Skemp's reply on
+https://stackoverflow.com/questions/54553703/how-to-detect-specific-keypress-in-phaser-3 ). 
+
+How to detect a non-cursor key on Phaser (source: https://phaser.io/examples/v3/view/input/keyboard/add-key ).
+
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -412,6 +439,13 @@ function create () {
     repeat: -1
   })
 
+  // This gets the player's attack spritesheet, and adds animation to it
+  this.anims.create({
+    key: 'fang-attacking',
+    frames: this.anims.generateFrameNumbers('fang-attacking', { start: 0, end: 3 }),
+    frameRate: 14
+  })
+
   // This adds collision between the player and the aerial platforms, to prevent me from falling through them
   this.physics.add.collider(player, aerialPlatforms)
 
@@ -457,6 +491,11 @@ function create () {
   meleeEnemy3.setCollideWorldBounds(true)
   meleeEnemy4.setCollideWorldBounds(true)
 
+  // This will create the event for detecting if the space bar has been pressed
+  spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+  // this.input.keyboard.on('keydown_SPACE', this.playerAttack(), this)
+
   // This creates the invincibility frame countdown for half a second
   // immunityCountdown = this.time.addEvent({ delay: 500 })
 
@@ -493,6 +532,8 @@ I will also execute the enemy animations in here.
 
 I will call the invincibility frame boolean function in here, but with the half a second delay from the countdown function that
 I created in the create() function.
+
+If the user presses space bar, they will attack with their sword (the ataccking animation for the player will player.)
 */
 function update () {
   // This executes if the player touches the left arrow
@@ -505,16 +546,23 @@ function update () {
 
     // This plays the animation of the player running
     player.anims.play('running', true)
-  }
-  // This executes if the player touches the right arrow
-  else if (cursors.right.isDown) {
+  } else if (cursors.right.isDown) { // This executes if the player touches the right arrow
     // This flips the sprite horizontally so that the sprite faces back to its original direction 
     player.flipX = false
 
     player.setVelocityX(250)
 
     player.anims.play('running', true)
-  } else {
+  } 
+  else if (spaceBar.isDown) { // This executes if the player presses the space bar
+
+    // DEBUG msg
+    console.log('The space bar has been pressed.')
+
+    player.anims.play('fang-attacking', true)
+
+  } 
+  else {
     player.setVelocityX(0)
 
     player.anims.play('idle', true)
