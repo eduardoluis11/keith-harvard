@@ -298,7 +298,7 @@ function preload () {
 
   // Fang's ataccking spritesheet
   this.load.spritesheet('fang-attacking', 'media/assets/fang/fang-attacking.png', 
-    { frameWidth: 96, frameHeight: 85 })
+    { frameWidth: 96, frameHeight: 51 })
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
@@ -559,7 +559,11 @@ function update () {
     // DEBUG msg
     console.log('The space bar has been pressed.')
 
+    // This plays the attacking animation
     player.anims.play('fang-attacking', true)
+
+    // This prevents the player from moving while they attack
+    player.setVelocityX(0)
 
   } 
   else {
