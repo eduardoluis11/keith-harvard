@@ -50,7 +50,7 @@ If I use the dimensions 1024x576 px, I will get a 16:9 ratio.
 AFTER FURTHER CONSIDERATION, I will use a JS game engine called Phaser. I will no longer use the code from Channel A (Alex 
 Ziska)'s Figthing Game. 
 
-First, I will add all of the basic stuff to start a Phaser game, which is a “config” variable, and 3 functions: create(), 
+First, I will add all of the basic stuff to start a Phaser game, which is aattack “config” variable, and 3 functions: create(), 
 update(), and preload() (source: https://phaser.io/tutorials/making-your-first-phaser-3-game/part1 .)
 
 Second, I will insert all of the sprites (or at least, some of the sprites for the time being) into Phaser’s preload() 
@@ -112,6 +112,24 @@ var groundPlatforms
 // These variables will hold the HP points for the main character
 var healthPoints = 100
 var healthPointsText
+
+/* These will hold the HP points for the enemies. 
+
+Although not the most efficient solution, I will create an HP variable for each of the 4 enemies. That is, I will
+create 4 HP variables for the enemies. That way, if the player hurts and enemy, only that enemy will be hurt. Otherwise,
+all enemies would lose HP if the player attacked a single enemy 
+*/
+var enemy1HealthPoints = 30
+var enemy1HealthPointsText
+
+var enemy2HealthPoints = 30
+var enemy2HealthPointsText
+
+var enemy3HealthPoints = 30
+var enemy3HealthPointsText
+
+var enemy4HealthPoints = 30
+var enemy4HealthPointsText
 
 // These variables will hold the EXP points for the main character
 var experiencePoints = 0
@@ -209,6 +227,15 @@ to “False”, which will make the character vulnerable to damage once again.
 How to make a countdown or timed event in Phaser 3 (source: https://phaser.io/examples/v3/view/time/time-scale ).
 
 I will only call the removeImmunity() function if the player is still alive.
+
+I will try to reuse this function to let the player hurt the enemy during the sword swinging animation. Since this function is 
+called whenever the enemy and the player overlap, I think this function is the most appropriate to let the player hurt the enemy.
+I will use the boolean variable that stores whether the player is playing its attack animation to determine if the player can hurt 
+the enemy.
+
+I WON'T be playing a hurting animation (like the idle animation) whenever I get hurt, because, otherwise, I will never finish
+the attack animation. So, the isPlayerAttacking variable never becomes true, so I can't move my character horizontally after getting 
+hurt.
 */
 function touchMeleeEnemy (player, meleeEnemy) {
   // This will check if the player was vulnerable to attacks when touching an enemy
@@ -243,7 +270,12 @@ function touchMeleeEnemy (player, meleeEnemy) {
     //   playerImmunity = false
     // }, this)
     
-  } 
+  }
+  
+  // This will only execute if the player is playing the attack animation (BUGGY)
+  if (isPlayerAttacking === true) {
+    console.log('The player is attacking the enemy.')
+  }
 
   // else { // This will execute if the player is immune
   //   playerImmunity = false
@@ -261,9 +293,15 @@ function touchMeleeEnemy (player, meleeEnemy) {
     gameOver = true // End of player death code
   }
 
+  // This plays the player's idle animation
+  // player.anims.play('idle') 
+} // End of tocuhEnemy()
 
-  player.anims.play('idle') // This plays the player's idle animation
-}
+/* This lets the player attack and hurt the enemies.
+*/
+// function attackEnemy (meleeEnemy, player) {
+//   console.log('You just attacked an enemy.')
+// }
 
 
 /* This will play Fang's attack animation.
@@ -477,6 +515,9 @@ function create () {
 
   // This will call a function whenever the player touches an enemy. This won't push the enemy.
   this.physics.add.overlap(player, meleeEnemies, touchMeleeEnemy, null, this)
+
+  // This will let the player hurt enemies with Fang's sword
+  // this.physics.add.overlap(meleeEnemies, player, attackEnemy, null, this)
   
   // This creates an instance of an enemy (the melee weapon one)
   var meleeEnemy1 = meleeEnemies.create(800, 16, 'melee-enemy').setScale(3)
@@ -540,13 +581,14 @@ I will also execute the enemy animations in here.
 I will call the invincibility frame boolean function in here, but with the half a second delay from the countdown function that
 I created in the create() function.
 
-If the user presses space bar, they will attack with their sword (the ataccking animation for the player will player.)
+If the user presses space bar, they will attack with their sword (the attacking animation for the player will player.)
 
 Using a boolean for determining which animation should play: (source: 
 https://www.mkelly.me/blog/phaser-finite-state-machine/ ).
 */
 function update () {
-  // This will let the player move only if they aren't attacking
+
+  // This will let the player move only if they aren't attacking (to finish the attacking animation)
   if (isPlayerAttacking === false) {
     // This executes if the player touches the left arrow
     if (cursors.left.isDown) {
@@ -558,7 +600,11 @@ function update () {
 
       // This plays the animation of the player running
       player.anims.play('running', true)
-    } else if (cursors.right.isDown) { // This executes if the player touches the right arrow
+    // eslint-disable-next-line brace-style
+    } 
+    // This executes if the player touches the right arrow
+    else if (cursors.right.isDown) { 
+    
       // This flips the sprite horizontally so that the sprite faces back to its original direction 
       player.flipX = false
 
