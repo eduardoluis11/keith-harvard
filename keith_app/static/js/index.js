@@ -295,7 +295,17 @@ function touchMeleeEnemy (player, meleeEnemy) {
 
   // This plays the player's idle animation
   // player.anims.play('idle') 
-} // End of tocuhEnemy()
+} // End of touchEnemy()
+
+/* This will let the hitbox hurt the enemy when the player swings their sword
+
+*/
+function touchHitbox (player, hitbox) {
+
+  // DEBUG msg
+  console.log("You've just touched the hitbox.")
+}
+
 
 /* This lets the player attack and hurt the enemies.
 */
@@ -324,6 +334,9 @@ I will also upload the aerial platform sprites in here.
 
 My height can only be up to 54 px high if I want to prevent Fang from falling through the aerial platforms while attacking. 
 I may ned to readjust my sprites. 
+
+To hurt the enemy I will create a hitbox, and render it in front of the player while they are swinging their sword. To make things
+easier, I will create a sprite for the hitbox.
 */
 function preload () {
   // Background of action level 1 without the ground
@@ -343,6 +356,9 @@ function preload () {
   // Fang's attacking spritesheet
   this.load.spritesheet('fang-attacking', 'media/assets/fang/fang-attacking.png', 
     { frameWidth: 96, frameHeight: 51 })
+
+  // Fang's hitbox
+  this.load.image('sword-hitbox', 'media/assets/fang/sword-hitbox.jpg')
 
   // Aerial platforms sprites
   this.load.image('aerial-platform-1', 'media/assets/level-1/aerial-platform-1.jpg')
@@ -434,6 +450,14 @@ https://stackoverflow.com/questions/54553703/how-to-detect-specific-keypress-in-
 
 How to detect a non-cursor key on Phaser (source: https://phaser.io/examples/v3/view/input/keyboard/add-key ).
 
+I will render the player's sword hitbox in front of the player wheenver they swing their sword.
+
+Since I want Fang's hitbox to have an overlap interaction with the enemies, I guess I'll have to add physics to it. 
+As for the type of physics that I'll need, I'll use static physics, since I don't want the hitbox to be bouncing 
+around the level once it touches something. However, the hitbox will be constantly moving (I will have to update 
+its position in the update() function.) So, if I get a bug, I will change its physics to a dynamic one.
+
+This sets static physics to a single image (source: https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Matter.Image#setStatic ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -490,6 +514,22 @@ function create () {
     frameRate: 14, 
     repeat: 0
   })
+
+  // This gives static physics to Fang's hitbox
+  hitbox = this.physics.add.staticGroup()
+
+  // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
+
+  // This renders Fang's hitbox
+  hitbox.create(500, 300, 'sword-hitbox')
+
+  // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
+
+  // This creates an overlap between Fang's hitbox and another character ...
+  this.physics.add.overlap(player, hitbox, touchHitbox, null, this)
+
+  
+
 
   // This adds collision between the player and the aerial platforms, to prevent me from falling through them
   this.physics.add.collider(player, aerialPlatforms)
@@ -585,6 +625,9 @@ If the user presses space bar, they will attack with their sword (the attacking 
 
 Using a boolean for determining which animation should play: (source: 
 https://www.mkelly.me/blog/phaser-finite-state-machine/ ).
+
+How to use SetBodySize to make an sprite wider (source: https://youtu.be/SCO2BbbO17c ).
+
 */
 function update () {
 
@@ -633,9 +676,15 @@ function update () {
     // This will stop all other animations
     isPlayerAttacking = true
 
+    // This will make the sprite wider so that the sword touches the enemy
+    // player.setBodySize(player.width * 2)
+
     // This will let other animations play once the attacking animation ends
     player.once('animationcomplete', () => {
       isPlayerAttacking = false
+
+      // This will return the player's width back to normal
+      // player.setBodySize(player.width * 0.5)
     })
 
   } 
