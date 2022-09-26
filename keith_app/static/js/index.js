@@ -150,6 +150,9 @@ var spaceBar
 // This will help me play the entire attacking animation for the player
 var isPlayerAttacking = false
 
+// This will declare Fang's sword hitbox as a global variable
+var hitbox
+
 /* Invincibility frames boolean  function. This will make the player invincible for half a second.
 
 This is what I’ll do to set the countdown to give invincibility frames to the player: first, I will go to the create() function,
@@ -272,7 +275,10 @@ function touchMeleeEnemy (player, meleeEnemy) {
     
   }
   
-  // This will only execute if the player is playing the attack animation (BUGGY)
+  /* This will only execute if the player is playing the attack animation 
+  
+
+  */
   if (isPlayerAttacking === true) {
     console.log('The player is attacking the enemy.')
   }
@@ -458,6 +464,10 @@ around the level once it touches something. However, the hitbox will be constant
 its position in the update() function.) So, if I get a bug, I will change its physics to a dynamic one.
 
 This sets static physics to a single image (source: https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Matter.Image#setStatic ).
+
+How to get a sprite's X and Y position (source:
+Manuel Abascal's reply on
+https://stackoverflow.com/questions/58811485/how-to-use-x-and-y-positions-of-a-sprite-for-fling-physics-in-phaser-3 ).
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -515,13 +525,17 @@ function create () {
     repeat: 0
   })
 
-  // This gives static physics to Fang's hitbox
+  // These get the player's X and Y position
+  playerXPosition = player.body.position.x
+  playerYPosition = player.body.position.y
+
+  // This gives static physics to Fang's hitbox by creating a group of hitboxes
   hitbox = this.physics.add.staticGroup()
 
   // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
 
-  // This renders Fang's hitbox
-  hitbox.create(500, 300, 'sword-hitbox')
+  // This renders a specific instantce of Fang's hitbox
+  hitbox1 = hitbox.create(200, playerYPosition + 300, 'sword-hitbox')
 
   // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
 
@@ -628,8 +642,24 @@ https://www.mkelly.me/blog/phaser-finite-state-machine/ ).
 
 How to use SetBodySize to make an sprite wider (source: https://youtu.be/SCO2BbbO17c ).
 
+I will constantly update the X and Y coordinates of the hitbox so that it is always in front of the player.
+To do so, I will get the player's X and Y coordinates, and give them to the hitbox.
+
+How to get the X coordinate of an image (NOT a sprite) (source: 3b33's reply on
+https://phaser.discourse.group/t/get-coordinate-of-moving-image/7722/2 ).
+
+Reset() function on Phaser 3 to change a sprite's X and Y coordinates (source: 
+https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#reset ).
+
+How to use the reset() function to render something in the same position as the player (source: 
+https://thoughts.amphibian.com/2015/11/attacking-enemies-in-my-phaser.html ). 
+
 */
 function update () {
+
+  // These will get the player's coordinates and assign them to the hitbox
+  // hitbox.x = player.body.position.x
+  // hitbox.y = player.body.position.y
 
   // This will let the player move only if they aren't attacking (to finish the attacking animation)
   if (isPlayerAttacking === false) {
@@ -643,6 +673,7 @@ function update () {
 
       // This plays the animation of the player running
       player.anims.play('running', true)
+
     // eslint-disable-next-line brace-style
     } 
     // This executes if the player touches the right arrow
@@ -675,6 +706,25 @@ function update () {
 
     // This will stop all other animations
     isPlayerAttacking = true
+
+    // DEBUG msg: this will get the hitbox's coordinates
+    console.log('The X coordinate for the hitbox is ' + hitbox1.x)
+
+    // This will try to reset the X position of the hitbox
+    // hitbox.x = 600
+
+    // This renders the sword's hitbox right in front of the player
+
+
+    // DEBUG: This renders the hitbox somewhere else
+    hitbox1.x = 100
+    hitbox1.y = 100
+
+    // hitbox.reset(100, 100)
+    // hitbox.reset(player.body.position.x+20, player.body.position.y-20)
+
+    // This resets Fang's position after swinging his sword. (IT WORKS but I don't need it)
+    // player.body.reset(100, 100)
 
     // This will make the sprite wider so that the sword touches the enemy
     // player.setBodySize(player.width * 2)
