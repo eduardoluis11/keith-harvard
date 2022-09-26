@@ -654,6 +654,10 @@ https://newdocs.phaser.io/docs/3.55.2/Phaser.Physics.Arcade.Body#reset ).
 How to use the reset() function to render something in the same position as the player (source: 
 https://thoughts.amphibian.com/2015/11/attacking-enemies-in-my-phaser.html ). 
 
+To make the hitbox to always be rendered in front of the player, independently of whether they're facing the right or
+the left, I will create an "if" statement that checks if the player is flipped. If they are, I will render the hitbox
+more towards the left (like by subtracting 20 px to Fang's sprite). Otherwise, I will render it at around 160 px beyond
+Fang's sprite.
 */
 function update () {
 
@@ -667,6 +671,9 @@ function update () {
     if (cursors.left.isDown) {
       // This flips the sprite horizontally so that the player faces to the left
       player.flipX = true
+
+      // This flips the hitbox horizontally algonside the player.
+      // hitbox1.flipX = true
 
       // This makes the player's sprite to move to the left
       player.setVelocityX(-250)
@@ -714,7 +721,16 @@ function update () {
     // hitbox.x = 600
 
     // This renders the sword's hitbox right in front of the player
-    hitbox1.body.reset(player.body.position.x + 160, player.body.position.y + 60)
+    // If the player is facing to the left, I will render the hitbox towards the left
+    if (player.flipX === true) {
+      hitbox1.body.reset(player.body.position.x + 30, player.body.position.y + 60)
+    // eslint-disable-next-line brace-style
+    } 
+    // If the player is facing to the right, I will render the hitbox towards the right
+    else {
+      hitbox1.body.reset(player.body.position.x + 160, player.body.position.y + 60)
+    }
+    
 
     // DEBUG: This renders the hitbox somewhere else (IT WORKS)
     // hitbox1.x = 100
