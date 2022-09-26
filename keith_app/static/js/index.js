@@ -279,9 +279,9 @@ function touchMeleeEnemy (player, meleeEnemy) {
   
 
   */
-  if (isPlayerAttacking === true) {
-    console.log('The player is attacking the enemy.')
-  }
+  // if (isPlayerAttacking === true) {
+  //   console.log('The player is attacking the enemy.')
+  // }
 
   // else { // This will execute if the player is immune
   //   playerImmunity = false
@@ -306,11 +306,18 @@ function touchMeleeEnemy (player, meleeEnemy) {
 /* This will let the hitbox hurt the enemy when the player swings their sword
 
 */
-function touchHitbox (player, hitbox) {
+function hurtEnemy (meleeEnemies, hitbox) {
 
   // DEBUG msg
-  console.log("You've just touched the hitbox.")
+  console.log("You're attacking the enemy with your sword.")
 }
+
+// This prints a message whenever the player touches the sword's hitbox
+// function touchHitbox (player, hitbox) {
+
+//   // DEBUG msg
+//   console.log("You've just touched the hitbox.")
+// }
 
 
 /* This lets the player attack and hurt the enemies.
@@ -544,9 +551,9 @@ function create () {
   // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
 
   // This creates an overlap between Fang's hitbox and another character 
-  this.physics.add.overlap(player, hitbox, touchHitbox, null, this)
+  // this.physics.add.overlap(player, hitbox, touchHitbox, null, this)
 
-  
+
 
 
   // This adds collision between the player and the aerial platforms, to prevent me from falling through them
@@ -573,6 +580,9 @@ function create () {
 
   // This will call a function whenever the player touches an enemy. This won't push the enemy.
   this.physics.add.overlap(player, meleeEnemies, touchMeleeEnemy, null, this)
+
+  // This creates the overlap that will hurt the enemy with the hitbox
+  this.physics.add.overlap(meleeEnemies, hitbox, hurtEnemy, null, this)
 
   // This will let the player hurt enemies with Fang's sword
   // this.physics.add.overlap(meleeEnemies, player, attackEnemy, null, this)
