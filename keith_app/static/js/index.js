@@ -535,11 +535,15 @@ function create () {
   // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
 
   // This renders a specific instantce of Fang's hitbox
-  hitbox1 = hitbox.create(200, playerYPosition + 300, 'sword-hitbox')
+  hitbox1 = hitbox.create(0, 0, 'sword-hitbox')
+
+  // This makes the hitbox to be invisible and disappear by default
+  // hitbox1.exists = false
+
 
   // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
 
-  // This creates an overlap between Fang's hitbox and another character ...
+  // This creates an overlap between Fang's hitbox and another character 
   this.physics.add.overlap(player, hitbox, touchHitbox, null, this)
 
   
@@ -658,6 +662,12 @@ To make the hitbox to always be rendered in front of the player, independently o
 the left, I will create an "if" statement that checks if the player is flipped. If they are, I will render the hitbox
 more towards the left (like by subtracting 20 px to Fang's sprite). Otherwise, I will render it at around 160 px beyond
 Fang's sprite.
+
+I will try using "exists = true" to try to make the hitbox reappear during the attacking animation.
+
+To make the hitbox to be away by default, and to make it appear only while attacking, I set the hitbox's initial position to 
+be out of the game world's bounds. Then, during the sword swing animation, I made the hitbox to apepar in front of Fang. Afterwards, 
+I'm returning the hitbox back to being out of bounds.
 */
 function update () {
 
@@ -714,8 +724,11 @@ function update () {
     // This will stop all other animations
     isPlayerAttacking = true
 
+    // This will make the hitbox to appear and be visible
+    // hitbox1.exists = true
+
     // DEBUG msg: this will get the hitbox's coordinates
-    console.log('The X coordinate for the hitbox is ' + hitbox1.x)
+    // console.log('The X coordinate for the hitbox is ' + hitbox1.x)
 
     // This will try to reset the X position of the hitbox
     // hitbox.x = 600
@@ -748,6 +761,9 @@ function update () {
     // This will let other animations play once the attacking animation ends
     player.once('animationcomplete', () => {
       isPlayerAttacking = false
+
+      // This will make the hitbox to move back to being out of the stage's bounds (to make it "disappear")
+      hitbox1.body.reset(0, 0)
 
       // This will return the player's width back to normal
       // player.setBodySize(player.width * 0.5)
