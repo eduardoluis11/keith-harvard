@@ -714,14 +714,14 @@ function update () {
     // hitbox.x = 600
 
     // This renders the sword's hitbox right in front of the player
+    hitbox1.body.reset(player.body.position.x + 160, player.body.position.y + 60)
 
-
-    // DEBUG: This renders the hitbox somewhere else
-    hitbox1.x = 100
-    hitbox1.y = 100
+    // DEBUG: This renders the hitbox somewhere else (IT WORKS)
+    // hitbox1.x = 100
+    // hitbox1.y = 100
 
     // hitbox.reset(100, 100)
-    // hitbox.reset(player.body.position.x+20, player.body.position.y-20)
+    
 
     // This resets Fang's position after swinging his sword. (IT WORKS but I don't need it)
     // player.body.reset(100, 100)
