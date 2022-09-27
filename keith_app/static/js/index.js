@@ -131,9 +131,13 @@ var enemy3HealthPointsText
 var enemy4HealthPoints = 30
 var enemy4HealthPointsText
 
-// These variables will hold the EXP points for the main character
-var experiencePoints = 0
-var experiencePointsText
+// These will store the player's current level (it increases if you level up)
+var playerLevel = 1
+var levelText
+
+// // These variables will hold the EXP points for the main character
+// var experiencePoints = 0
+// var experiencePointsText
 
 /* This is a boolean that will make the player invincible for a second right after being hit. 
 
@@ -397,13 +401,17 @@ function hurtEnemy (meleeEnemies, hitbox) {
 It will only be called after all enemies have been defeated.
 
 This will render Keith's withn the game scene (within the game's bounds) after defeating all enemies.
+
+Next, he will talk to you, and ask you if you want to level up, save the game, or keep playing.
 */
 function callKeith () {
   console.log("You've defeated all enemies. Keith should be rendered now.")
 
-  // This renders Keith within the game scene
+  // These renders Keith within the game scene
   keith.x = 504
   keith.y = 427
+
+  // This will render Keith's dialogue and his 3 options
 }
 
 // This prints a message whenever the player touches the sword's hitbox
@@ -678,8 +686,10 @@ function create () {
   // This creates the HP text that will be displayed in the UI
   healthPointsText = this.add.text(16, 16, 'HP: 100', { fontSize: '32px', fill: '#FFFFFF' })
 
-  // This creates the EXP text that will be displayed in the HUD
-  experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
+  // This creates the "Level" text that will be displayed in the HUD
+  levelText = this.add.text(16, 64, 'Level: 1', { fontSize: '32px', fill: '#FFFFFF' })
+
+  // experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
   // This creates a constructor for creating enemies, and adds them collision detection
   meleeEnemies = this.physics.add.group() // Melee enemy
