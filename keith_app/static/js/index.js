@@ -706,6 +706,10 @@ I will try using "exists = true" to try to make the hitbox reappear during the a
 To make the hitbox to be away by default, and to make it appear only while attacking, I set the hitbox's initial position to 
 be out of the game world's bounds. Then, during the sword swing animation, I made the hitbox to apepar in front of Fang. Afterwards, 
 I'm returning the hitbox back to being out of bounds.
+
+I have a bug that makes the player to get hurt if they face towards the left and attack an enemy. To fix this, I will make the player
+invincible during the sword swinging animation. Then, right after the animation ends, I will make the player once again vulnerable
+to attacks.
 */
 function update () {
 
@@ -767,6 +771,9 @@ function update () {
     // This will stop all other animations
     isPlayerAttacking = true
 
+    // This will make the player invincible during the attacking animation
+    playerImmunity = true
+
     // This will make the hitbox to appear and be visible
     // hitbox1.exists = true
 
@@ -807,6 +814,13 @@ function update () {
 
       // This will make the hitbox to move back to being out of the stage's bounds (to make it "disappear")
       hitbox1.body.reset(0, 0)
+
+      // This will make the player once again vulnerable to attacks
+      setTimeout(() => {
+        playerImmunity = false
+      }, 200)
+      
+
 
       // This will return the player's width back to normal
       // player.setBodySize(player.width * 0.5)
