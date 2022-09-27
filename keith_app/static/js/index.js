@@ -135,6 +135,9 @@ var enemy4HealthPointsText
 var playerLevel = 1
 var levelText
 
+// This will store Keith's dialogue
+var keithDialogue
+
 // // These variables will hold the EXP points for the main character
 // var experiencePoints = 0
 // var experiencePointsText
@@ -162,6 +165,9 @@ var hitbox
 
 // This will store the number of enemies defeated
 var totalEnemiesDefeated = 0
+
+// This will tell me if I should render Keith
+var isKeithOnScene = true
 
 /* Invincibility frames boolean  function. This will make the player invincible for half a second.
 
@@ -411,7 +417,9 @@ function callKeith () {
   keith.x = 504
   keith.y = 427
 
-  // This will render Keith's dialogue and his 3 options
+  // These will render Keith's dialogue and show you 3 options (BUGGY)
+  // keithDialogue = add.text(500, 100, 'Hi, dad!', { fontSize: '32px', fill: '#FFFFFF' })
+  
 }
 
 // This prints a message whenever the player touches the sword's hitbox
@@ -961,9 +969,18 @@ function update () {
 
   // This checks if all 4 enemies have been killed
   if (totalEnemiesDefeated === 4) {
+
+    // This will render Keith
+    isKeithOnScene = true
+
     // console.log("You've defeated all enemies. Keith should be rendered now.")
 
     // All interactions with Keith will be handled here
+    // callKeith()
+  }
+
+  // This will call Keith into the scene and render him and his dialogue
+  if (isKeithOnScene === true) {
     callKeith()
   }
 
