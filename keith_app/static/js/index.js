@@ -141,6 +141,9 @@ Since the player will be initially vulnerable to attacks, it will start as "Fals
 */
 var playerImmunity = false
 
+// // This will make each instance of an enemy invincible during the attacking animation
+// var enemyImmunity = false
+
 /* This adds a countdown. I will use it for giving invincibility frames to the player */
 var immunityCountdown
 
@@ -316,6 +319,7 @@ function hurtEnemy (meleeEnemies, hitbox) {
   // DEBUG msg: this prints the health and name of the enemy being attacked
   console.log('This is ' + meleeEnemies.name + ' .')
   console.log('It has ' + meleeEnemies.health + ' HP.')
+  console.log('Is the enemy currently invincible?: ' + meleeEnemies.immunity)
 }
 
 // This prints a message whenever the player touches the sword's hitbox
@@ -608,18 +612,22 @@ function create () {
   meleeEnemy3.flipX = true
   // meleeEnemy4.flipX = true
 
-  // These will assign health and names to each enemy
+  // These will assign health, invincibility status, and names to each enemy
   meleeEnemy1.health = enemy1HealthPoints
   meleeEnemy1.name = 'Melee Enemy 1'
+  meleeEnemy1.immunity = false
 
   meleeEnemy2.health = enemy2HealthPoints
   meleeEnemy2.name = 'Melee Enemy 2'
+  meleeEnemy2.immunity = false
 
   meleeEnemy3.health = enemy3HealthPoints
   meleeEnemy3.name = 'Melee Enemy 3'
+  meleeEnemy3.immunity = false
 
   meleeEnemy4.health = enemy4HealthPoints
   meleeEnemy4.name = 'Melee Enemy 4'
+  meleeEnemy4.immunity = false
 
 
 
@@ -710,6 +718,11 @@ I'm returning the hitbox back to being out of bounds.
 I have a bug that makes the player to get hurt if they face towards the left and attack an enemy. To fix this, I will make the player
 invincible during the sword swinging animation. Then, right after the animation ends, I will make the player once again vulnerable
 to attacks.
+
+I will make the enemies invincible right after damaging them so that the player can only hurt them once per attack. To do that, 
+I'll create a boolean that will assign immunity to enemies right after getting hurt, and which will make enemies vulnerable
+once again right after the attacking animation ends. And, since I only want a specific enemy to be invincible during the attack, 
+I will assign each enemy the immunity boolean as a property via "." notation (i.e: "enemy.immunity = false").
 */
 function update () {
 
