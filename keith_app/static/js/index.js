@@ -303,13 +303,19 @@ function touchMeleeEnemy (player, meleeEnemy) {
   // player.anims.play('idle') 
 } // End of touchEnemy()
 
-/* This will let the hitbox hurt the enemy when the player swings their sword
+/* This will let the hitbox hurt the enemy when the player swings their sword.
 
+U'll try to access the health and name properties of each enemy, to make sure that, for instance, if I
+attack meleeEnemy1, that I will get the name "Melee Enemy 1", and its corresponding HP points.
 */
 function hurtEnemy (meleeEnemies, hitbox) {
 
   // DEBUG msg
   console.log("You're attacking the enemy with your sword.")
+
+  // DEBUG msg: this prints the health and name of the enemy being attacked
+  console.log('This is ' + meleeEnemies.name + ' .')
+  console.log('It has ' + meleeEnemies.health + ' HP.')
 }
 
 // This prints a message whenever the player touches the sword's hitbox
@@ -475,6 +481,11 @@ This sets static physics to a single image (source: https://newdocs.phaser.io/do
 How to get a sprite's X and Y position (source:
 Manuel Abascal's reply on
 https://stackoverflow.com/questions/58811485/how-to-use-x-and-y-positions-of-a-sprite-for-fling-physics-in-phaser-3 ).
+
+To give Health Points to each enemy individually (to prevent hurting all enemies at the same time when I attack 1 enemy), I
+need to either pass that enemy's HP as an argument to the hurtEnemy() function, or assign health as an attribute to each enemy.
+The easiest way would be to use "." notation to assign health as an attribute to each enemy. So, I will hive health and a name
+to each enemy. The name will be useful for debugging purposes. 
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -578,11 +589,7 @@ function create () {
   // // This renders the melee enemies
   // meleeEnemies.create(800, 150, 'melee-enemy')
 
-  // This will call a function whenever the player touches an enemy. This won't push the enemy.
-  this.physics.add.overlap(player, meleeEnemies, touchMeleeEnemy, null, this)
 
-  // This creates the overlap that will hurt the enemy with the hitbox
-  this.physics.add.overlap(meleeEnemies, hitbox, hurtEnemy, null, this)
 
   // This will let the player hurt enemies with Fang's sword
   // this.physics.add.overlap(meleeEnemies, player, attackEnemy, null, this)
@@ -600,6 +607,27 @@ function create () {
   meleeEnemy2.flipX = true
   meleeEnemy3.flipX = true
   meleeEnemy4.flipX = true
+
+  // These will assign health and names to each enemy
+  meleeEnemy1.health = enemy1HealthPoints
+  meleeEnemy1.name = 'Melee Enemy 1'
+
+  meleeEnemy2.health = enemy2HealthPoints
+  meleeEnemy2.name = 'Melee Enemy 2'
+
+  meleeEnemy3.health = enemy3HealthPoints
+  meleeEnemy3.name = 'Melee Enemy 3'
+
+  meleeEnemy4.health = enemy4HealthPoints
+  meleeEnemy4.name = 'Melee Enemy 4'
+
+
+
+  // This will call a function whenever the player touches an enemy. This won't push the enemy.
+  this.physics.add.overlap(player, meleeEnemies, touchMeleeEnemy, null, this)
+
+  // This creates the overlap that will hurt the enemy with the hitbox
+  this.physics.add.overlap(meleeEnemies, hitbox, hurtEnemy, null, this)
 
   // This prevents the melee enemy from going out of bounds
   meleeEnemy1.setCollideWorldBounds(true)
