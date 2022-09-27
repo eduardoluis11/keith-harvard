@@ -318,6 +318,12 @@ I will make enemy vulnerable once again.
 I'll use a switch case for better readability and to make the code run faster
 
 From 900 milliseconds, I prevent from hurting too much an enemy if I press the Space bar too many times in a row.
+
+Once an enemy has 0 HP, I will move them out of bounds to remove them from the scene. That will count as having defeated the 
+enemy.
+
+How to remove a sprite's gravity by using .setInmovable(true) and .body.setAllowGravity(false) (source: dubler's reply on 
+https://phaser.discourse.group/t/canceling-gravity-on-a-specific-object/2854 ).
 */
 function hurtEnemy (meleeEnemies, hitbox) {
 
@@ -326,6 +332,14 @@ function hurtEnemy (meleeEnemies, hitbox) {
     // This will subtract HP points from the enemy if the enemy isn't invincible
     case false:
       meleeEnemies.health = meleeEnemies.health - 10
+
+      // If the enemy has no HP remaining, this will "kill" them (by removing them from the scene)
+      if (meleeEnemies.health === 0) {
+        meleeEnemies.y = -1000
+
+        meleeEnemies.setImmovable(true)
+        meleeEnemies.body.setAllowGravity(false)
+      }
 
       // This will give a red tint to the enemy while they're invincible
       meleeEnemies.setTint(0xff0000)
