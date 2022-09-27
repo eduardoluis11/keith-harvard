@@ -310,8 +310,40 @@ function touchMeleeEnemy (player, meleeEnemy) {
 
 I'll try to access the health and name properties of each enemy, to make sure that, for instance, if I
 attack meleeEnemy1, that I will get the name "Melee Enemy 1", and its corresponding HP points.
+
+To make the player hurt only once the enmy per sword slash, I will first subtract HP from the enemy, and then
+make the enemy invincible for the rest of the attacking animation. Then, once the attacking animation ends,
+I will make enemy vulnerable once again.
+
+I'll use a switch case for better readability and to make the code run faster
 */
 function hurtEnemy (meleeEnemies, hitbox) {
+
+  
+  switch (meleeEnemies.immunity) {
+    // This will subtract HP points from the enemy if the enemy isn't invincible
+    case false:
+      meleeEnemies.health = meleeEnemies.health - 10
+
+      // Thsi will give a red tint to the enemy while they're invincible
+
+      // This will make the enemy invincible during the rest of the attacking animation
+      meleeEnemies.immunity = true
+      break
+
+    // This will make the enemy invincible until the sword swinging animation ends
+    case true:
+      setTimeout(() => {
+        meleeEnemies.immunity = false
+      }, 1000)
+
+      // if (isPlayerAttacking === false) {
+      // meleeEnemies.immunity = false
+      // }
+      
+      break
+  }
+
 
   // DEBUG msg
   console.log("You're attacking the enemy with your sword.")
