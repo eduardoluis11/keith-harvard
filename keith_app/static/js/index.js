@@ -595,10 +595,10 @@ function create () {
   // this.physics.add.overlap(meleeEnemies, player, attackEnemy, null, this)
   
   // This creates an instance of an enemy (the melee weapon one)
-  var meleeEnemy1 = meleeEnemies.create(800, 16, 'melee-enemy').setScale(3)
+  var meleeEnemy1 = meleeEnemies.create(980, 16, 'melee-enemy').setScale(3)
 
   // These lines will create 3 more instances of the melee weapon enemy
-  var meleeEnemy2 = meleeEnemies.create(600, 16, 'melee-enemy').setScale(3)
+  var meleeEnemy2 = meleeEnemies.create(780, 16, 'melee-enemy').setScale(3)
   var meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
   var meleeEnemy4 = meleeEnemies.create(40, 16, 'melee-enemy').setScale(3)
 
@@ -815,7 +815,7 @@ function update () {
       // This will make the hitbox to move back to being out of the stage's bounds (to make it "disappear")
       hitbox1.body.reset(0, 0)
 
-      // This will make the player once again vulnerable to attacks
+      // This will make the player once again vulnerable to attacks (after 200 milliseconds)
       setTimeout(() => {
         playerImmunity = false
       }, 200)
