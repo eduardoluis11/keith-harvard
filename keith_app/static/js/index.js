@@ -395,9 +395,15 @@ function hurtEnemy (meleeEnemies, hitbox) {
 /* This will handle all interactions with Keith.
 
 It will only be called after all enemies have been defeated.
+
+This will render Keith's withn the game scene (within the game's bounds) after defeating all enemies.
 */
 function callKeith () {
   console.log("You've defeated all enemies. Keith should be rendered now.")
+
+  // This renders Keith within the game scene
+  keith.x = 504
+  keith.y = 427
 }
 
 // This prints a message whenever the player touches the sword's hitbox
@@ -646,7 +652,7 @@ function create () {
   hitbox1 = hitbox.create(-100, 0, 'sword-hitbox')
 
   // This render Keith's sprite
-  this.add.image(504, 427, 'keith').setOrigin(0, 0)
+  keith = this.add.image(504, -200, 'keith').setOrigin(0, 0)
 
   // This makes the hitbox to be invisible and disappear by default
   // hitbox1.exists = false
