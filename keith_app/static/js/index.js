@@ -335,10 +335,16 @@ function hurtEnemy (meleeEnemies, hitbox) {
 
       // If the enemy has no HP remaining, this will "kill" them (by removing them from the scene)
       if (meleeEnemies.health === 0) {
+
+        // This should let me put the enemy of out the game's bounds
+        meleeEnemies.setCollideWorldBounds(false)
+
         meleeEnemies.y = -1000
 
+        // These 2 lines remove the enemy0s gravity
         meleeEnemies.setImmovable(true)
         meleeEnemies.body.setAllowGravity(false)
+
       }
 
       // This will give a red tint to the enemy while they're invincible
