@@ -316,6 +316,8 @@ make the enemy invincible for the rest of the attacking animation. Then, once th
 I will make enemy vulnerable once again.
 
 I'll use a switch case for better readability and to make the code run faster
+
+From 900 milliseconds, I prevent from hurting too much an enemy if I press the Space bar too many times in a row.
 */
 function hurtEnemy (meleeEnemies, hitbox) {
 
@@ -339,7 +341,7 @@ function hurtEnemy (meleeEnemies, hitbox) {
 
         // This removes the red tint
         meleeEnemies.clearTint()
-      }, 1000)
+      }, 900)
 
       // if (isPlayerAttacking === false) {
       // meleeEnemies.immunity = false
@@ -862,7 +864,7 @@ function update () {
       isPlayerAttacking = false
 
       // This will make the hitbox to move back to being out of the stage's bounds (to make it "disappear")
-      hitbox1.body.reset(0, 0)
+      hitbox1.body.reset(-100, 0)
 
       // This will make the player once again vulnerable to attacks (after 200 milliseconds)
       setTimeout(() => {
