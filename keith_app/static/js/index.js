@@ -409,6 +409,9 @@ It will only be called after all enemies have been defeated.
 This will render Keith's withn the game scene (within the game's bounds) after defeating all enemies.
 
 Next, he will talk to you, and ask you if you want to level up, save the game, or keep playing.
+
+To render the text by modifying its X and Y coordinates, I will call the text's X and Y coordinates via "." notation
+(that is, by calling the text's properties).
 */
 function callKeith () {
   console.log("You've defeated all enemies. Keith should be rendered now.")
@@ -417,7 +420,11 @@ function callKeith () {
   keith.x = 504
   keith.y = 427
 
-  // These will render Keith's dialogue and show you 3 options (BUGGY)
+  // These will render Keith's dialogue and show you 3 options
+  keithDialogue.x = 500
+  keithDialogue.y = 100
+
+  // BUGGY
   // keithDialogue = add.text(500, 100, 'Hi, dad!', { fontSize: '32px', fill: '#FFFFFF' })
   
 }
@@ -598,6 +605,9 @@ to each enemy. The name will be useful for debugging purposes.
 
 I will render Keith (your son) as an image, since I don't want any collision detecion on him, and to make coding your interactions 
 with him way easier, and to save a lot of time.
+
+I will render Keith'sdialogue in here. At first, the dialogue text will be out of bounds. However, if Keith is within the game scene, 
+I will also render his dialogue within the game's bounds.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -696,6 +706,9 @@ function create () {
 
   // This creates the "Level" text that will be displayed in the HUD
   levelText = this.add.text(16, 64, 'Level: 1', { fontSize: '32px', fill: '#FFFFFF' })
+
+  // This creates Keith's dialogue, and puts it out of the game's bounds
+  keithDialogue = this.add.text(500, -200, 'Hi, Dad!', { fontSize: '32px', fill: '#FFFFFF' })
 
   // experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
