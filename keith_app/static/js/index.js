@@ -156,6 +156,9 @@ var isPlayerAttacking = false
 // This will declare Fang's sword hitbox as a global variable
 var hitbox
 
+// This will store the number of enemies defeated
+var totalEnemiesDefeated = 0
+
 /* Invincibility frames boolean  function. This will make the player invincible for half a second.
 
 This is what I’ll do to set the countdown to give invincibility frames to the player: first, I will go to the create() function,
@@ -347,6 +350,12 @@ function hurtEnemy (meleeEnemies, hitbox) {
         // These 2 lines remove the enemy0s gravity
         meleeEnemies.setImmovable(true)
         meleeEnemies.body.setAllowGravity(false)
+
+        // This adds 1 to the counter that keeps track of the number of enemies defeated
+        totalEnemiesDefeated += 1
+
+        // DEBUG msg
+        console.log("You've defeated " + totalEnemiesDefeated + ' enemies.')
 
       }
 
@@ -795,6 +804,9 @@ I will make the enemies invincible right after damaging them so that the player 
 I'll create a boolean that will assign immunity to enemies right after getting hurt, and which will make enemies vulnerable
 once again right after the attacking animation ends. And, since I only want a specific enemy to be invincible during the attack, 
 I will assign each enemy the immunity boolean as a property via "." notation (i.e: "enemy.immunity = false").
+
+I will render Keith only if all enemies have been defeated. Since this function will constantly check the status of every sprite 
+in the game, I will check here if all the enemies have been killed.
 */
 function update () {
 
@@ -923,7 +935,14 @@ function update () {
 
   } 
 
+  // This checks if all 4 enemies have been killed
+  // (BUGGY. Crashes the game.)
+  // if (meleeEnemy1.health <= 0 && meleeEnemy2.health <= 0 && meleeEnemy3.health <= 0 && meleeEnemy4.health <= 0) {
+  //   console.log("You've defeated all enemies. Keith should be rendered now.")
+  // }
 
+  // DEBUG msg: this checks if it detects the melee enemies
+  // console.log('This is a melee enemy: ' + meleeEnemy1.x)
 
   // // This calls the immunity boolean function after a half a second delay if the player gets hurt
   // if (playerImmunity === true) {
@@ -934,7 +953,8 @@ function update () {
   // // This executes the enemy animations
   // // Melee weapon enemy
   // meleeEnemies.anims.play('melee-enemy-running', true)
-}
+
+} // End of the update() function
 
 
 
