@@ -141,7 +141,8 @@ var keithDialogue
 // These will store the 3 options that Keith will give you
 var levelUpOption
 var saveGameOption
-var cancelOption 
+var cancelOptionPart1 
+var cancelOptionPart2
 
 // // These variables will hold the EXP points for the main character
 // var experiencePoints = 0
@@ -435,8 +436,11 @@ function callKeith () {
   saveGameOption.x = 350
   saveGameOption.y = 250
 
-  cancelOption.x = 350
-  cancelOption.y = 300
+  cancelOptionPart1.x = 350
+  cancelOptionPart1.y = 300
+
+  cancelOptionPart2.x = 350
+  cancelOptionPart2.y = 325
 
   // BUGGY
   // keithDialogue = add.text(500, 100, 'Hi, dad!', { fontSize: '32px', fill: '#FFFFFF' })
@@ -727,7 +731,9 @@ function create () {
   // This creates the 3 options that Keith will give you
   levelUpOption = this.add.text(400, -200, '[PRESS 1]: Have a Heart-to-Heart talk (LEVEL UP)', { fontSize: '16px', fill: '#FFFFFF' })
   saveGameOption = this.add.text(400, -200, '[PRESS 2]: Talk about your day (SAVE GAME)', { fontSize: '16px', fill: '#FFFFFF' })
-  cancelOption = this.add.text(400, -200, '[PRESS 3]: I need to go back to work (CANCEL AND CONTINUE PLAYING)', 
+  cancelOptionPart1 = this.add.text(400, -200, '[PRESS 3]: I need to go back to work', 
+    { fontSize: '16px', fill: '#FFFFFF' })
+  cancelOptionPart2 = this.add.text(400, -200, '(CANCEL AND CONTINUE PLAYING)', 
     { fontSize: '16px', fill: '#FFFFFF' })
 
   // experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
