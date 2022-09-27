@@ -325,7 +325,8 @@ function hurtEnemy (meleeEnemies, hitbox) {
     case false:
       meleeEnemies.health = meleeEnemies.health - 10
 
-      // Thsi will give a red tint to the enemy while they're invincible
+      // This will give a red tint to the enemy while they're invincible
+      meleeEnemies.setTint(0xff0000)
 
       // This will make the enemy invincible during the rest of the attacking animation
       meleeEnemies.immunity = true
@@ -335,13 +336,16 @@ function hurtEnemy (meleeEnemies, hitbox) {
     case true:
       setTimeout(() => {
         meleeEnemies.immunity = false
+
+        // This removes the red tint
+        meleeEnemies.clearTint()
       }, 1000)
 
       // if (isPlayerAttacking === false) {
       // meleeEnemies.immunity = false
       // }
-      
-      break
+
+
   }
 
 
@@ -589,7 +593,7 @@ function create () {
   // hitbox = this.add.image(500, 300, 'sword-hitbox').setOrigin(0, 0)
 
   // This renders a specific instantce of Fang's hitbox
-  hitbox1 = hitbox.create(0, 0, 'sword-hitbox')
+  hitbox1 = hitbox.create(-100, 0, 'sword-hitbox')
 
   // This makes the hitbox to be invisible and disappear by default
   // hitbox1.exists = false
@@ -865,7 +869,17 @@ function update () {
         playerImmunity = false
       }, 200)
       
+      // // These will make all enemies vulnerable after the sword swinging animation ends
+      // meleeEnemy1.immunity = false
+      // meleeEnemy2.immunity = false
+      // meleeEnemy3.immunity = false
+      // meleeEnemy4.immunity = false
 
+      // // These will remove the red tints from all enemies after attack animation ends
+      // meleeEnemy1.clearTint()
+      // meleeEnemy2.clearTint()
+      // meleeEnemy3.clearTint()
+      // meleeEnemy4.clearTint()
 
       // This will return the player's width back to normal
       // player.setBodySize(player.width * 0.5)
