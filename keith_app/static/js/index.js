@@ -324,6 +324,9 @@ enemy.
 
 How to remove a sprite's gravity by using .setInmovable(true) and .body.setAllowGravity(false) (source: dubler's reply on 
 https://phaser.discourse.group/t/canceling-gravity-on-a-specific-object/2854 ).
+
+Since enemies run the risk of having less than 0 HP points if the user attacks them too many times quickly, I will
+delete their sprites if they get 0 OR negative HP.
 */
 function hurtEnemy (meleeEnemies, hitbox) {
 
@@ -334,7 +337,7 @@ function hurtEnemy (meleeEnemies, hitbox) {
       meleeEnemies.health = meleeEnemies.health - 10
 
       // If the enemy has no HP remaining, this will "kill" them (by removing them from the scene)
-      if (meleeEnemies.health === 0) {
+      if (meleeEnemies.health <= 0) {
 
         // This should let me put the enemy of out the game's bounds
         meleeEnemies.setCollideWorldBounds(false)
@@ -626,7 +629,7 @@ function create () {
   hitbox1 = hitbox.create(-100, 0, 'sword-hitbox')
 
   // This render Keith's sprite
-  this.add.image(504, 427, 'keith').setOrigin(0, 0).setScale(2)
+  this.add.image(504, 427, 'keith').setOrigin(0, 0)
 
   // This makes the hitbox to be invisible and disappear by default
   // hitbox1.exists = false
