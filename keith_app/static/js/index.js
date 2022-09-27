@@ -418,6 +418,8 @@ I may ned to readjust my sprites.
 
 To hurt the enemy I will create a hitbox, and render it in front of the player while they are swinging their sword. To make things
 easier, I will create a sprite for the hitbox.
+
+I will load Keith as an image instead of a sprite to make coding his interactions easier and to save a lot of time.
 */
 function preload () {
   // Background of action level 1 without the ground
@@ -446,6 +448,9 @@ function preload () {
 
   // Fang's HUD mask (it will make it easier to read the HP and EXP)
   this.load.image('fang-hud', 'media/assets/UI/fang-hud.png')
+
+  // Keith's sprite
+  this.load.image('keith', 'media/assets/keith/keith.png')
 
   // Enemy sprites
   // Ball and chain robot (melee enemy)
@@ -548,6 +553,9 @@ To give Health Points to each enemy individually (to prevent hurting all enemies
 need to either pass that enemy's HP as an argument to the hurtEnemy() function, or assign health as an attribute to each enemy.
 The easiest way would be to use "." notation to assign health as an attribute to each enemy. So, I will hive health and a name
 to each enemy. The name will be useful for debugging purposes. 
+
+I will render Keith (your son) as an image, since I don't want any collision detecion on him, and to make coding your interactions 
+with him way easier, and to save a lot of time.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -616,6 +624,9 @@ function create () {
 
   // This renders a specific instantce of Fang's hitbox
   hitbox1 = hitbox.create(-100, 0, 'sword-hitbox')
+
+  // This render Keith's sprite
+  this.add.image(504, 427, 'keith').setOrigin(0, 0).setScale(2)
 
   // This makes the hitbox to be invisible and disappear by default
   // hitbox1.exists = false
