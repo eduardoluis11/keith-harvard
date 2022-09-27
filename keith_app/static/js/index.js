@@ -305,7 +305,7 @@ function touchMeleeEnemy (player, meleeEnemy) {
 
 /* This will let the hitbox hurt the enemy when the player swings their sword.
 
-U'll try to access the health and name properties of each enemy, to make sure that, for instance, if I
+I'll try to access the health and name properties of each enemy, to make sure that, for instance, if I
 attack meleeEnemy1, that I will get the name "Melee Enemy 1", and its corresponding HP points.
 */
 function hurtEnemy (meleeEnemies, hitbox) {
@@ -510,11 +510,11 @@ function create () {
   aerialPlatforms.create(300, 691, 'aerial-platform-1').setScale(8).refreshBody()
 
   // This renders the aerial platforms for the 1st action level
-  aerialPlatforms.create(200, 350, 'aerial-platform-1')
-  aerialPlatforms.create(900, 350, 'aerial-platform-1')
+  aerialPlatforms.create(100, 350, 'aerial-platform-1')
+  aerialPlatforms.create(925, 350, 'aerial-platform-1')
 
   // This adds the player's idle spritesheet with dynamic physics
-  player = this.physics.add.sprite(100, 0, 'fang-idle').setScale(2)
+  player = this.physics.add.sprite(300, 400, 'fang-idle').setScale(2)
 
   // This prevents the player from going out of bounds
   player.setCollideWorldBounds(true)
@@ -600,13 +600,13 @@ function create () {
   // These lines will create 3 more instances of the melee weapon enemy
   var meleeEnemy2 = meleeEnemies.create(600, 16, 'melee-enemy').setScale(3)
   var meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
-  var meleeEnemy4 = meleeEnemies.create(300, 16, 'melee-enemy').setScale(3)
+  var meleeEnemy4 = meleeEnemies.create(40, 16, 'melee-enemy').setScale(3)
 
   // This horizontally flips the melee enemy sprite
   meleeEnemy1.flipX = true
   meleeEnemy2.flipX = true
   meleeEnemy3.flipX = true
-  meleeEnemy4.flipX = true
+  // meleeEnemy4.flipX = true
 
   // These will assign health and names to each enemy
   meleeEnemy1.health = enemy1HealthPoints
@@ -745,7 +745,12 @@ function update () {
 
       player.anims.play('idle', true)
     }
-  }
+
+    // This executes if the player touches the up arrow
+    if (cursors.up.isDown && player.body.touching.down) {
+      player.setVelocityY(-330)
+    }
+  } // End of non-sword swinging inputs
 
 
   if (spaceBar.isDown) { // This executes if the player presses the space bar
@@ -809,10 +814,7 @@ function update () {
 
   } 
 
-  // This executes if the player touches the up arrow
-  if (cursors.up.isDown && player.body.touching.down) {
-    player.setVelocityY(-330)
-  }
+
 
   // // This calls the immunity boolean function after a half a second delay if the player gets hurt
   // if (playerImmunity === true) {
