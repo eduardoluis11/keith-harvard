@@ -392,6 +392,14 @@ function hurtEnemy (meleeEnemies, hitbox) {
   console.log('Is the enemy currently invincible?: ' + meleeEnemies.immunity)
 }
 
+/* This will handle all interactions with Keith.
+
+It will only be called after all enemies have been defeated.
+*/
+function callKeith () {
+  console.log("You've defeated all enemies. Keith should be rendered now.")
+}
+
 // This prints a message whenever the player touches the sword's hitbox
 // function touchHitbox (player, hitbox) {
 
@@ -936,6 +944,14 @@ function update () {
   } 
 
   // This checks if all 4 enemies have been killed
+  if (totalEnemiesDefeated === 4) {
+    // console.log("You've defeated all enemies. Keith should be rendered now.")
+
+    // All interactions with Keith will be handled here
+    callKeith()
+  }
+
+
   // (BUGGY. Crashes the game.)
   // if (meleeEnemy1.health <= 0 && meleeEnemy2.health <= 0 && meleeEnemy3.health <= 0 && meleeEnemy4.health <= 0) {
   //   console.log("You've defeated all enemies. Keith should be rendered now.")
