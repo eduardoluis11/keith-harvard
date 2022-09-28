@@ -179,8 +179,11 @@ function loadGame () {
       // console.log('The player has ' + playerHPFromDatabase + ' HP.')
       // console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.') 
   
-      // This will assign the player's HP from the database into the game
+      // This will assign the player's Max HP from the database into the game
       fangsMaxHealthPoints = playerHPFromDatabase
+
+      // This will assign the player's current HP from the database into the game
+      fangsCurrentHealthPoints = playerHPFromDatabase
 
       // DEBUG msg: This shows me the real initial state of Fang's Max HP
       console.log("The player's initial HP is of " + fangsMaxHealthPoints)
