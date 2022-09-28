@@ -259,11 +259,14 @@ def load_game(request):
         # This gets the attack points from the user's save file
         player_attack_points = logged_users_save_file.player_attack_points
 
+        # # DEBUG msg. WORKS PROPERLY
+        # print(player_attack_points)
+
         # This converts the database data into JSON, and sends it to a JS file
         return JsonResponse({
             "player_level": player_level,
             "player_hp": player_hp,
-            "player_attack_points ": player_attack_points
+            "player_attack_points": player_attack_points
         }, status=200)
 
 

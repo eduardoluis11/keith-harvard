@@ -160,10 +160,12 @@ function loadGame () {
       // This gets the player's attack points
       let playerAttackPointsFromDatabase = data.player_attack_points
 
-      // DEBUG msg: this will print the player's level, HP, and attack points stored in the database
-      console.log('The player is Level: ' + playerLevelFromDatabase)
-      console.log('The player has ' + playerHPFromDatabase + ' HP.')
-      console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.')
+      // // DEBUG msg: this will print the player's level, HP, and attack points stored in the database
+      // console.log('The player is Level: ' + playerLevelFromDatabase)
+      // console.log('The player has ' + playerHPFromDatabase + ' HP.')
+
+      // BUGGY. It says that it's getting "Undefined" data.
+      console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.') 
   
 
     })
