@@ -36,6 +36,9 @@ https://docs.djangoproject.com/en/4.1/ref/urlresolvers/ ).
 """
 from django.urls import reverse
 
+# This will let me convert Python data to JSON, and send it to a JS file
+from django.http import JsonResponse
+
 # This imports all forms from forms.py
 from .forms import SignUpForm, LoginForm
 
@@ -210,3 +213,24 @@ def logout_user(request):
 
     # This redirects the user to the home page
     return HttpResponseRedirect(reverse("index"))
+
+""" API for loading game data.
+
+This will let the user get their HP, level, and attack points whenever the boot up their game.
+
+To make this easier to code, I will add it a CSRF Exempt decorator, so that I can easily access this data.
+
+And, of course, the user needs to be logged in to be able to load their game. So, I will put a "login required" 
+decorator.
+
+If the user doesn't do a POST request, they are entering into the API's URL without calling the API. So, I will print
+these users an error message.
+"""
+@csrf_exempt
+@login_required
+def load_game(request):
+
+    # This will print an error message if the user enters the API's URL
+    if request.method != "POST":
+        return JsonResponse({"message": "You shouldn't be here. This is the API for loading your game data"},
+                            status=400)
