@@ -427,20 +427,24 @@ function callKeith () {
   keith.y = 427
 
   // These will render Keith's dialogue and show you 3 options
-  keithDialogue.x = 400
+  keithDialogue.x = 350
   keithDialogue.y = 100
 
-  levelUpOption.x = 350
+  levelUpOption.x = 330
   levelUpOption.y = 200
 
-  saveGameOption.x = 350
+  saveGameOption.x = 330
   saveGameOption.y = 250
 
-  cancelOptionPart1.x = 350
+  cancelOptionPart1.x = 330
   cancelOptionPart1.y = 300
 
-  cancelOptionPart2.x = 350
+  cancelOptionPart2.x = 330
   cancelOptionPart2.y = 325
+
+  // These will render the text box that will make it easier to read the dialogue
+  dialogueBox.x = 320
+  dialogueBox.y = 80
 
   // BUGGY
   // keithDialogue = add.text(500, 100, 'Hi, dad!', { fontSize: '32px', fill: '#FFFFFF' })
@@ -518,6 +522,9 @@ function preload () {
 
   // Keith's sprite
   this.load.image('keith', 'media/assets/keith/keith.png')
+
+  // Text box for Keith's dialogue
+  this.load.image('dialogue-box', 'media/assets/UI/dialogue-box.jpg')
 
   // Enemy sprites
   // Ball and chain robot (melee enemy)
@@ -624,8 +631,10 @@ to each enemy. The name will be useful for debugging purposes.
 I will render Keith (your son) as an image, since I don't want any collision detecion on him, and to make coding your interactions 
 with him way easier, and to save a lot of time.
 
-I will render Keith'sdialogue in here. At first, the dialogue text will be out of bounds. However, if Keith is within the game scene, 
-I will also render his dialogue within the game's bounds.
+I will render Keith's dialogue in here. At first, the dialogue text will be out of bounds. However, if Keith is within the game scene, 
+I will also render his dialogue within the game's bounds. 
+
+I will add a text box so that Keith's dialogue is easier to read.
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -724,6 +733,10 @@ function create () {
 
   // This creates the "Level" text that will be displayed in the HUD
   levelText = this.add.text(16, 64, 'Level: 1', { fontSize: '32px', fill: '#FFFFFF' })
+
+
+  // This creates the text box for Keith's dialogue, and puts it out of bounds, and below the text's layer
+  dialogueBox = this.add.image(504, -1000, 'dialogue-box').setOrigin(0, 0)
 
   // This creates Keith's dialogue, and puts it out of the game's bounds
   keithDialogue = this.add.text(500, -200, 'Hi, Dad! How are you?', { fontSize: '32px', fill: '#FFFFFF' })
