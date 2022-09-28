@@ -103,6 +103,9 @@ var game = new Phaser.Game(config)
 // Upon further consideration, I will store all platforms and grounds in a single variable
 // var platforms
 
+// This boolean will make it so that the player's stats are only loaded once from the database after booting the game
+isGameLoaded = false
+
 // This will store the floating platforms from each level
 var aerialPlatforms
 
@@ -111,10 +114,11 @@ var groundPlatforms
 
 // These variables will hold the HP points for the main character
 
-var fangsMaxHealthPoints = 100 // This will store the pleyer's initial max HP
+// This will store the player's max HP, that is, their initial HP
+var fangsMaxHealthPoints = 550
 
 // This will store the player's in-game HP (it will be depleted when taking damage) 
-var fangsCurrentHealthPoints 
+var fangsCurrentHealthPoints = 550
 var healthPointsText // This will print the player's HP in the HUD
 
 /* These will hold the HP points for the enemies. 
@@ -146,6 +150,12 @@ https://stackoverflow.com/questions/63904868/using-axios-library-in-phaser-3-24-
 the fetch() function that will load my game data here in the create() function. However, I see no reason why I should declare it
 inside of the create() function. So, I will declare the function that loads the player data by using fetch() from outside the 
 create() function.
+
+Now, I will assign the player's stats from the database into the actual game (the HP, attack points and level.)
+
+At the end of this function, I will set the boolean that executes this function to become true. That way, this function will only
+be executed once. After that, nothing in this function will execute. This will prevetn the player from always printing "100 HP"
+on the HUD, even if they actually lose HP.
 */
 function loadGame () {
   fetch('/load-game', {
@@ -169,7 +179,17 @@ function loadGame () {
       // console.log('The player has ' + playerHPFromDatabase + ' HP.')
       // console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.') 
   
+      // This will assign the player's HP from the database into the game
+      fangsMaxHealthPoints = playerHPFromDatabase
 
+      // DEBUG msg: This shows me the real initial state of Fang's Max HP
+      console.log("The player's initial HP is of " + fangsMaxHealthPoints)
+
+      // This will set the player's HP in the HUD to be equal than their HP registered on the database
+      healthPointsText.setText('HP: ' + fangsMaxHealthPoints)
+
+      // This will prevent this function from executing more than once
+      isGameLoaded = true
     })
 }
 
@@ -690,7 +710,13 @@ I will initally set the player's HP to be equal to its maximum HP, that is, thei
 */
 function create () {
 
-  fangsCurrentHealthPoints = fangsMaxHealthPoints
+  // // DEBUG: This will check if the create() function executes any function only one time when loading the game
+  // function debugFunction() {
+  //   console.log('This should be rendered only once in the console. This comes from the create() function.')
+  // }
+
+  // This makes the current HP for the player the same as their initial HP. USELESS since the Max HP is enough here
+  // fangsCurrentHealthPoints = fangsMaxHealthPoints
 
   // This renders a preloaded image (the 1st action level's background)
   this.add.image(0, 0, 'bg-level-1').setOrigin(0, 0)
@@ -784,7 +810,7 @@ function create () {
   cursors = this.input.keyboard.createCursorKeys()
 
   // This creates the HP text that will be displayed in the UI
-  healthPointsText = this.add.text(16, 16, 'HP: 100', { fontSize: '32px', fill: '#FFFFFF' })
+  healthPointsText = this.add.text(16, 16, 'HP: ' + fangsMaxHealthPoints, { fontSize: '32px', fill: '#FFFFFF' })
 
   // This creates the "Level" text that will be displayed in the HUD
   levelText = this.add.text(16, 64, 'Level: 1', { fontSize: '32px', fill: '#FFFFFF' })
@@ -957,11 +983,18 @@ https://stackoverflow.com/questions/3396754/onkeypress-vs-onkeyup-and-onkeydown 
 
 I will always call the fetch() function that loads the player's stats from the database. That's why I will call the function
 that loads the game here in update().
+
+I only want to call once the function that loads the player's stats from the database. So, I will call a boolean that will prevent
+the loadGame() function from being called indefinitely. It will be called once, and then the function won't be called again
+until you close the browser and reopen the game.
 */
 function update () {
 
-  // This will call the player's stats from the database using fetch()
-  loadGame()
+  // This will call the player's stats from the database using fetch() only once
+  if (isGameLoaded === false) {
+    loadGame()
+  }
+
 
 
   // These will get the player's coordinates and assign them to the hitbox
