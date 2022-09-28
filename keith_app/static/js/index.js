@@ -180,6 +180,9 @@ var totalEnemiesDefeated = 0
 // This will tell me if I should render Keith
 var isKeithOnScene = true
 
+// This tells me if the player can level up (so that it levels up once per enemy wave)
+var canLevelUp = true
+
 /* Invincibility frames boolean  function. This will make the player invincible for half a second.
 
 This is what I’ll do to set the countdown to give invincibility frames to the player: first, I will go to the create() function,
@@ -1057,6 +1060,12 @@ function update () {
 
   Remember that I need to assign those keys to a variable to call them here later. I will do the same 
   as what I did with the space bar key.
+
+  To be able to level up only once after pressing the 1 key after defeating a set of enemies, and to prevent my game 
+  from making the player level up as long as they hold down the "1" key, I will add a boolean. I only want to level up 
+  once after defeating a wave of 4 enemies. You won't be able to level up until you defeat another set of 4 enemies. 
+  So, to level up, I will check that: 1) Keith is being rendered; 2) the "1" key is being pressed, 3) the boolean 
+  that lets me level up once is set to "true".
   
   */
   if (isKeithOnScene === true) {
@@ -1066,7 +1075,7 @@ function update () {
     // These will detect if the player presses 1, 2, or 3
 
     // This detects if you press 1, and makes the player level up
-    if (oneKey.isDown) { 
+    if (oneKey.isDown && canLevelUp === true) { 
 
       // This increases your level by 1
       playerLevel += 1
@@ -1075,6 +1084,9 @@ function update () {
       levelText.setText('Level: ' + playerLevel)
 
       console.log("You have leveled up! You're now level " + playerLevel)
+
+      // This prevents the player from leveling up more than once after defeating a set of enemies
+      canLevelUp = false
     }
 
     // This detects if you have pressed 2, and saves your game
