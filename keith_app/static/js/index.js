@@ -1067,7 +1067,14 @@ function update () {
 
     // This detects if you press 1, and makes the player level up
     if (oneKey.isDown) { 
-      console.log('You have leveled up!')
+
+      // This increases your level by 1
+      playerLevel += 1
+
+      // This updates the player's current level on the HUD
+      levelText.setText('Level: ' + playerLevel)
+
+      console.log("You have leveled up! You're now level " + playerLevel)
     }
 
     // This detects if you have pressed 2, and saves your game
