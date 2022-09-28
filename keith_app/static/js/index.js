@@ -110,8 +110,12 @@ var aerialPlatforms
 var groundPlatforms
 
 // These variables will hold the HP points for the main character
-var healthPoints = 100
-var healthPointsText
+
+var fangsMaxHealthPoints = 100 // This will store the pleyer's initial max HP
+
+// This will store the player's in-game HP (it will be depleted when taking damage) 
+var fangsCurrentHealthPoints 
+var healthPointsText // This will print the player's HP in the HUD
 
 /* These will hold the HP points for the enemies. 
 
@@ -163,9 +167,7 @@ function loadGame () {
       // // DEBUG msg: this will print the player's level, HP, and attack points stored in the database
       // console.log('The player is Level: ' + playerLevelFromDatabase)
       // console.log('The player has ' + playerHPFromDatabase + ' HP.')
-
-      // BUGGY. It says that it's getting "Undefined" data.
-      console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.') 
+      // console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.') 
   
 
     })
@@ -316,16 +318,16 @@ function touchMeleeEnemy (player, meleeEnemy) {
     player.setTint(0xff0000) // This will turn the player red
 
     // This will subtract some HP from the player
-    healthPoints = healthPoints - 10
+    fangsCurrentHealthPoints = fangsCurrentHealthPoints - 10
 
     // This updates the HUD to show the player's remaining HP
-    healthPointsText.setText('HP: ' + healthPoints)
+    healthPointsText.setText('HP: ' + fangsCurrentHealthPoints)
 
     // DEBUG msg: This checks how much HP I have left
-    console.log('HP remaining: ' + healthPoints)
+    console.log('HP remaining: ' + fangsCurrentHealthPoints)
 
     // This will make the player vulnerable again after a second if they are still alive
-    if (healthPoints > 0) {
+    if (fangsCurrentHealthPoints > 0) {
       removeImmunity() 
     }
 
@@ -357,7 +359,7 @@ function touchMeleeEnemy (player, meleeEnemy) {
   
 
   // This will play is the player is killed
-  if (healthPoints === 0) {
+  if (fangsCurrentHealthPoints === 0) {
     this.physics.pause() // This pauses the game 
 
     player.setTint(0xff0000) // This makes the player turn red permanently
@@ -465,7 +467,7 @@ To render the text by modifying its X and Y coordinates, I will call the text's 
 (that is, by calling the text's properties).
 */
 function callKeith () {
-  console.log("You've defeated all enemies. Keith should be rendered now.")
+  // console.log("You've defeated all enemies. Keith should be rendered now.")
 
   // These renders Keith within the game scene
   keith.x = 504
@@ -684,8 +686,12 @@ I will add a text box so that Keith's dialogue is easier to read.
 How to assign number keys (that aren't from the Numpad) to Phaser (source: 
 https://newdocs.phaser.io/docs/3.54.0/Phaser.Input.Keyboard.KeyCodes#ONE ).
 
+I will initally set the player's HP to be equal to its maximum HP, that is, their initial HP stored in the database
 */
 function create () {
+
+  fangsCurrentHealthPoints = fangsMaxHealthPoints
+
   // This renders a preloaded image (the 1st action level's background)
   this.add.image(0, 0, 'bg-level-1').setOrigin(0, 0)
 
