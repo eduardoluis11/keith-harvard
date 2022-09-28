@@ -135,6 +135,41 @@ var enemy4HealthPointsText
 var playerLevel = 1
 var levelText
 
+/* This will get the player's current level, HP, and attack points from the database by calling an API and using fetch().
+
+Recommendation on where to put a fetch() in your Phaser code (source: devric's reply on: 
+https://stackoverflow.com/questions/63904868/using-axios-library-in-phaser-3-24-1-game ). From that recommendation, I will create
+the fetch() function that will load my game data here in the create() function. However, I see no reason why I should declare it
+inside of the create() function. So, I will declare the function that loads the player data by using fetch() from outside the 
+create() function.
+*/
+function loadGame () {
+  fetch('/load-game', {
+    method: 'POST' // This sends a POST request to activate the API
+  })
+    // This gets the database data from views.py
+    .then((response) => response.json())
+    .then((data) => {
+  
+      // This gets the player's level
+      let playerLevelFromDatabase = data.player_level
+
+      // This gets the player's HP
+      let playerHPFromDatabase = data.player_hp
+
+      // This gets the player's attack points
+      let playerAttackPointsFromDatabase = data.player_attack_points
+
+      // DEBUG msg: this will print the player's level, HP, and attack points stored in the database
+      console.log('The player is Level: ' + playerLevelFromDatabase)
+      console.log('The player has ' + playerHPFromDatabase + ' HP.')
+      console.log('The player has ' + playerAttackPointsFromDatabase + ' attack points.')
+  
+
+    })
+}
+
+
 // This will store Keith's dialogue
 var keithDialogue
 
@@ -911,8 +946,15 @@ in the game, I will check here if all the enemies have been killed.
 
 Difference between a key being up vs being down (source: instantsetsuna's question on 
 https://stackoverflow.com/questions/3396754/onkeypress-vs-onkeyup-and-onkeydown ).
+
+I will always call the fetch() function that loads the player's stats from the database. That's why I will call the function
+that loads the game here in update().
 */
 function update () {
+
+  // This will call the player's stats from the database using fetch()
+  loadGame()
+
 
   // These will get the player's coordinates and assign them to the hitbox
   // hitbox.x = player.body.position.x

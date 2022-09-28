@@ -225,6 +225,13 @@ decorator.
 
 If the user doesn't do a POST request, they are entering into the API's URL without calling the API. So, I will print
 these users an error message.
+
+Using "." notation (to access properties), I will get the HP, level, and attack points of the save file of the 
+currently logged user from the database (from the Save File table.)
+
+To convert the Python data from the database, and turn it into JSON data to send it to my JS file, I need to 
+use "return JsonResponse", and use the same notation as if I were to send something from views.py to an HTML file by
+using Jinja.
 """
 @csrf_exempt
 @login_required
@@ -234,3 +241,33 @@ def load_game(request):
     if request.method != "POST":
         return JsonResponse({"message": "You shouldn't be here. This is the API for loading your game data"},
                             status=400)
+
+    # This will be the actual working API
+    else:
+
+        # This gets the instance of the User table with all the data from the logged user
+        logged_user = request.user
+
+        logged_user_id = logged_user.id  # This gets the ID from the user
+
+        # This will get an instance from the Save File table with the player's data
+        logged_users_save_file = SaveFile.objects.get(user_id=logged_user_id)
+
+        player_level = logged_users_save_file.player_level    # This gets the user's level from their save file
+        player_hp = logged_users_save_file.player_hp  # This gets the HP from the user's save file
+
+        # This gets the attack points from the user's save file
+        player_attack_points = logged_users_save_file.player_attack_points
+
+        # This converts the database data into JSON, and sends it to a JS file
+        return JsonResponse({
+            "player_level": player_level,
+            "player_hp": player_hp,
+            "player_attack_points ": player_attack_points
+        }, status=200)
+
+
+
+
+
+
