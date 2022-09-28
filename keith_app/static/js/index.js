@@ -163,6 +163,11 @@ var immunityCountdown
 /* This will store the create() event listener to detect the space bar being pressed */
 var spaceBar
 
+// These will store the "1", "2", and "3" keys from the keyboard
+var oneKey 
+var twoKey
+var threeKey 
+
 // This will help me play the entire attacking animation for the player
 var isPlayerAttacking = false
 
@@ -635,6 +640,10 @@ I will render Keith's dialogue in here. At first, the dialogue text will be out 
 I will also render his dialogue within the game's bounds. 
 
 I will add a text box so that Keith's dialogue is easier to read.
+
+How to assign number keys (that aren't from the Numpad) to Phaser (source: 
+https://newdocs.phaser.io/docs/3.54.0/Phaser.Input.Keyboard.KeyCodes#ONE ).
+
 */
 function create () {
   // This renders a preloaded image (the 1st action level's background)
@@ -811,6 +820,11 @@ function create () {
   // This will create the event for detecting if the space bar has been pressed
   spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
+  // These will store the number keys from the keyboard
+  oneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
+  twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+  threeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE)
+
   // this.input.keyboard.on('keydown_SPACE', this.playerAttack(), this)
 
   // This creates the invincibility frame countdown for half a second
@@ -891,6 +905,9 @@ I will assign each enemy the immunity boolean as a property via "." notation (i.
 
 I will render Keith only if all enemies have been defeated. Since this function will constantly check the status of every sprite 
 in the game, I will check here if all the enemies have been killed.
+
+Difference between a key being up vs being down (source: instantsetsuna's question on 
+https://stackoverflow.com/questions/3396754/onkeypress-vs-onkeyup-and-onkeydown ).
 */
 function update () {
 
@@ -1031,9 +1048,38 @@ function update () {
     // callKeith()
   }
 
-  // This will call Keith into the scene and render him and his dialogue
+  /* This will be executed if Keith's is rendered on the game scene.
+
+  First, this will render Keith and his dialogue.
+
+  Next, this will let you press 3 keys from your keyboard: "1", "2", and "3". This will let you to level up, 
+  save your game, or cancel your dialogue with Keith, and keep on fighting enemies.
+
+  Remember that I need to assign those keys to a variable to call them here later. I will do the same 
+  as what I did with the space bar key.
+  
+  */
   if (isKeithOnScene === true) {
+    // This will call Keith into the scene and render him and his dialogue
     callKeith()
+
+    // These will detect if the player presses 1, 2, or 3
+
+    // This detects if you press 1, and makes the player level up
+    if (oneKey.isDown) { 
+      console.log('You have leveled up!')
+    }
+
+    // This detects if you have pressed 2, and saves your game
+    if (twoKey.isDown) { 
+      console.log('Your game has been saved.')
+    }
+
+    // This detects if you pressed 3, and
+    if (threeKey.isDown) { 
+      console.log("You've said goodbye to Keith, and found some more enemies")
+    }
+
   }
 
 
