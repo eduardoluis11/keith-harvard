@@ -40,7 +40,7 @@ from django.urls import reverse
 from .forms import SignUpForm, LoginForm
 
 # This imports the models (source: https://docs.djangoproject.com/en/4.1/topics/db/models/ )
-from .models import User
+from .models import User, SaveFile
 
 # This will let me use the "CSRF exempt" decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -89,6 +89,12 @@ BUGFIX: I need to add the variable with the form inside every instance of "retur
 won't render if I get an error. For instance, I had an error in which, if I typed a different password and 
 confirmation password, the sign up form wouldn't be rendered again.
 
+I will also create an entry on the Save File table immediately after the user creates an account, and I will assign it
+to them. This is so that I just update the save file whenever I save the game, instead of having to create the entry
+and updating it. I need to get to somehow get their user ID, since I need to put that into the Save File table. 
+Since usernames are unique, I will make a Query Set statement that will get the ID of the user that just registered
+with that username.
+
 """
 def sign_up(request):
 
@@ -115,6 +121,20 @@ def sign_up(request):
         try:
             new_user = User.objects.create_user(username, email, password)
             new_user.save()
+
+            # This will grab the instance of the user that was just created
+            user_instance = User.objects.get(username=username)
+
+            # This gets the ID of the recently created user
+            user_id = user_instance.id
+
+            print("The new user's ID is: " + str(user_id))  # DEBUG msg
+
+            # This will prepare an entry in the Save File table for this user
+            new_save_file = SaveFile(user_id=user_id, player_level=1, player_hp=100, player_attack_points=10)
+
+            # This will create that entry
+            new_save_file.save()
 
         # This will print an error if the user types a username that was taken by someone else
         except IntegrityError:
