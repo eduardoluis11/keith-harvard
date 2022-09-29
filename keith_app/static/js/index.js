@@ -586,6 +586,9 @@ function levelUp () {
   // This updates the player's current level on the HUD
   levelText.setText('Level: ' + playerLevel)
 
+  // This increases the player's attack points by 20
+  playerAttackPoints += 20
+
   console.log("You have leveled up! You're now level " + playerLevel)
 
   // This prevents the player from leveling up more than once after defeating a set of enemies
