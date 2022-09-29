@@ -115,10 +115,16 @@ var groundPlatforms
 // These variables will hold the HP points for the main character
 
 // This will store the player's max HP, that is, their initial HP
-var fangsMaxHealthPoints = 550
+var fangsMaxHealthPoints = 100
+
+// var fangsMaxHealthPoints = 550
 
 // This will store the player's in-game HP (it will be depleted when taking damage) 
-var fangsCurrentHealthPoints = 550
+var fangsCurrentHealthPoints = 100
+
+// var fangsCurrentHealthPoints = 500
+
+
 var healthPointsText // This will print the player's HP in the HUD
 
 /* These will hold the HP points for the enemies. 
@@ -140,7 +146,9 @@ var enemy4HealthPoints = 30
 var enemy4HealthPointsText
 
 // These will store the player's current level (it increases if you level up)
-var playerLevel = 1
+
+// I will assign 70 as the initial level just to test if I'm getting the level from the database 
+var playerLevel = 70 
 var levelText
 
 /* This will get the player's current level, HP, and attack points from the database by calling an API and using fetch().
@@ -184,6 +192,12 @@ function loadGame () {
 
       // This will assign the player's current HP from the database into the game
       fangsCurrentHealthPoints = playerHPFromDatabase
+
+      // This will assign the player's level from the database to the game
+      playerLevel = playerLevelFromDatabase
+
+      // This modifies the HUD's text so that it displays the player's initial level
+      levelText.setText('Level: ' + playerLevel)
 
       // DEBUG msg: This shows me the real initial state of Fang's Max HP
       console.log("The player's initial HP is of " + fangsMaxHealthPoints)
@@ -816,7 +830,7 @@ function create () {
   healthPointsText = this.add.text(16, 16, 'HP: ' + fangsMaxHealthPoints, { fontSize: '32px', fill: '#FFFFFF' })
 
   // This creates the "Level" text that will be displayed in the HUD
-  levelText = this.add.text(16, 64, 'Level: 1', { fontSize: '32px', fill: '#FFFFFF' })
+  levelText = this.add.text(16, 64, 'Level: ' + playerLevel, { fontSize: '32px', fill: '#FFFFFF' })
 
 
   // This creates the text box for Keith's dialogue, and puts it out of bounds, and below the text's layer
