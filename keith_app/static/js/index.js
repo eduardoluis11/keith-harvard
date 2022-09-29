@@ -146,10 +146,17 @@ var enemy4HealthPoints = 30
 var enemy4HealthPointsText
 
 // These will store the player's current level (it increases if you level up)
+var playerLevel = 1
+var levelText
 
 // I will assign 70 as the initial level just to test if I'm getting the level from the database 
-var playerLevel = 70 
-var levelText
+// var playerLevel = 70 
+
+// This stores the player's initial attack points (it will be initially 50 to test if I'm getting the attack points from the database)
+playerAttackPoints = 10
+
+// playerAttackPoints = 50
+
 
 /* This will get the player's current level, HP, and attack points from the database by calling an API and using fetch().
 
@@ -198,6 +205,9 @@ function loadGame () {
 
       // This modifies the HUD's text so that it displays the player's initial level
       levelText.setText('Level: ' + playerLevel)
+
+      // This initally assigns the player's attack points from the database
+      playerAttackPoints = playerAttackPointsFromDatabase
 
       // DEBUG msg: This shows me the real initial state of Fang's Max HP
       console.log("The player's initial HP is of " + fangsMaxHealthPoints)
@@ -430,14 +440,23 @@ https://phaser.discourse.group/t/canceling-gravity-on-a-specific-object/2854 ).
 
 Since enemies run the risk of having less than 0 HP points if the user attacks them too many times quickly, I will
 delete their sprites if they get 0 OR negative HP.
+
+The amount of damage that I will do to the enemies will come from the database, that is, from a variable. That
+way, initially I will be able to get the attack points from the database. HOWEVER, remember that, if I level up, 
+that I want my attack points to increase. So, my attack points won't be taken from the database if they increase.
+Instead, they will be taken from a global variable.
 */
 function hurtEnemy (meleeEnemies, hitbox) {
 
   
   switch (meleeEnemies.immunity) {
-    // This will subtract HP points from the enemy if the enemy isn't invincible
+    // If the enemy is not invincible
     case false:
-      meleeEnemies.health = meleeEnemies.health - 10
+
+      // This will subtract HP points from the enemy if the enemy isn't invincible ...
+      meleeEnemies.health = meleeEnemies.health - playerAttackPoints
+
+      // meleeEnemies.health = meleeEnemies.health - 10
 
       // If the enemy has no HP remaining, this will "kill" them (by removing them from the scene)
       if (meleeEnemies.health <= 0) {
