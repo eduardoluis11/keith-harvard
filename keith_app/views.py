@@ -278,6 +278,13 @@ were playing. Then, I will convert that JS code into Python code, and then I wil
 database.
 
 Remember that I need to create a new URL to call this API.
+
+I will need to use a Query Set statement to update the player's stats from their respective entry on the Save File
+table.
+
+I DON'T need to use a JSON Response at the end of this API, since I don't need to send anything to the JS file.
+However, I will send a confirmation message so that I can print it on the console, so that I verify that the
+games has been successfully saved.
 """
 @csrf_exempt
 @login_required
@@ -288,29 +295,28 @@ def save_game(request):
         return JsonResponse({"message": "You shouldn't be here. This is the API for saving your game data"},
                             status=400)
 
-    # # This will be the actual working API
-    # else:
-    #
-    #     # This gets the instance of the User table with all the data from the logged user
-    #     logged_user = request.user
-    #
-    #     logged_user_id = logged_user.id  # This gets the ID from the user
-    #
-    #     # This will get an instance from the Save File table with the player's data
-    #     logged_users_save_file = SaveFile.objects.get(user_id=logged_user_id)
-    #
+    # This will be the actual working API
+    else:
+
+        # This gets the instance of the User table with all the data from the logged user
+        logged_user = request.user
+
+        logged_user_id = logged_user.id  # This gets the ID from the user
+
+        # This will get the instance of the entry from the Save File table with the player's data
+        logged_users_save_file = SaveFile.objects.get(user_id=logged_user_id)
+
     #     player_level = logged_users_save_file.player_level    # This gets the user's level from their save file
     #     player_hp = logged_users_save_file.player_hp  # This gets the HP from the user's save file
     #
     #     # This gets the attack points from the user's save file
     #     player_attack_points = logged_users_save_file.player_attack_points
-    #
-    #     # This converts the database data into JSON, and sends it to a JS file
-    #     return JsonResponse({
-    #         "player_level": player_level,
-    #         "player_hp": player_hp,
-    #         "player_attack_points": player_attack_points
-    #     }, status=200)
+
+
+        # This sends a confirmation message to the JS file with the Phaser code
+        return JsonResponse({
+            "confirmation_message": "Your game has been successfully saved by using the Save Game API."
+        }, status=200)
 
 
 

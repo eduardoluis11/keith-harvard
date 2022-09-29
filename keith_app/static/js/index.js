@@ -220,6 +220,41 @@ function loadGame () {
     })
 }
 
+/* This is the function that saves the game. 
+
+I will save the game by calling an API on views.py by using fetch().
+
+I will only receive a confirmation message to verify on the console that the game has been saved via the API.
+*/
+function saveGame () {
+
+  // This calls the API for saving the game
+  fetch('/save-game', {
+    method: 'POST' // This sends a POST request to activate the API
+  })
+    // This gets the database data from views.py
+    .then((response) => response.json())
+    .then((data) => {
+  
+      // This gets the confirmation message from the view.
+      saveConfirmationMessage = data.confirmation_message
+
+      // DEBUG msg: this prints the confirmation message from the API
+      console.log(saveConfirmationMessage)
+
+    })
+
+
+
+
+
+
+
+  // DEBUG msg
+  console.log("You've pressed the '2' key.")
+  // console.log('Your game has been saved.')
+}
+
 
 // This will store Keith's dialogue
 var keithDialogue
@@ -1064,6 +1099,8 @@ that loads the game here in update().
 I only want to call once the function that loads the player's stats from the database. So, I will call a boolean that will prevent
 the loadGame() function from being called indefinitely. It will be called once, and then the function won't be called again
 until you close the browser and reopen the game.
+
+I will create a function to save the game by calling an API with fetch(). It will only be triggered if Keith is on the game scene.
 */
 function update () {
 
@@ -1255,7 +1292,11 @@ function update () {
 
     // This detects if you have pressed 2, and saves your game
     if (twoKey.isDown) { 
-      console.log('Your game has been saved.')
+
+      // This calls the function that saves the game
+      saveGame()
+
+      // console.log('Your game has been saved.')
     }
 
     // This detects if you pressed 3, and
