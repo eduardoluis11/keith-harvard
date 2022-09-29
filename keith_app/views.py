@@ -269,6 +269,49 @@ def load_game(request):
             "player_attack_points": player_attack_points
         }, status=200)
 
+""" API for Saving the Game.
+
+This will let me save the game. It will be called if the player presses "2" when Keith is on the scene.
+
+I will need to receive first data from the JS file with the Phaser code, since I need the player's stats while they
+were playing. Then, I will convert that JS code into Python code, and then I will finally insert that into the 
+database.
+
+Remember that I need to create a new URL to call this API.
+"""
+@csrf_exempt
+@login_required
+def save_game(request):
+
+    # This will print an error message if the user enters the API's URL
+    if request.method != "POST":
+        return JsonResponse({"message": "You shouldn't be here. This is the API for saving your game data"},
+                            status=400)
+
+    # # This will be the actual working API
+    # else:
+    #
+    #     # This gets the instance of the User table with all the data from the logged user
+    #     logged_user = request.user
+    #
+    #     logged_user_id = logged_user.id  # This gets the ID from the user
+    #
+    #     # This will get an instance from the Save File table with the player's data
+    #     logged_users_save_file = SaveFile.objects.get(user_id=logged_user_id)
+    #
+    #     player_level = logged_users_save_file.player_level    # This gets the user's level from their save file
+    #     player_hp = logged_users_save_file.player_hp  # This gets the HP from the user's save file
+    #
+    #     # This gets the attack points from the user's save file
+    #     player_attack_points = logged_users_save_file.player_attack_points
+    #
+    #     # This converts the database data into JSON, and sends it to a JS file
+    #     return JsonResponse({
+    #         "player_level": player_level,
+    #         "player_hp": player_hp,
+    #         "player_attack_points": player_attack_points
+    #     }, status=200)
+
 
 
 

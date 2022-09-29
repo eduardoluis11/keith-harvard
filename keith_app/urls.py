@@ -13,4 +13,5 @@ urlpatterns = [
     path('login', views.login_user, name='login_user'),
     path('logout', views.logout_user, name='logout_user'),
     path('load-game', views.load_game, name='load_game'),   # API for loading the game
+    path('save-game', views.save_game, name='save_game'),   # API for saving the game
 ]
