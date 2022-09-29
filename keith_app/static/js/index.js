@@ -256,6 +256,15 @@ function saveGame () {
   // console.log('Your game has been saved.')
 }
 
+/* This function cancels Keith's dialogue.
+
+That is, this function closes Keith's dialogue, makes him go away, and respawns the 4 enemies.
+*/
+function cancelDialogue () {
+
+  // DEBUG msg
+  console.log("You've said goodbye to Keith, and found some more enemies")
+}
 
 // This will store Keith's dialogue
 var keithDialogue
@@ -1266,6 +1275,9 @@ function update () {
   that lets me level up once is set to "true".
   
   I will make a function exclusively for leveling up.
+
+  I will also make a function to cancel Keith's dialogue. That is, I will create a function to make Keith disappear and 
+  respawn the enemies.
   */
   if (isKeithOnScene === true) {
     // This will call Keith into the scene and render him and his dialogue
@@ -1300,9 +1312,13 @@ function update () {
       // console.log('Your game has been saved.')
     }
 
-    // This detects if you pressed 3, and
+    // This detects if you pressed 3, and cancels Keith's dialogue
     if (threeKey.isDown) { 
-      console.log("You've said goodbye to Keith, and found some more enemies")
+
+      // This calls the function that cancels the dialogue
+      cancelDialogue()
+
+      // console.log("You've said goodbye to Keith, and found some more enemies")
     }
 
   }
