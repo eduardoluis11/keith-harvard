@@ -555,10 +555,33 @@ function callKeith () {
 }
 
 /* This handles the Level Up mechanics.
+
+This will let me increase my level by one each time that I defeat an enemy wave, that is, whenever I defeat a set of 4
+enemies.
+
+Each time that the player levels up, their attack points and HP will increase. I will increase both their HP and attack points
+by 20 when they level up. This way, the player will feel more powerful each time that they choose to talk to Keith. 
+
+The reason why the player doesn't level up automatically was done on purpose: leveling up is the equivalent of having a deep, 
+heart-to-heart conversation with Keith, your son. If you choose to talk to him, you will level up and become stronger. 
+If you don't talk to him, your character will remain weak.
+
+Also, I will recover all of Fang's HP if they talk to Keith. For the time being, and for debugging purposes, I will only recover
+the player's HP when leveling up. Remember that leveling up means that my max HP increases. If I simply set theHP to be 20 points higher,
+and if the plyer has 10 HP remaining, they will end up having 30 HP instead of the expected 120 HP the 1st time they level up.
+So, to prevent this, I will first add the 20 HP points to the player's max HP, and then I will make their current HP equal to theri 
+max HP. That way, they'll be able to both recover and have more max HP after leveling up. 
 */
 function levelUp () {
   // This increases your level by 1
   playerLevel += 1
+
+  // This increases your Max HP by 20, and heals you so that you're at full HP once again
+  fangsMaxHealthPoints += 20
+  fangsCurrentHealthPoints = fangsMaxHealthPoints
+
+  // This updates the player's current HP on the HUD
+  healthPointsText.setText('HP: ' + fangsCurrentHealthPoints)
 
   // This updates the player's current level on the HUD
   levelText.setText('Level: ' + playerLevel)
