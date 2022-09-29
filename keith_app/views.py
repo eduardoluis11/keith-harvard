@@ -48,6 +48,9 @@ from .models import User, SaveFile
 # This will let me use the "CSRF exempt" decorator
 from django.views.decorators.csrf import csrf_exempt
 
+# This will let me use json.loads()
+import json
+
 # Create your views here.
 
 """ Home Page view.
@@ -306,12 +309,16 @@ def save_game(request):
         # This will get the instance of the entry from the Save File table with the player's data
         logged_users_save_file = SaveFile.objects.get(user_id=logged_user_id)
 
-    #     player_level = logged_users_save_file.player_level    # This gets the user's level from their save file
-    #     player_hp = logged_users_save_file.player_hp  # This gets the HP from the user's save file
-    #
-    #     # This gets the attack points from the user's save file
-    #     player_attack_points = logged_users_save_file.player_attack_points
+        # This will get the JS data and turn it into Python objects
+        data = json.loads(request.body)
 
+        new_player_level = data.get("player_level")  # This stores the player's level
+        new_player_hp = data.get("player_hp")  # This stores the player's max HP
+        new_player_attack_points = data.get("player_attack_points")  # This stores the player's attack points
+
+        # This updates the save file of the logged user with their new stats
+        SaveFile.objects.filter(user_id=logged_user_id).update(player_level=new_player_level, player_hp=new_player_hp,
+                                                               player_attack_points=new_player_attack_points)
 
         # This sends a confirmation message to the JS file with the Phaser code
         return JsonResponse({

@@ -228,9 +228,10 @@ I will only receive a confirmation message to verify on the console that the gam
 */
 function saveGame () {
 
-  // This calls the API for saving the game
+  // This calls the API for saving the game. The "JSON.stringify" sends JS data into the views.py file
   fetch('/save-game', {
-    method: 'POST' // This sends a POST request to activate the API
+    method: 'POST', // This sends a POST request to activate the API
+    body: JSON.stringify({ player_level: playerLevel, player_hp: fangsMaxHealthPoints, player_attack_points: playerAttackPoints })      
   })
     // This gets the database data from views.py
     .then((response) => response.json())
