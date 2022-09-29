@@ -554,6 +554,21 @@ function callKeith () {
   
 }
 
+/* This handles the Level Up mechanics.
+*/
+function levelUp () {
+  // This increases your level by 1
+  playerLevel += 1
+
+  // This updates the player's current level on the HUD
+  levelText.setText('Level: ' + playerLevel)
+
+  console.log("You have leveled up! You're now level " + playerLevel)
+
+  // This prevents the player from leveling up more than once after defeating a set of enemies
+  canLevelUp = false
+}
+
 // This prints a message whenever the player touches the sword's hitbox
 // function touchHitbox (player, hitbox) {
 
@@ -1186,6 +1201,7 @@ function update () {
   So, to level up, I will check that: 1) Keith is being rendered; 2) the "1" key is being pressed, 3) the boolean 
   that lets me level up once is set to "true".
   
+  I will make a function exclusively for leveling up.
   */
   if (isKeithOnScene === true) {
     // This will call Keith into the scene and render him and his dialogue
@@ -1196,16 +1212,19 @@ function update () {
     // This detects if you press 1, and makes the player level up
     if (oneKey.isDown && canLevelUp === true) { 
 
-      // This increases your level by 1
-      playerLevel += 1
+      // This function handles the Level Up mechanic
+      levelUp()
 
-      // This updates the player's current level on the HUD
-      levelText.setText('Level: ' + playerLevel)
+      // // This increases your level by 1
+      // playerLevel += 1
 
-      console.log("You have leveled up! You're now level " + playerLevel)
+      // // This updates the player's current level on the HUD
+      // levelText.setText('Level: ' + playerLevel)
 
-      // This prevents the player from leveling up more than once after defeating a set of enemies
-      canLevelUp = false
+      // console.log("You have leveled up! You're now level " + playerLevel)
+
+      // // This prevents the player from leveling up more than once after defeating a set of enemies
+      // canLevelUp = false
     }
 
     // This detects if you have pressed 2, and saves your game
