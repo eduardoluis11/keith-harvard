@@ -279,10 +279,6 @@ Then, I will recover all enemies so that they have 30 HP once again.
 */
 function cancelDialogue () {
 
-
-
-
-
   // These allow enemies to have gravity once again
   meleeEnemy1.setCollideWorldBounds(true)
   meleeEnemy2.setCollideWorldBounds(true)
@@ -300,10 +296,10 @@ function cancelDialogue () {
   meleeEnemy4.body.setAllowGravity(true)
 
   // These respawn the enemies
-  meleeEnemy1.y = 16
-  meleeEnemy2.y = 16
-  meleeEnemy3.y = 16
-  meleeEnemy4.y = 16
+  meleeEnemy1.y = 270
+  meleeEnemy2.y = 450
+  meleeEnemy3.y = 450
+  meleeEnemy4.y = 270
 
   // This resets the counter of enemies defeated back to 0
   totalEnemiesDefeated = 0
@@ -1053,12 +1049,12 @@ function create () {
   // this.physics.add.overlap(meleeEnemies, player, attackEnemy, null, this)
   
   // This creates an instance of an enemy (the melee weapon one)
-  meleeEnemy1 = meleeEnemies.create(980, 16, 'melee-enemy').setScale(3)
+  meleeEnemy1 = meleeEnemies.create(980, 270, 'melee-enemy').setScale(3)
 
   // These lines will create 3 more instances of the melee weapon enemy
-  meleeEnemy2 = meleeEnemies.create(780, 16, 'melee-enemy').setScale(3)
-  meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
-  meleeEnemy4 = meleeEnemies.create(40, 16, 'melee-enemy').setScale(3)
+  meleeEnemy2 = meleeEnemies.create(780, 450, 'melee-enemy').setScale(3)
+  meleeEnemy3 = meleeEnemies.create(400, 450, 'melee-enemy').setScale(3)
+  meleeEnemy4 = meleeEnemies.create(40, 270, 'melee-enemy').setScale(3)
 
   // This horizontally flips the melee enemy sprite
   meleeEnemy1.flipX = true
