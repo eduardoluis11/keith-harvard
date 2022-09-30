@@ -127,6 +127,9 @@ var fangsCurrentHealthPoints = 100
 
 var healthPointsText // This will print the player's HP in the HUD
 
+// This is a confirmation message that tell the player that they saved their game
+var savedGameConfirmationMessage
+
 /* These will hold the HP points for the enemies. 
 
 Although not the most efficient solution, I will create an HP variable for each of the 4 enemies. That is, I will
@@ -256,7 +259,14 @@ function saveGame () {
 
 
 
+  // This will show on the game scene a message telling the player that they have saved their game ...
+  savedGameConfirmationMessage.y = 150
 
+  // This will make the "your game has been saved" message to disappear after a few seconds
+  setTimeout(() => {
+    savedGameConfirmationMessage.y = -200
+
+  }, 3000)
 
   // DEBUG msg
   console.log("You've pressed the '2' key.")
@@ -1044,6 +1054,10 @@ function create () {
     { fontSize: '16px', fill: '#FFFFFF' })
   cancelOptionPart2 = this.add.text(400, -200, '(CANCEL AND CONTINUE PLAYING)', 
     { fontSize: '16px', fill: '#FFFFFF' })
+
+  // This will show an onscreen confirmation message that the game has been saved
+  savedGameConfirmationMessage = this.add.text(380, -200, 'Your game has been saved!', 
+    { fontSize: '24px', fill: '#FFFFFF' }) 
 
   // experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
