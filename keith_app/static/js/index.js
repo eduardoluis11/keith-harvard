@@ -580,7 +580,7 @@ function hurtEnemy (meleeEnemies, hitbox) {
     // If the enemy is not invincible
     case false:
 
-      // This will subtract HP points from the enemy if the enemy isn't invincible ...
+      // This will subtract HP points from the enemy if the enemy isn't invincible
       meleeEnemies.health = meleeEnemies.health - playerAttackPoints
 
       // meleeEnemies.health = meleeEnemies.health - 10
@@ -648,6 +648,8 @@ Next, he will talk to you, and ask you if you want to level up, save the game, o
 
 To render the text by modifying its X and Y coordinates, I will call the text's X and Y coordinates via "." notation
 (that is, by calling the text's properties).
+
+Also, I will recover the player's HP when Keith enters the game scene.
 */
 function callKeith () {
   // console.log("You've defeated all enemies. Keith should be rendered now.")
@@ -675,6 +677,12 @@ function callKeith () {
   // These will render the text box that will make it easier to read the dialogue
   dialogueBox.x = 320
   dialogueBox.y = 80
+
+  // This fully recovers the player HP
+  fangsCurrentHealthPoints = fangsMaxHealthPoints
+
+  // This updates the HUD so that the recovered HP appears on it
+  healthPointsText.setText('HP: ' + fangsCurrentHealthPoints)
 
   // BUGGY
   // keithDialogue = add.text(500, 100, 'Hi, dad!', { fontSize: '32px', fill: '#FFFFFF' })
