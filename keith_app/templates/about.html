@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+<!-- The "extends" snippet will call my layout file, so that I can show the Bootstrap CSS, the footer, and the navbar
+in here -->
+
+{% load static %}
+
+<!-- I will call the “block body” tag on the index.html file to call the code from the layout file on the index file.
+
+All of the text and content will go here.
+-->
+{% block body %}
+
+    <h2>About the Game</h2>
+    <br>
+    <br>
+
+    <p>
+        Keith is a browser game in which you play as Fang, an anthropomorphic fox. He has a foster child called Keith,
+        who is also an anthropomorphic fox. Fang becomes stronger the better his bond with Keith becomes. So, you'll
+        have to have deep conversations with Keith in order to improve your relationship with him, and so that
+        you can defeat enemies more easily.
+    </p>
+    <p>
+        Your objective is to defeat all the enemy robots that will show up onscreen, and to level up by talking to
+        Keith.
+    </p>
+    <p>This game was made by Eduardo Salinas for for CS50's Web Programming with Python and JavaScript's final project.
+    </p>
+{% endblock %}

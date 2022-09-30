@@ -73,6 +73,10 @@ https://cdn.cs50.net/web/2020/spring/projects/3/mail.zip .) I NO LONGER NEED IT.
 def index(request):
     return render(request, 'index.html')
 
+""" About page view.
+"""
+def about(request):
+    return render(request, 'about.html')
 
 """ Sign up view.
 
