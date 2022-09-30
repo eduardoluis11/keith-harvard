@@ -391,7 +391,7 @@ var hitbox
 var totalEnemiesDefeated = 0
 
 // This will tell me if I should render Keith
-var isKeithOnScene = true
+var isKeithOnScene = false
 
 // This tells me if the player can level up (so that it levels up once per enemy wave)
 var canLevelUp = true
