@@ -67,8 +67,6 @@ network/migrations/0002_post.py
 .idea/network.iml
 network/migrations/0004_like.py
 
-# media folder, and its images
-media/
 /.idea/keith_project.iml
 
 
