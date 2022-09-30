@@ -997,6 +997,9 @@ function create () {
   // This renders a specific instantce of Fang's hitbox
   hitbox1 = hitbox.create(-100, 0, 'sword-hitbox')
 
+  // This makes the hitbox to be invisible
+  hitbox1.alpha = 0
+
   // This render Keith's sprite
   keith = this.add.image(504, -200, 'keith').setOrigin(0, 0)
 
