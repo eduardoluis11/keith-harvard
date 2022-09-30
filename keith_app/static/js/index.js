@@ -153,9 +153,16 @@ var levelText
 // var playerLevel = 70 
 
 // This stores the player's initial attack points (it will be initially 50 to test if I'm getting the attack points from the database)
-playerAttackPoints = 10
+var playerAttackPoints = 10
 
 // playerAttackPoints = 50
+
+// These declare all of the meleeEnemy variables as global variables.
+// var meleeEnemies
+var meleeEnemy1
+var meleeEnemy2
+var meleeEnemy3
+var meleeEnemy4
 
 
 /* This will get the player's current level, HP, and attack points from the database by calling an API and using fetch().
@@ -263,8 +270,47 @@ That is, this function closes Keith's dialogue, makes him go away, and respawns 
 To make Keith and his dialogue disappear, I need to first turn the boolean that renders Keith back to false. I 
 need to do this to deactivate the 1, 2, and 3 keys so player's can level up any longer until they defeat 4 more enemies.
 
+Now, I need to respawn the defeated enemies, and replenish their health.
+
+Each time that I defeat 4 enemies, keith and his dialogue will be re-rendered. So, to prevent a bug that makes keith and his
+dialogue to keep appearing even after I press 3, I will reset the counter that keeps track of defeated enemies back to 0.
+
 */
 function cancelDialogue () {
+
+
+
+
+
+  // These allow enemies to have gravity once again
+  meleeEnemy1.setCollideWorldBounds(true)
+  meleeEnemy2.setCollideWorldBounds(true)
+  meleeEnemy3.setCollideWorldBounds(true)
+  meleeEnemy4.setCollideWorldBounds(true)
+
+  meleeEnemy1.setImmovable(false)
+  meleeEnemy2.setImmovable(false)
+  meleeEnemy3.setImmovable(false)
+  meleeEnemy4.setImmovable(false)
+
+  meleeEnemy1.body.setAllowGravity(true)
+  meleeEnemy2.body.setAllowGravity(true)
+  meleeEnemy3.body.setAllowGravity(true)
+  meleeEnemy4.body.setAllowGravity(true)
+
+  // These respawn the enemies
+  meleeEnemy1.y = 16
+  meleeEnemy2.y = 16
+  meleeEnemy3.y = 16
+  meleeEnemy4.y = 16
+
+  // This resets teh counter of enemies defeated back to 0
+  totalEnemiesDefeated = 0
+
+  // meleeEnemies.setCollideWorldBounds(true)
+  // meleeEnemies.setImmovable(false)
+  // meleeEnemies.body.setAllowGravity(true)
+
 
   // This is the boolean that rendered Keith and let me use the 1, 2, and 3 keys.
   isKeithOnScene = false
@@ -279,7 +325,6 @@ function cancelDialogue () {
   
   // This removes Keith from the game scene
   keith.y = -1000
-
 
 
 
@@ -988,12 +1033,12 @@ function create () {
   // this.physics.add.overlap(meleeEnemies, player, attackEnemy, null, this)
   
   // This creates an instance of an enemy (the melee weapon one)
-  var meleeEnemy1 = meleeEnemies.create(980, 16, 'melee-enemy').setScale(3)
+  meleeEnemy1 = meleeEnemies.create(980, 16, 'melee-enemy').setScale(3)
 
   // These lines will create 3 more instances of the melee weapon enemy
-  var meleeEnemy2 = meleeEnemies.create(780, 16, 'melee-enemy').setScale(3)
-  var meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
-  var meleeEnemy4 = meleeEnemies.create(40, 16, 'melee-enemy').setScale(3)
+  meleeEnemy2 = meleeEnemies.create(780, 16, 'melee-enemy').setScale(3)
+  meleeEnemy3 = meleeEnemies.create(400, 16, 'melee-enemy').setScale(3)
+  meleeEnemy4 = meleeEnemies.create(40, 16, 'melee-enemy').setScale(3)
 
   // This horizontally flips the melee enemy sprite
   meleeEnemy1.flipX = true
