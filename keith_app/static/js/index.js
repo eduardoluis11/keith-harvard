@@ -275,6 +275,7 @@ Now, I need to respawn the defeated enemies, and replenish their health.
 Each time that I defeat 4 enemies, keith and his dialogue will be re-rendered. So, to prevent a bug that makes keith and his
 dialogue to keep appearing even after I press 3, I will reset the counter that keeps track of defeated enemies back to 0.
 
+Then, I will recover all enemies so that they have 30 HP once again.
 */
 function cancelDialogue () {
 
@@ -304,8 +305,27 @@ function cancelDialogue () {
   meleeEnemy3.y = 16
   meleeEnemy4.y = 16
 
-  // This resets teh counter of enemies defeated back to 0
+  // This resets the counter of enemies defeated back to 0
   totalEnemiesDefeated = 0
+
+  // These removes the red tint from the enemies
+  meleeEnemy1.clearTint()
+  meleeEnemy2.clearTint()
+  meleeEnemy3.clearTint()
+  meleeEnemy4.clearTint()
+
+  // These replenish the HP of all enemies
+  meleeEnemy1.health = 30
+  meleeEnemy2.health = 30
+  meleeEnemy3.health = 30
+  meleeEnemy4.health = 30
+
+  // These make the enemies vulnerable to attacks
+  meleeEnemy1.immunity = false
+  meleeEnemy2.immunity = false
+  meleeEnemy3.immunity = false
+  meleeEnemy4.immunity = false
+
 
   // meleeEnemies.setCollideWorldBounds(true)
   // meleeEnemies.setImmovable(false)
