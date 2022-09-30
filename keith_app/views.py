@@ -83,6 +83,11 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
+""" Legal page view.
+"""
+def legal(request):
+    return render(request, 'legal.html')
+
 """ Sign up view.
 
 This will render the sign up page, and create an account if the user submits the sign up form.

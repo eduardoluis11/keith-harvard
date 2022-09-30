@@ -103,10 +103,10 @@
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Legal</a>
+              <a class="nav-link" href="{% url 'legal' %}">Legal</a>
             </li>
           </ul>
         </div>
@@ -129,8 +129,8 @@
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
           <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
           <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">About</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legal</a></li>
+          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link px-2 text-muted">Contact</a></li>
+          <li class="nav-item"><a href="{% url 'legal' %}" class="nav-link px-2 text-muted">Legal</a></li>
         </ul>
         <p class="text-center text-muted">© <script>document.write(new Date().getFullYear())</script>
             Eduardo Salinas
@@ -142,13 +142,12 @@
     (source: https://github.com/Godsont/Cookie-Consent-Banner/blob/master/index.html .) -->
     <div class="cookie-container">
       <p>
-        We use cookies in this website to give you the best experience on our
-        site and show you relevant ads. To find out more, read our
-        <a href="#">privacy policy</a> and <a href="#">cookie policy</a>.
+        This website uses cookies. To learn more about them, read my
+        <a href="{% url 'legal' %}">Terms and Conditions, and my Privacy Policy</a>.
       </p>
 
       <button class="cookie-btn">
-        Okay
+        Ok
       </button>
     </div>  <!-- End of Cookie Banner -->
 

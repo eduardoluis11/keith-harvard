@@ -16,4 +16,5 @@ urlpatterns = [
     path('save-game', views.save_game, name='save_game'),   # API for saving the game
     path('about', views.about, name='about'),  # About page
     path('contact', views.contact, name='contact'),  # Contact page
+    path('legal', views.legal, name='legal'),  # Legal page
 ]

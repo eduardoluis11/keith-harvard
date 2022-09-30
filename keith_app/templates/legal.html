@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+<!-- The "extends" snippet will call my layout file, so that I can show the Bootstrap CSS, the footer, and the navbar
+in here -->
+
+{% load static %}
+
+<!-- I will call the “block body” tag on the index.html file to call the code from the layout file on the index file.
+
+All of the text and content will go here.
+-->
+{% block body %}
+
+    <h2>Legal Information</h2>
+    <br>
+    <br>
+
+    <p>
+        This is where the Terms and Conditions and the Privacy Policy of the web app would be included.
+    </p>
+
+{% endblock %}
