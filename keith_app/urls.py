@@ -15,4 +15,5 @@ urlpatterns = [
     path('load-game', views.load_game, name='load_game'),   # API for loading the game
     path('save-game', views.save_game, name='save_game'),   # API for saving the game
     path('about', views.about, name='about'),  # About page
+    path('contact', views.contact, name='contact'),  # Contact page
 ]

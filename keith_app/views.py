@@ -78,6 +78,11 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+""" Contact page view.
+"""
+def contact(request):
+    return render(request, 'contact.html')
+
 """ Sign up view.
 
 This will render the sign up page, and create an account if the user submits the sign up form.

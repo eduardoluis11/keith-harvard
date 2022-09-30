@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+<!-- The "extends" snippet will call my layout file, so that I can show the Bootstrap CSS, the footer, and the navbar
+in here -->
+
+{% load static %}
+
+<!-- I will call the “block body” tag on the index.html file to call the code from the layout file on the index file.
+
+All of the text and content will go here.
+-->
+{% block body %}
+
+    <h2>Contact Me</h2>
+    <br>
+    <br>
+
+    <p>
+        This is where my contact information would show up.
+    </p>
+
+{% endblock %}
