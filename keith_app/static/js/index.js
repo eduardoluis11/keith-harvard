@@ -259,8 +259,29 @@ function saveGame () {
 /* This function cancels Keith's dialogue.
 
 That is, this function closes Keith's dialogue, makes him go away, and respawns the 4 enemies.
+
+To make Keith and his dialogue disappear, I need to first turn the boolean that renders Keith back to false. I 
+need to do this to deactivate the 1, 2, and 3 keys so player's can level up any longer until they defeat 4 more enemies.
+
 */
 function cancelDialogue () {
+
+  // This is the boolean that rendered Keith and let me use the 1, 2, and 3 keys.
+  isKeithOnScene = false
+
+  // These remove Keith's dialogue from the game scene
+  keithDialogue.y = -200
+  levelUpOption.y = -200
+  saveGameOption.y = -200
+  cancelOptionPart1.y = -200
+  cancelOptionPart2.y = -200
+  dialogueBox.y = -1000
+  
+  // This removes Keith from the game scene
+  keith.y = -1000
+
+
+
 
   // DEBUG msg
   console.log("You've said goodbye to Keith, and found some more enemies")
