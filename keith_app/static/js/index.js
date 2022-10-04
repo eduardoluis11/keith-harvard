@@ -158,6 +158,9 @@ var levelText
 // This stores the player's initial attack points (it will be initially 50 to test if I'm getting the attack points from the database)
 var playerAttackPoints = 10
 
+// This stores the text "Game Over", which will show up when the player dies
+var gameOverText
+
 // playerAttackPoints = 50
 
 // These declare all of the meleeEnemy variables as global variables.
@@ -259,7 +262,7 @@ function saveGame () {
 
 
 
-  // This will show on the game scene a message telling the player that they have saved their game ...
+  // This will show on the game scene a message telling the player that they have saved their game 
   savedGameConfirmationMessage.y = 150
 
   // This will make the "your game has been saved" message to disappear after a few seconds
@@ -550,6 +553,9 @@ function touchMeleeEnemy (player, meleeEnemy) {
 
     // This variable stores if the player got a Game Over
     gameOver = true // End of player death code
+
+    // This renders "Game Over" on the game scene
+    gameOverText.y = 100 
   }
 
   // This plays the player's idle animation
@@ -1058,6 +1064,9 @@ function create () {
   // This will show an onscreen confirmation message that the game has been saved
   savedGameConfirmationMessage = this.add.text(380, -200, 'Your game has been saved!', 
     { fontSize: '24px', fill: '#FFFFFF' }) 
+
+  // This creates the "Game Over" text
+  gameOverText = this.add.text(500, -200, 'Game Over', { fontSize: '32px', fill: '#FFFFFF' })
 
   // experiencePointsText = this.add.text(16, 64, 'EXP: 0', { fontSize: '32px', fill: '#FFFFFF' })
 
