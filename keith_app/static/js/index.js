@@ -355,6 +355,8 @@ function cancelDialogue () {
   // This removes Keith from the game scene
   keith.y = -1000
 
+  // This makes it so that I can level up the next time that Keith shows up
+  canLevelUp = true
 
 
   // DEBUG msg
@@ -1367,6 +1369,9 @@ function update () {
 
     // This will render Keith
     isKeithOnScene = true
+
+    // This will let me level up each time that I kill a set of 4 enemies (BUGGY)
+    // canLevelUp = true
 
     // console.log("You've defeated all enemies. Keith should be rendered now.")
 
