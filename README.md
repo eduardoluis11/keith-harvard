@@ -4,9 +4,9 @@
 
 ## Brief summary
 My submission for the final project for CS50W’s course is a browser game called Keith. It’s a game made with Django and a JavaScript game engine called Phaser.
-	In the game, you’ll have to defeat robots, and you’ll have to talk to your adoptive son to become stronger against your enemies.
+In the game, you’ll have to defeat robots, and you’ll have to talk to your adoptive son to become stronger against your enemies.
 
-	I was inspired to make this game by watching videos from Saveafox Rescue’s YouTube channel, a non-profit animal rescue. In particular, I got inspired by two foxes: Finnegan Fox, and Kipper. I thought it was cute that Finnegan decided to adopt Kipper as his foster child, and I wanted to replicate their foster father-son relationship in a game. 
+I was inspired to make this game by watching videos from Saveafox Rescue’s YouTube channel, a non-profit animal rescue. In particular, I got inspired by two foxes: Finnegan Fox, and Kipper. I thought it was cute that Finnegan decided to adopt Kipper as his foster child, and I wanted to replicate their foster father-son relationship in a game. 
 
 Here’s one of the videos that inspired me to make this game: https://www.youtube.com/watch?v=61BYaakCHIE .
 
@@ -18,33 +18,33 @@ Similarly, in Keith, if you talk to your son and improve your relationship with 
 ## Distinctiveness
 My project is sufficiently distinct from the other projects of this course since we never did a game in any of the course’s assignments. So, since I made a browser game, and since we never did a game as project, that makes my project way different from the other projects.
 
-	Also, since coding and using a browser game is way different from coding and using a social media app, an ecommerce, or any of the apps made in the course’s assignments, my web app is different from all other projects from this class. 
+Also, since coding and using a browser game is way different from coding and using a social media app, an ecommerce, or any of the apps made in the course’s assignments, my web app is different from all other projects from this class. 
 
 
 
 ## Complexity
-	My browser game is more complex than all the project assignments for this course. One of the reasons for that is that I had to learn how to use a JavaScript game engine in order to make my web app. I used a game engine called Phaser. We never learned how to use Phaser nor any other game engine in any of the course’s classes nor in any of the assignments. Therefore, since I had to learn from scratch how to use the main tool that I needed to make this project, that makes my project more complex than the other project from the course.
+My browser game is more complex than all the project assignments for this course. One of the reasons for that is that I had to learn how to use a JavaScript game engine in order to make my web app. I used a game engine called Phaser. We never learned how to use Phaser nor any other game engine in any of the course’s classes nor in any of the assignments. Therefore, since I had to learn from scratch how to use the main tool that I needed to make this project, that makes my project more complex than the other project from the course.
 
-	And the reason why I used a game engine to make my web app is because I tried to make the game entirely by using JavaScript, but it was too complex to do without a game engine. I couldn’t make the game responsive by using pure JavaScript and CSS. And trying to add mechanics to the game was also complicated. So, I had to use a game engine. Therefore, making a game as a web app is in and by itself a complex task. And, since we never made a game for any of this course’s assignments, my project is more complex than the rest of this course’s assignments.
-	Finally, this assignment took me at least a month to do. All other assignments could be done in between one or two weeks. However, I needed at least a month of work to do this project. Therefore, since it took me more time to make this project than the required time to make the previous projects, this project is more complex than the previous projects in the course.
+And the reason why I used a game engine to make my web app is because I tried to make the game entirely by using JavaScript, but it was too complex to do without a game engine. I couldn’t make the game responsive by using pure JavaScript and CSS. And trying to add mechanics to the game was also complicated. So, I had to use a game engine. Therefore, making a game as a web app is in and by itself a complex task. And, since we never made a game for any of this course’s assignments, my project is more complex than the rest of this course’s assignments.
+Finally, this assignment took me at least a month to do. All other assignments could be done in between one or two weeks. However, I needed at least a month of work to do this project. Therefore, since it took me more time to make this project than the required time to make the previous projects, this project is more complex than the previous projects in the course.
 
 ## What's contained in each file that I created
-	Since I created the Django project from scratch, there were a lot of files that I had to manually create. So, in order to avoid making this README file longer than necessary, I will provide a really brief description of some of the files.
+Since I created the Django project from scratch, there were a lot of files that I had to manually create. So, in order to avoid making this README file longer than necessary, I will provide a really brief description of some of the files.
 
 
 ### LICENSE
-	I generated this with GitHub. It contains the description of the GNU GPL Version 3 License. This is to give some copyright protection to my code if I ever turn it into a commercial game.
+I generated this with GitHub. It contains the description of the GNU GPL Version 3 License. This is to give some copyright protection to my code if I ever turn it into a commercial game.
 
 ### styles.css
-	This is where I wrote the code for the styles for users who haven’t logged in to their accounts. This contains the styles for the cookie consent banner. That is, it handles the buttons that tells you that this web app uses cookies.
+This is where I wrote the code for the styles for users who haven’t logged in to their accounts. This contains the styles for the cookie consent banner. That is, it handles the buttons that tells you that this web app uses cookies.
 
 ### styles-logged-user.css
-	A CSS file that contains the styles for the website for users who are logged in. I had to create 2 separate CSS files since I had a bug in which the cookie consent banner wasn’t being properly hidden when the user was logged in. So, these styles won’t touch the cookie consent banner to prevent that bug. The rest of these styles is almost an exact copy of the styles from styles.css.
+A CSS file that contains the styles for the website for users who are logged in. I had to create 2 separate CSS files since I had a bug in which the cookie consent banner wasn’t being properly hidden when the user was logged in. So, these styles won’t touch the cookie consent banner to prevent that bug. The rest of these styles is almost an exact copy of the styles from styles.css.
 
 
 
 ### index.js
-	This is the file that contains all of the JavaScript code that runs the game with the Phaser game engine. This is where most of my code is. This is the most important file of the web app. The entire game code can be found here.
+This is the file that contains all of the JavaScript code that runs the game with the Phaser game engine. This is where most of my code is. This is the most important file of the web app. The entire game code can be found here.
 
 ### script.js
 This file contains the JavaScript code for handling the cookie consent banner. 
@@ -65,10 +65,10 @@ This is where the <head> tag, the navigation bar, and the footer of the website 
 This is the “Legal” page of the website. This is where the web app’s Terms and Conditions and Privacy Policy would be included.
 
 ### login.html
-	This is the page that will let users log into their accounts to play the game.
+This is the page that will let users log into their accounts to play the game.
 
 ### sign-up.html
-	This is the page of the website where users can create their own accounts.
+This is the page of the website where users can create their own accounts.
 
 ### forms.py
 This file contains all of the forms used in my web app. The forms included are Django forms.
@@ -76,10 +76,10 @@ This file contains all of the forms used in my web app. The forms included are D
 
 
 ### urls.py (from the keith_app folder)
-	This is where all the URLs of the web app are stored. They redirect the user to each of the web app’s pages. 
+This is where all the URLs of the web app are stored. They redirect the user to each of the web app’s pages. 
 
 ### requirements.txt
-	This contains the name of a Python package that I installed to make my web app work. In my case, I’m using Pillow version 9.2.0.
+This contains the name of a Python package that I installed to make my web app work. In my case, I’m using Pillow version 9.2.0.
 
 
 ## How to run my application
@@ -120,7 +120,7 @@ However, if you do, you will need to log in back to your account to keep on play
 * The “1”, “2”, and “3” keys only work when Keith, a small black fox, appears onscreen. He will appear alongside a text box with dialogue. 
 
 ### OBJECTIVE OF THE GAME
-	The main objective of the game is to defeat the 4 enemy robots that appear onscreen, and talk to Keith, your foster son. 
+The main objective of the game is to defeat the 4 enemy robots that appear onscreen, and talk to Keith, your foster son. 
 
 After you defeat all enemies, Keith will appear, heal you, and he will ask you 3 options: to level up, to save your game, or to cancel his dialogue so that you can fight more enemies.
 
