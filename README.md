@@ -3,7 +3,7 @@
 ## Made by Eduardo Salinas
 
 ## IMPORTANT NOTE: 
-This game can be easily hacked, therefore, YOUR SECURITY AND PRIVATE DATA MAY GET COMPROMISED. That is because it has no CSRF protection, since I used a line of code called csrf_exempt.
+This game can be easily hacked. Therefore, YOUR SECURITY AND PRIVATE DATA MAY GET COMPROMISED. That is because it has no CSRF protection, since I used a line of code called csrf_exempt.
 
 I did that so that I could quickly and easily create the game.
 
