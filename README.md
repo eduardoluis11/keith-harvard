@@ -2,6 +2,15 @@
 
 ## Made by Eduardo Salinas
 
+## IMPORTANT NOTE: 
+This game can be easily hacked, therefore, YOUR SECURITY AND PRIVATE DATA MAY GET COMPROMISED. That is because it has no CSRF protection, since I used a line of code called csrf_exempt.
+
+I did that so that I could quickly and easily create the game.
+
+If you plan on playing this game, you need to locally install it in your computer. It shouldn't need to connect to the internet. 
+
+HOWEVER, THERE'S A RISK THAT YOU COULD GET HACKED while playing this game. Therefore, disable your internet access while playing this game to protect yourself against any potential hackers that may try to attack you.
+
 ## Brief summary
 My submission for the final project for CS50W’s course is a browser game called Keith. It’s a game made with Django and a JavaScript game engine called Phaser.
 In the game, you’ll have to defeat robots, and you’ll have to talk to your adoptive son to become stronger against your enemies.
