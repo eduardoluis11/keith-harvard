@@ -68,7 +68,7 @@ const csrfToken = window.CSRF_TOKEN;
 
 // DEBUG msg: this checks if the CSRF token is being accepted in the index.js file
 console.log('This is the index.js file, and this is the CSRF token:')
-console.log(csrfToken)
+
 
 /* Settings for the Phaser game (includes physics, dimensions of the canvas, etc.) 
 
@@ -111,7 +111,7 @@ var game = new Phaser.Game(config)
 // const csrfToken = window.CSRF_TOKEN;
 
 
-// console.log(csrfToken)
+
 
 // Upon further consideration, I will store all platforms and grounds in a single variable
 // var platforms

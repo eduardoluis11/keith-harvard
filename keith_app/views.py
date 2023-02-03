@@ -48,8 +48,7 @@ from .forms import SignUpForm, LoginForm
 # This imports the models (source: https://docs.djangoproject.com/en/4.1/topics/db/models/ )
 from .models import User, SaveFile
 
-# This will let me use the "CSRF exempt" decorator
-from django.views.decorators.csrf import csrf_exempt
+
 
 # This will let me use json.loads()
 import json
@@ -255,7 +254,7 @@ using Jinja.
 
 The csrf_protect decorator should assign a CSRF token to this specific view.
 """
-# @csrf_protect
+
 @login_required
 def load_game(request):
 
