@@ -63,6 +63,13 @@ https://github.com/photonstorm/phaser3-examples/blob/master/public/src/scalemana
 
 */
 
+// This is the global variable that holds the CSRF token from index.html
+const csrfToken = window.CSRF_TOKEN;
+
+// DEBUG msg: this checks if the CSRF token is being accepted in the index.js file
+console.log('This is the index.js file, and this is the CSRF token:')
+console.log(csrfToken)
+
 /* Settings for the Phaser game (includes physics, dimensions of the canvas, etc.) 
 
 I will add "arcade", since that's a pre-made collision detection system included in Phaser (source: 
@@ -99,6 +106,12 @@ var config = {
 
 // This executes the settings in "config" on the actual game
 var game = new Phaser.Game(config)
+
+// This is the global variable that holds the CSRF token from index.html
+// const csrfToken = window.CSRF_TOKEN;
+
+
+// console.log(csrfToken)
 
 // Upon further consideration, I will store all platforms and grounds in a single variable
 // var platforms
@@ -184,10 +197,18 @@ Now, I will assign the player's stats from the database into the actual game (th
 At the end of this function, I will set the boolean that executes this function to become true. That way, this function will only
 be executed once. After that, nothing in this function will execute. This will prevetn the player from always printing "100 HP"
 on the HUD, even if they actually lose HP.
+
+I will add the CSRF token in the headers of the fetch() call so that it detects Django's CSRF token
 */
 function loadGame () {
   fetch('/load-game', {
-    method: 'POST' // This sends a POST request to activate the API
+    // This sends a POST request to activate the API
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken
+    }
+  
   })
     // This gets the database data from views.py
     .then((response) => response.json())

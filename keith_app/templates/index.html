@@ -34,24 +34,51 @@ All of the text and content will go here.
     -->
     {% if user.is_authenticated %}    <!-- This will render if the user is logged in -->
 
-    <!-- This will render the <canvas> and the game -->
-    <div id="keith-game"></div>
-
-    <!-- Script with the main Phaser code -->
-    <script src="{% static 'js/index.js' %}"></script> 
-
-    <!-- <canvas>
-    </canvas>    -->
-    <!-- End of the canvas -->
+        <!-- This will render the <canvas> and the game -->
+        <div id="keith-game"></div>
 
 
+        <script>
+            // THIS GESTS PRINTED
+            console.log("Hello world")
 
-    <!-- DEBUG msg. This will display the logged user's username. I might put this somewhere else, or delete it entirely. -->
-    <div>
-        <p>
-            Hello, {{user.username}}!
-        </p>
-    </div>
+            
+            
+            // // This will insert the CSRF token into a JS global variable (source: chatGPT)
+            // THE BELOW LINE OF CODE IS BUGGY: it prevents the console.log() statements from being printed on the browser's console
+            // it works if I don't use "%" in the CSRF token expression
+            window.CSRF_TOKEN = "{{ csrf_token }}";
+
+            // DEBUG msg: I want to know if I'm getting the CSRF decorator to begin with
+            console.log("This is the csrf token:")
+            console.log(CSRF_TOKEN)
+
+        </script>
+
+        <!-- Script with the main Phaser code -->
+        <script src="{% static 'js/index.js' %}">
+
+            // // This will insert the CSRF token into a JS global variable (source: chatGPT)
+
+
+            // // DEBUG msg: I want to know if I'm getting the CSRF decorator to begin with
+            // console.log(CSRF_TOKEN)
+            // console.log("Hello world")
+
+        </script> 
+
+        <!-- <canvas>
+        </canvas>    -->
+        <!-- End of the canvas -->
+
+
+
+        <!-- DEBUG msg. This will display the logged user's username. I might put this somewhere else, or delete it entirely. -->
+        <div>
+            <p>
+                Hello, {{user.username}}!
+            </p>
+        </div>
 
 
 

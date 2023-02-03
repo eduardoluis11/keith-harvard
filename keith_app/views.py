@@ -26,6 +26,9 @@ from django.shortcuts import redirect
 # This will let me use the decorator that only allows me to enter a page if I'm logged in
 from django.contrib.auth.decorators import login_required
 
+# This will let me use the csrf_protect decorator
+from django.views.decorators.csrf import csrf_protect
+
 """ I will add the “datetime” library so that I can insert timestamps with the current date and time on the views 
 (source: https://docs.python.org/3/library/datetime.html ).
 """
@@ -249,8 +252,10 @@ currently logged user from the database (from the Save File table.)
 To convert the Python data from the database, and turn it into JSON data to send it to my JS file, I need to 
 use "return JsonResponse", and use the same notation as if I were to send something from views.py to an HTML file by
 using Jinja.
+
+The csrf_protect decorator should assign a CSRF token to this specific view.
 """
-@csrf_exempt
+# @csrf_protect
 @login_required
 def load_game(request):
 
