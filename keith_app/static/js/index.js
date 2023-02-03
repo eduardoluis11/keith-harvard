@@ -259,12 +259,19 @@ function loadGame () {
 I will save the game by calling an API on views.py by using fetch().
 
 I will only receive a confirmation message to verify on the console that the game has been saved via the API.
+
+El único paso que tengo que repetir es el ir al fetch() de saveGame() en index.js, y agregar el header con el CSRF token. 
+Recuerda no agregar el “body: JSON.stringify(data)”.
 */
 function saveGame () {
 
   // This calls the API for saving the game. The "JSON.stringify" sends JS data into the views.py file
   fetch('/save-game', {
     method: 'POST', // This sends a POST request to activate the API
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken
+    },
     body: JSON.stringify({ player_level: playerLevel, player_hp: fangsMaxHealthPoints, player_attack_points: playerAttackPoints })      
   })
     // This gets the database data from views.py

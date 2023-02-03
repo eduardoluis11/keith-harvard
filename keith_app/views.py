@@ -308,7 +308,7 @@ I DON'T need to use a JSON Response at the end of this API, since I don't need t
 However, I will send a confirmation message so that I can print it on the console, so that I verify that the
 games has been successfully saved.
 """
-@csrf_exempt
+
 @login_required
 def save_game(request):
 
